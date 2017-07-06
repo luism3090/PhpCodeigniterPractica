@@ -1,0 +1,45 @@
+
+#contenedorPrincipal
+{
+	width: 50%;
+	border:1px solid black;
+	margin: 5% auto;
+	background-color: #e5e5e5;
+
+}
+
+#contenedorPrincipal h3
+{
+	text-align: center;
+}
+
+#contenedorLogin
+{
+	width: 50%;
+	border:1px solid red;
+	margin: 10% auto;
+	background-color: #FFF;
+
+}
+
+#contenedorLogin div
+{
+	margin: 10% auto;
+	width: 65%;
+
+}
+
+#contenedorLogin div input
+{
+	width: 200px;
+	height: 30px;
+
+}
+
+#contenedorLogin div #btnLogin
+{
+	background-color: #3071a9;
+	color:white;
+	text-decoration: bold;
+	
+}
