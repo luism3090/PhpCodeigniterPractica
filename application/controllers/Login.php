@@ -1,20 +1,25 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class InicioLogin extends CI_Controller 
+class Login extends CI_Controller 
 {
 
 	public function __construct()
 	{
 		parent::__construct();
+
+		if($this->session->userdata('login')!=null)
+		{
+			redirect('/Home');
+		} 
 		
 	}
 	public function index()
 	{
 		
-		$this->load->view('inicioLogin/encabezadoLogin');
-		$this->load->view('inicioLogin/cuerpoLogin');
-		$this->load->view('inicioLogin/pieLogin');
+		 $this->load->view('Login/login');
+		// $this->load->view('inicioLogin/cuerpoLogin');
+		// $this->load->view('inicioLogin/pieLogin');
 
 	}
 
