@@ -40,7 +40,6 @@ class Home extends CI_Controller
 
 			$datos["sesion"] = false;
 			$datos["base_url"] = base_url()."index.php/Login";
-			//$datos["base_url"] = "http://localhost:8080/PHPCodeigniter/index.php/Login";
 
 			echo json_encode($datos);
 		}
