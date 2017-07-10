@@ -76,14 +76,17 @@ $(document).on("ready",function()
 		           async: true,
 		          success: function(result)
 				          {
-				          	console.log(result);
+				          	//console.log(result);
 				          	if(result.msjCantidadRegistros > 0)
 				          	{
-				          		location.href ="http://localhost:8080/PHPCodeigniter/index.php/Home";
+				          		location.href = result.base_url;
 				          	}
 				          	else
 				          	{
-				          		alert(result.msjNoHayRegistros);
+				          		$('#modalAlerta .modal-body > p').text(result.msjNoHayRegistros);
+				          		$('#modalAlerta').modal('show');
+				          		
+				          		
 				          	}
 
 				          },

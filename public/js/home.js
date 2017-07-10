@@ -18,7 +18,7 @@ $(document).on("ready",function()
 	           async: true,
 	          success: function(result)
 			          {
-			          	debugger;
+			          	
 
 			          	if(!result.sesion)
 			          	{
@@ -29,7 +29,7 @@ $(document).on("ready",function()
 			          },
 			   error:function(result)
 					  {
-					  	debugger;
+					  	
 					  	console.log(result.responseText);
 					  	//$("#error").html(data.responseText); 
 					  }

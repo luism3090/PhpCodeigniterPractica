@@ -12,10 +12,26 @@ class Home extends CI_Controller
 		{
 			redirect('/Login');
 		} 
+
+		
+
 	}
 	public function index()
 	{
-		$this->load->view('Home/home');
+
+		$this->load->model('Home/CargarMenu'); 
+		$datosMenu = $this->CargarMenu->getMenu();
+
+		$datos["rowsMenu"] = $datosMenu;
+
+		// foreach ($datosMenu["rowsSubmenu"] as $key => $valor) 
+		// {
+		// 	$datos["rowsSubmenu"][$key] = $valor;
+		// }
+
+		// = $datosMenu["rowsSubmenu"];
+
+		$this->load->view('Home/home',$datos);
 
 	}
 

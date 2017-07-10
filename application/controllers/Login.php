@@ -63,6 +63,8 @@ class Login extends CI_Controller
 		
 		//echo $datosLogin;
 
+		$datosLogin["base_url"] = base_url()."index.php/Home";
+
 		echo json_encode($datosLogin);
 
 
