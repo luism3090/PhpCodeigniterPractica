@@ -9,7 +9,7 @@
 <body>
 
 
-	<!--  <?php  var_dump($rowsMenu); ?>  -->
+	  <!-- <?php  var_dump($rowsMenu); ?>  -->
 	 <!-- <?php  
 	 	foreach ($rowsSubmenu as $clave => $valor) 
 	 			{

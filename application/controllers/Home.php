@@ -20,9 +20,26 @@ class Home extends CI_Controller
 	{
 
 		$this->load->model('Home/CargarMenu'); 
-		$datosMenu = $this->CargarMenu->getMenu();
+		//$datosMenu = $this->CargarMenu->getMenuSoloHastaNivel3();
+		//$datos["rowsMenu"] = $datosMenu;
 
-		$datos["rowsMenu"] = $datosMenu;
+		// ------------------------------------
+
+		$datosMenu = $this->CargarMenu->getElmentosMenu();
+
+		//$datos["rowsMenu"] = $datosMenu;
+
+		'1', '1', 'Dashboards', 'fa fa-th-large', '13,14,15,16,17,18,19,20,21,22'  
+
+		// ------------------------------------
+
+		$datosMenu = $this->CargarMenu->getHijosElmentosMenu();
+
+		'13', '2', NULL, 'General', NULL   
+
+
+
+
 
 		// foreach ($datosMenu["rowsSubmenu"] as $key => $valor) 
 		// {
