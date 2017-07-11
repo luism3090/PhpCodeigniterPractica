@@ -6,23 +6,18 @@
 	<link rel="stylesheet" type="text/css" href="<?php echo base_url();?>public/css/bootstrap.min.css">
 	<link rel="stylesheet" type="text/css" href="<?php echo base_url();?>public/css/estiloHomeMenu.css">
 </head>
-<body>
+<body >
 
+	<button type="button" id="btnCerrarSesion" class="btn btn-primary">Cerrar sesion</button>
 
-	  <!-- <?php  var_dump($rowsMenu); ?>  -->
-	 <!-- <?php  
-	 	foreach ($rowsSubmenu as $clave => $valor) 
-	 			{
-    				echo $valor;
-				}
-		var_dump($rowsSubmenu); 
-
-	 ?>  -->
-	<!-- <button type="button" id="btnCerrarSesion" class="btn btn-primary">Cerrar sesion</button> -->
+	<?php echo $this->session->userdata('id_rol'); ?>
 
 		<div class="sidebar left ">
 
-			  <ul class="list-sidebar bg-defoult">
+			  <ul class="list-sidebar bg-defoult" >
+	
+			 <?php  echo $rowsMenu; ?>  
+
 
 					    <!--<li class="nav-header "> <span> <img alt="image" class="img-circle" src="http://placehold.it/150x150"> </span>
 					      <ul class="dropdown-menu" aria-labelledby="dropdownMenu4">
@@ -30,9 +25,9 @@
 					        <li class="disabled"><a href="#">Disabled link</a></li>
 					        <li><a href="#">Another link</a></li> 
 					      </ul> 
-					    </li>-->
+					    </li>
 				
-					 <?php  echo $rowsMenu; ?> 
+					
 					   <!--  <li>
 						    <a href="#" data-toggle="collapse" data-target="#dashboard" class="collapsed active" > 
 							    <i class="fa fa-th-large"></i> 

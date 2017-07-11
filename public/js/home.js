@@ -3,44 +3,7 @@ $(document).on("ready",function()
 
 	//validaLogin();
 
-	$("#btnCerrarSesion").on("click",function(event)
-	{
-			event.preventDefault();
-
-		   //console.log("aaa");
-
-			$.ajax(
-			{
-	          type: "POST",
-	          dataType: "json",
-	          url: "Home/cerrarSesion",
-	          data: "",
-	           async: true,
-	          success: function(result)
-			          {
-			          	
-
-			          	if(!result.sesion)
-			          	{
-			          		location.href = result.base_url;
-			          	}
-			          
-
-			          },
-			   error:function(result)
-					  {
-					  	
-					  	console.log(result.responseText);
-					  	//$("#error").html(data.responseText); 
-					  }
-	          
-	        });
-
-		// validaLogin();
-		
-
-
-	});
+	
 
 
 		function validaLogin()

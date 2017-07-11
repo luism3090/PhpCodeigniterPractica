@@ -8,6 +8,8 @@ class Home extends CI_Controller
 	{
 		parent::__construct();
 
+		$this->load->model('Home/CargarMenu');
+
 		if($this->session->userdata('login')==null)
 		{
 			redirect('/Login');
@@ -19,36 +21,79 @@ class Home extends CI_Controller
 	public function index()
 	{
 
-		$this->load->model('Home/CargarMenu'); 
-		//$datosMenu = $this->CargarMenu->getMenuSoloHastaNivel3();
-		//$datos["rowsMenu"] = $datosMenu;
-
-		// ------------------------------------
 
 		$datosMenu = $this->CargarMenu->getElmentosMenu();
 
-		//$datos["rowsMenu"] = $datosMenu;
+		$dataMenu = $this->buildMenu($datosMenu,false,false);
 
-		'1', '1', 'Dashboards', 'fa fa-th-large', '13,14,15,16,17,18,19,20,21,22'  
-
-		// ------------------------------------
-
-		$datosMenu = $this->CargarMenu->getHijosElmentosMenu();
-
-		'13', '2', NULL, 'General', NULL   
-
-
-
-
-
-		// foreach ($datosMenu["rowsSubmenu"] as $key => $valor) 
-		// {
-		// 	$datos["rowsSubmenu"][$key] = $valor;
-		// }
-
-		// = $datosMenu["rowsSubmenu"];
+		$datos["rowsMenu"] = $dataMenu;
 
 		$this->load->view('Home/home',$datos);
+
+	}
+
+
+
+	function buildMenu($datosMenu1,$is_sub,$descripcion)
+	{
+
+		$menu = "";
+		$attr = "";
+
+		if($is_sub)
+		{
+			$attr = "class='sub-menu collapse' id='".$descripcion."'";
+			$menu = "<ul $attr >";
+		}
+		else
+		{
+			 $attr = 'id="menu"';
+		}
+
+
+		  foreach($datosMenu1 as $id => $properties) 
+		  {
+
+
+			  	$datosMenu2 = $this->CargarMenu->getHijosElmentosMenu($properties->id_elemento_menu);
+			  	
+			  	if(!empty($datosMenu2)) 
+			  	{
+
+                	$sub = $this->buildMenu($datosMenu2, TRUE,$properties->descripcion);
+
+	            }		           
+	            else {
+
+	                $sub = NULL;                
+
+	            }	
+
+	            if ($sub != NULL)
+	            {
+	            	 $menu .= "<li class='active' >
+					            	 <a href='#' data-toggle='collapse' data-target='#".$properties->descripcion."' class='collapse active'>
+						            	 <i class='$properties->icono'></i>
+						            	 <span class='nav-label'>$properties->descripcion</span>
+						            	 <i class='fa fa-chevron-left pull-right'></i>
+					            	 </a>
+					            	 $sub
+	            	 		   </li>";
+	            }
+	            else
+	            {
+
+	            	$menu .= "<li><a href='#'><i class='".$properties->icono."'></i>$properties->descripcion</a></li>";
+	            }
+            		
+            		     			                          
+
+		  }
+		
+
+		return $menu . "</ul>";
+
+		//  return $attr
 
 	}
 

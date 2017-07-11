@@ -51,6 +51,7 @@ class Login extends CI_Controller
 		{
 			
 			$arregloSesion = array(
+				                    "id_rol"=> $datosLogin["loginUsuario"][0]->id_rol,
 									"id" => $datosLogin["loginUsuario"][0]->id_usuario,
 									"nombre" => $datosLogin["loginUsuario"][0]->nombre, 
 									"login" => true
