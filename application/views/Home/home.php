@@ -13,7 +13,7 @@
 
 	<div class="navbar navbar-default navbar-fixed-top" role="navigation">
 
-    <div class="container"> 
+    <div class="container-fluid"> 
 
         <div class="navbar-header">
         
@@ -67,12 +67,6 @@
     </div>
 </div>
 
-
-
-<!-- <button type="button" id="btnCerrarSesion" class="btn btn-primary">Cerrar sesion</button> -->
-	
-
-	<?php echo $this->session->userdata('id_rol'); ?>
 
 		<div class="sidebar left" style="">
 
