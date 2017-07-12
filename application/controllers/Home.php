@@ -22,7 +22,7 @@ class Home extends CI_Controller
 	{
 
 
-		$datosMenu = $this->CargarMenu->getElmentosMenu();
+		$datosMenu = $this->CargarMenu->getElmentosMenu($this->session->userdata('id_rol'));
 
 		$dataMenu = $this->buildMenu($datosMenu,false,false);
 
@@ -55,7 +55,7 @@ class Home extends CI_Controller
 		  {
 
 
-			  	$datosMenu2 = $this->CargarMenu->getHijosElmentosMenu($properties->id_elemento_menu);
+			  	$datosMenu2 = $this->CargarMenu->getHijosElmentosMenu($properties->id_elemento_menu,$this->session->userdata('id_rol'));
 			  	
 			  	if(!empty($datosMenu2)) 
 			  	{
