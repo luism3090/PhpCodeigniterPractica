@@ -67,7 +67,7 @@ $(document).on("ready",function()
 				$.ajax(
 				{
 		          type: "POST",
-		          dataType: "json",
+		          dataType:"json",
 		          url: "Login/loginUsuario",
 		          data: {
 		          		email: $("#email").val(),

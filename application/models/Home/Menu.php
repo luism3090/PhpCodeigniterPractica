@@ -1,5 +1,7 @@
 <?php 
-	class CargarMenu extends CI_Model
+defined('BASEPATH') OR exit('No direct script access allowed');
+
+	class Menu extends CI_Model
 	{
 		public function __construct()
 		{
@@ -9,13 +11,17 @@
 
 		public function getElmentosMenu($id_rol)
 		{
+
+			
+
 			$sql =	"select distinct
 					me.id_elemento_menu,
 					me.id_tipo_menu,
 					me.hijos,
 					me.descripcion,
 					me.icono,
-					me.id_elemento_padre_menu
+					me.id_elemento_padre_menu,
+					me.controlador
 					from usuarios usu
 					join usuarios_roles usu_ro on (usu.id_usuario = usu_ro.id_usuario)
 					join roles rol on (usu_ro.id_rol = rol.id_rol)
@@ -24,12 +30,10 @@
 					where rol.id_rol = ? and me.id_tipo_menu = 1
 					order by id_elemento_menu";
 
-					$query = $this->db->query($sql,array($id_rol)); 
+					$query = $this->db->query($sql,array($id_rol));
 
 
 			return $query->result();
-
-
 
 
 		}
@@ -43,7 +47,8 @@
 					me.hijos,
 					me.descripcion,
 					me.icono,
-					me.id_elemento_padre_menu
+					me.id_elemento_padre_menu,
+					me.controlador
 					from usuarios usu
 					join usuarios_roles usu_ro on (usu.id_usuario = usu_ro.id_usuario)
 					join roles rol on (usu_ro.id_rol = rol.id_rol)

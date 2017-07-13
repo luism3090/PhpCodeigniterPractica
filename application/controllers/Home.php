@@ -8,7 +8,7 @@ class Home extends CI_Controller
 	{
 		parent::__construct();
 
-		$this->load->model('Home/CargarMenu');
+		
 
 		if($this->session->userdata('login')==null)
 		{
@@ -16,23 +16,29 @@ class Home extends CI_Controller
 		} 
 
 		
-
 	}
 	public function index()
 	{
 
+		$this->load->view('Home/home');
 
-		$datosMenu = $this->CargarMenu->getElmentosMenu($this->session->userdata('id_rol'));
+	}
+
+
+	public function cargarMenu()
+	{
+		
+		$this->load->model('Home/Menu');
+
+		$datosMenu = $this->Menu->getElmentosMenu($this->session->userdata('id_rol'));
 
 		$dataMenu = $this->buildMenu($datosMenu,false,false);
 
 		$datos["rowsMenu"] = $dataMenu;
 
-		$this->load->view('Home/home',$datos);
+		echo json_encode($datos);
 
 	}
-
-
 
 	function buildMenu($datosMenu1,$is_sub,$descripcion)
 	{
@@ -55,7 +61,7 @@ class Home extends CI_Controller
 		  {
 
 
-			  	$datosMenu2 = $this->CargarMenu->getHijosElmentosMenu($properties->id_elemento_menu,$this->session->userdata('id_rol'));
+			  	$datosMenu2 = $this->Menu->getHijosElmentosMenu($properties->id_elemento_menu,$this->session->userdata('id_rol'));
 			  	
 			  	if(!empty($datosMenu2)) 
 			  	{
@@ -71,6 +77,8 @@ class Home extends CI_Controller
 
 	            if ($sub != NULL)
 	            {
+	            	
+	            	
 	            	 $menu .= "<li class='active' >
 					            	 <a href='#' data-toggle='collapse' data-target='#".$properties->descripcion."' class='collapse active'>
 						            	 <i class='$properties->icono'></i>
@@ -79,11 +87,21 @@ class Home extends CI_Controller
 					            	 </a>
 					            	 $sub
 	            	 		   </li>";
+	            	
 	            }
 	            else
 	            {
 
-	            	$menu .= "<li><a href='#'><i class='".$properties->icono."'></i>$properties->descripcion</a></li>";
+	            	if($properties->controlador != "" )
+	            	{
+	            		$url = base_url()."index.php/".$properties->controlador;
+	            	}
+	            	else
+	            	{
+	            		$url = "#";
+	            	}
+
+	            	$menu .= "<li><a href='".$url."'><i class='".$properties->icono."'></i>$properties->descripcion</a></li>";
 	            }
             		
             		     			                          
@@ -93,16 +111,13 @@ class Home extends CI_Controller
 
 		return $menu . "</ul>";
 
-		//  return $attr
-
 	}
+
+
 
 	public function cerrarSesion()
 	{
-		
-		// echo json_encode("a"); 
-		// exit();
-
+	
 		if($this->session->userdata('login')!=null)
 		{
 			
@@ -121,10 +136,9 @@ class Home extends CI_Controller
 
 			echo json_encode($datos);
 		}
-		
+	}	
 
-		
-	}
+
 
 }
 
