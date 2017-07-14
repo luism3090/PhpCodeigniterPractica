@@ -1,0 +1,16 @@
+.table .edit
+{
+	text-align:center;
+	line-height: 36px;
+	cursor:pointer;
+	
+}
+
+
+
+.table .edit:hover
+{
+	color:blue;
+	font-size: 18px;
+	
+}

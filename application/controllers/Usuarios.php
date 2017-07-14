@@ -8,6 +8,8 @@ class Usuarios extends CI_Controller
 	{
 		parent::__construct();
 
+		$this->load->model('Usuarios/users');
+
 		if($this->session->userdata('login')==null)
 		{
 			redirect('/Login');
@@ -22,14 +24,38 @@ class Usuarios extends CI_Controller
 
 	public function cargarUsuarios()
 	{
-		$this->load->model('Usuarios/users');
 
 		$datosUsuarios = $this->users->obtenerUsuarios();
 
-		//$datos["usuarios"] = $datosUsuarios;
-
 		echo json_encode($datosUsuarios);
 
+	}
+
+	public function getDatosUpdateUsuario()
+	{
+		$id_usuario = $_POST["id_usuario"];
+
+		$datosUsuario = $this->users->obtenerDatosUsuario($id_usuario);
+
+		echo json_encode($datosUsuario);
+	}
+
+	public function updateUsuario()
+	{
+		$id_usuario = $_POST["id_usuario"];
+		$id_rol = $_POST["id_rol"];
+		$nombre = $_POST["nombre"];
+		$apellidos = $_POST["apellidos"];
+		$email = $_POST["email"];
+
+
+
+		$datosUsuario = $this->users->actualizarUsuario($id_usuario,$id_rol,$nombre,$apellidos,$email);
+
+		//$datosUsuario["aa"] = $datosUsuario;
+
+		 echo json_encode($datosUsuario);
+		//echo $datosUsuario;
 	}
 
 

@@ -6,6 +6,7 @@
 	<link rel="stylesheet" type="text/css" href="<?php echo base_url();?>public/css/bootstrap.min.css">
 	<link rel="stylesheet" type="text/css" href="<?php echo base_url();?>public/css/estiloHomeMenu.css">
 	<link rel="stylesheet" type="text/css" href="<?php echo base_url();?>public/css/estiloBarraSuperior.css">
+	<link rel="stylesheet" type="text/css" href="<?php echo base_url();?>public/css/estiloTablasBootstrap.css">
 </head>
 <body >
 	
@@ -89,13 +90,15 @@
 												<caption>Tabla de usuarios</caption>
 												<thead>
 									                    <tr class="info">
-									                      <th>id_usuario</th>
-									                      <th>id_rol</th>
+									                      <th style="display:none">id_usuario</th>
+									                      <th style="display:none">id_rol</th>
 									                      <th>Nombre</th>
 									                      <th>Apellidos</th>
 									                      <th>Email</th>
 									                      <th>Fecha de registro</th>
 									                      <th>Tipo de usuario</th>
+									                      <th>Modificar</th>
+									                      <th>Eliminar</th>
 									                    </tr>
 								                </thead>
 										</table>
@@ -107,6 +110,74 @@
 					</div>
 
 	</div>
+
+
+   <!-- Modal -->
+<div id="modalUpdateUsuario" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Modificar usuario</h4>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+        	<div class="col-xs-12">
+	        		<form action="">
+						<br>
+						<label for="nombre">Nombre:</label>
+						<input type="text" id="txtNombre" class="form-control" placeholder="Nombre">
+						<br>
+						<label for="apellidos">Apellidos:</label>
+						<input type="text" id="txtApellidos" class="form-control" placeholder="Apellidos">
+						<br>
+						<label for="email">Email:</label>
+						<input type="text" id="txtEmail" class="form-control" placeholder="Email">
+						<br>
+						<label for="elegir">Tipo de usuario:</label> 
+						<select id="slTipoUsuario" class="form-control">
+							<option value="1">Super Usuario</option>
+							<option value="2">Administrador</option> 
+							<option value="3">Cliente</option>
+						</select> 
+						<br>
+						<input type="hidden" id="txtIdUsuario" class="form-control">
+						
+					</form>
+        	</div>
+        </div>
+      </div>
+      <div class="modal-footer">
+      <button type="button" class="btn btn-primary" data-dismiss="modal" id="btnModificarUsuario" >Modificar</button>
+      <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+   <!-- Modal -->
+<div id="modalAlertaUpdateUsuario" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+       <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Alerta</h4>
+      </div>
+      <div class="modal-body">
+        
+      </div>
+      <div class="modal-footer">
+      <button type="button" class="btn btn-default" data-dismiss="modal" id="btnMdlAlertaUpdateUsuario">Aceptar</button>
+      </div>
+    </div>
+
+  </div>
+</div>
 
 
 	<script src="<?php echo base_url(); ?>public/libreriasJS/jquery.min.js"></script>
