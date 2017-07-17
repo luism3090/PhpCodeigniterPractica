@@ -24,8 +24,10 @@ class Usuarios extends CI_Controller
 
 	public function cargarUsuarios()
 	{
+		$inicio = $_POST["inicio"];
+		$fin = $_POST["fin"];
 
-		$datosUsuarios = $this->users->obtenerUsuarios();
+		$datosUsuarios = $this->users->obtenerUsuarios($inicio,$fin);
 
 		echo json_encode($datosUsuarios);
 
@@ -69,6 +71,21 @@ class Usuarios extends CI_Controller
 
 
 		$datosUsuario = $this->users->verificarEmail($email,$id_usuario);
+
+		//$datosUsuario["aa"] = $datosUsuario;
+
+		 echo json_encode($datosUsuario);
+		//echo $datosUsuario;
+	}
+
+
+	public function bajaUsuario()
+	{
+		
+		$id_usuario = $_POST["id_usuario"];
+
+		
+		$datosUsuario = $this->users->darDeBajaUsuario($id_usuario);
 
 		//$datosUsuario["aa"] = $datosUsuario;
 

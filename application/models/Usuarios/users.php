@@ -8,10 +8,40 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			parent::__construct();
 		}
 
-		public function obtenerUsuarios()
+
+		public function obtenerUsuarios($inicio,$fin)
 		{
+
+			$inicio = (int)$inicio;
+			$fin = (int)$fin;
 			
-			$sql =	"select 
+			$sqlUsuariosAlta =	"select 
+									usu.id_usuario,
+									rol.id_rol,
+									usu.nombre,
+									usu.apellidos,
+									usu.email,
+									usu.fecha_registro,
+									usu.fecha_actualizacion,
+									rol.descripcion as tipoUsuario
+									from usuarios usu
+									join usuarios_roles usu_ro on (usu.id_usuario = usu_ro.id_usuario)
+									join roles rol on (usu_ro.id_rol = rol.id_rol) where usu.id_usuario != 1 and usu.estado = '1' 
+									order by usu.fecha_registro  limit ?,?";
+
+			$queryUsuariosAlta = $this->db->query($sqlUsuariosAlta,array($inicio,$fin));
+
+
+			$sqlTotalUsuariosAlta =	"select 
+										count(usu.id_usuario) totalUsuariosAlta
+										from usuarios usu
+										join usuarios_roles usu_ro on (usu.id_usuario = usu_ro.id_usuario)
+										join roles rol on (usu_ro.id_rol = rol.id_rol) where usu.id_usuario != 1 and usu.estado = '1'";
+
+			$queryTotalUsuariosAlta = $this->db->query($sqlTotalUsuariosAlta);
+
+
+			$sqlUsuariosBaja =	"select 
 						usu.id_usuario,
 						rol.id_rol,
 						usu.nombre,
@@ -22,24 +52,48 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 						rol.descripcion as tipoUsuario
 						from usuarios usu
 						join usuarios_roles usu_ro on (usu.id_usuario = usu_ro.id_usuario)
-						join roles rol on (usu_ro.id_rol = rol.id_rol) where usu.id_usuario != 1";
+						join roles rol on (usu_ro.id_rol = rol.id_rol) where usu.id_usuario != 1 and usu.estado = '0' 
+						order by usu.fecha_registro ";
 
-						$query = $this->db->query($sql);
+		    $queryUsuariosBaja = $this->db->query($sqlUsuariosBaja);
 
 
-				$datos = array("msjCantidadRegistros" => 0, "msjNoHayRegistros" => '',"usuarios" => array());
+		    $sqlTotalUsuariosBaja =	"select 
+										count(usu.id_usuario) totalUsuariosBaja
+										from usuarios usu
+										join usuarios_roles usu_ro on (usu.id_usuario = usu_ro.id_usuario)
+										join roles rol on (usu_ro.id_rol = rol.id_rol) where usu.id_usuario != 1 and usu.estado = '0'";
 
-				$datos["msjCantidadRegistros"] = $query->num_rows(); 
+			$queryTotalUsuariosBaja = $this->db->query($sqlTotalUsuariosBaja);
 
-				if($datos["msjCantidadRegistros"] > 0)
+
+				$datos = array("msjCantidadRegistrosAlta" => 0, "msjNoHayRegistrosAlta" => '', "msjTotalUsuariosAlta" => 0 ,"usuariosAlta" => array(), "msjCantidadRegistrosBaja" => 0, "msjNoHayRegistrosBaja" => '',  "msjTotalUsuariosBaja" => 0 ,"usuariosBaja" => array() );
+
+
+				$datos["msjCantidadRegistrosAlta"] = $queryUsuariosAlta->num_rows(); 
+
+				if($datos["msjCantidadRegistrosAlta"] > 0)
 				{
-					$datos["usuarios"] = $query->result(); 
+					$datos["usuariosAlta"] = $queryUsuariosAlta->result(); 
+					$datos["msjTotalUsuariosAlta"] = $queryTotalUsuariosAlta->result()[0]->totalUsuariosAlta;
 				}
 				else{
-					$datos["msjNoHayRegistros"] = "No hay registros";
+					$datos["msjNoHayRegistrosAlta"] = "No hay usuarios dados de alta";
 				}
-				
 
+				
+				$datos["msjCantidadRegistrosBaja"] = $queryUsuariosBaja->num_rows(); 
+
+				if($datos["msjCantidadRegistrosBaja"] > 0)
+				{
+					$datos["usuariosBaja"] = $queryUsuariosBaja->result(); 
+					$datos["msjTotalUsuariosBaja"] = $queryTotalUsuariosBaja->result()[0]->totalUsuariosBaja;
+				}
+				else{
+					$datos["msjNoHayRegistrosBaja"] = "No hay usuarios dados de baja";
+				}
+
+				
 				return $datos;
 
 			
@@ -60,7 +114,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 					from usuarios usu
 					join usuarios_roles usu_ro on (usu.id_usuario = usu_ro.id_usuario)
 					join roles rol on (usu_ro.id_rol = rol.id_rol)
-					where usu.id_usuario = ? ";
+					where usu.id_usuario = ? and usu.estado = '1'";
 
 
 			$query = $this->db->query($sql,array($id_usuario));
@@ -98,7 +152,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 						email = ? ,
 						password = ?,
 						fecha_actualizacion = now()
-					where id_usuario = ?";
+					where id_usuario = ? and estado = '1'";
 
 
 			$query1 = $this->db->query($sql1,array($nombre,$apellidos,$email,$password,$id_usuario));
@@ -111,6 +165,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 			$query2 = $this->db->query($sql2,array($id_rol,$id_usuario));
 
+			$datos = array("msjConsulta" => '');
 
 					if ($this->db->trans_status() === FALSE)
 					{
@@ -133,7 +188,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 		public function verificarEmail($email,$id_usuario)
 		{
 			$sql = "select * from usuarios
-					where email = ? and id_usuario != ?";
+					where email = ? and id_usuario != ? and estado = '1'";
 
 
 			$query = $this->db->query($sql,array($email,$id_usuario));
@@ -157,10 +212,33 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 		}
 
+		public function darDeBajaUsuario($id_usuario)
+		{
 
 
+			$sql = "update usuarios set estado = '0' where id_usuario = ? and estado = '1' ";
 
-		
+
+			$query = $this->db->query($sql,array($id_usuario));
+
+
+			$datos = array("msjConsulta" => 0);
+
+			if($query == true)
+			{
+				$datos["msjConsulta"] = "El usuario ha sido dado de baja correctamente";
+			}
+			else
+			{
+				$datos["msjConsulta"] = "Ha ocurrido un error al dar de baja al usuario ";
+			}
+
+				return $datos;
+
+
+		}
+
+
 
 	}
 ?>

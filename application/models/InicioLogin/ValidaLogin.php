@@ -34,7 +34,7 @@
 			$sql =	"select us.id_usuario,us.nombre,us.apellidos,us.email,ro.id_rol,ro.descripcion as rol from usuarios us
 				 	join usuarios_roles usr on(us.id_usuario = usr.id_usuario) 
 					join roles ro on(usr.id_rol = ro.id_rol)
-		         	where email= ? and password = ? ";
+		         	where email= ? and password = ? and us.estado = '1' ";
 
 			$query = $this->db->query($sql,array($datos["email"],$datos["password"]));
 

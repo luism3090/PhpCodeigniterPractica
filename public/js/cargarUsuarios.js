@@ -1,41 +1,131 @@
 $(document).ready(function()
 {
-  
-    validaFormUpdateUsuario();
 
-    $.ajax(
+  validaFormUpdateUsuario();
+  
+    
+  
+   var inicio=0;
+   var fin=5;
+   var pagination = true;
+
+    function createTablasusuarios(inicio,fin,pagination)
+    {
+
+
+       $.ajax(
       {
           type: "POST",
           url: "Usuarios/cargarUsuarios",
           dataType:"json",
-          data: "",
+          data: {"inicio":inicio,"fin":fin},
            async: true,
           success: function(result)
               {
-                var tablaUsuarios = "<tbody>";
+                
 
-                  for(var x=0 ; x < result.usuarios.length ;x++)
+                var tablaUsuariosAlta = "";
+
+                  for(var x=0 ; x < result.usuariosAlta.length ;x++)
                   {
 
-                    tablaUsuarios += "<tr>"+
-                                          "<td style='display:none' class='id_usuario'>"+result.usuarios[x].id_usuario+"</td>"+
-                                          "<td style='display:none' class='id_rol' >"+result.usuarios[x].id_rol+"</td>"+
-                                          "<td>"+result.usuarios[x].nombre+"</td>"+
-                                          "<td>"+result.usuarios[x].apellidos+"</td>"+
-                                          "<td>"+result.usuarios[x].email+"</td>"+
-                                          "<td>"+result.usuarios[x].fecha_registro+"</td>"+
-                                          "<td>"+result.usuarios[x].tipoUsuario+"</td>"+
+                    tablaUsuariosAlta += "<tr>"+
+                                          "<td>"+(x+1)+"</td>"+
+                                          "<td style='display:none' class='id_usuario'>"+result.usuariosAlta[x].id_usuario+"</td>"+
+                                          "<td style='display:none' class='id_rol' >"+result.usuariosAlta[x].id_rol+"</td>"+
+                                          "<td>"+result.usuariosAlta[x].nombre+"</td>"+
+                                          "<td>"+result.usuariosAlta[x].apellidos+"</td>"+
+                                          "<td>"+result.usuariosAlta[x].email+"</td>"+
+                                          "<td>"+result.usuariosAlta[x].fecha_registro+"</td>"+
+                                          "<td>"+result.usuariosAlta[x].tipoUsuario+"</td>"+
                                           "<td class='edit update' ><span class='glyphicon glyphicon-pencil' aria-hidden='true'></span></td>"+
-                                          "<td class='edit delete'><span class='glyphicon glyphicon-remove' aria-hidden='true'></span></td>"+
+                                          "<td class='edit baja'><span class='glyphicon glyphicon-remove' aria-hidden='true'></span></td>"+
                                       "</tr>";
 
                   }
 
-                  tablaUsuarios +="</tbody>";
+
+                  $("#tblUsuariosAlta tbody").html(tablaUsuariosAlta);
+
+
+
+                  // creando paginacion
+
+                  if(pagination)
+                  {
+
+                      var numPagination = parseInt(result.msjTotalUsuariosAlta) / fin;
+
+                      numPagination =  parseInt(numPagination) + 1; 
+
+                      var  _inicio=0;
+                      var _fin = fin;
+
+                      var paginations = '<li class="afterLi recorrer"><a href="#">&laquo;</a></li>';
+
+                      for(var x=1 ;x <= numPagination;x++)
+                      {
+                        
+
+                        if(x==1)
+                        {
+                        paginations += '<li class="active num visible" data-inicio='+_inicio+' data-fin='+_fin+'><a href="#" >'+ x +'</a></li>';
+                        }
+                        else
+                        {
+                          if(x<=2)
+                          {
+                            paginations += '<li class="num visible" data-inicio='+_inicio+' data-fin='+_fin+'><a href="#" >'+ x +'</a></li>';
+                          }
+                          else
+                          {
+                            paginations += '<li class="num hide" data-inicio='+_inicio+' data-fin='+_fin+' style="display:none" ><a href="#" >'+ x +'</a></li>';
+                          }
+                          
+                        }
+
+                        _inicio = _fin;
+                        _fin = _fin + 4 ;
+                        
+                          
+                      
+                      }
+                      paginations += '<li class="afterLi recorrer"><a href="#">&raquo;</a></li>';
+
+
+                      $("#pagiTblUsuariosAlta").html(paginations);
+
+                  }
 
                   
 
-                  $("#tblUsuarios").append(tablaUsuarios);
+
+
+
+                  var tablaUsuariosBaja = "";
+
+                  for(var x=0 ; x < result.usuariosBaja.length ;x++)
+                  {
+
+                    tablaUsuariosBaja += "<tr>"+
+                                          "<td>"+(x+1)+"</td>"+
+                                          "<td style='display:none' class='id_usuario'>"+result.usuariosBaja[x].id_usuario+"</td>"+
+                                          "<td style='display:none' class='id_rol' >"+result.usuariosBaja[x].id_rol+"</td>"+
+                                          "<td>"+result.usuariosBaja[x].nombre+"</td>"+
+                                          "<td>"+result.usuariosBaja[x].apellidos+"</td>"+
+                                          "<td>"+result.usuariosBaja[x].email+"</td>"+
+                                          "<td>"+result.usuariosBaja[x].fecha_registro+"</td>"+
+                                          "<td>"+result.usuariosBaja[x].tipoUsuario+"</td>"+
+                                          "<td class='edit alta'><span class='glyphicon glyphicon-ok' aria-hidden='true'></span></td>"+
+                                      "</tr>";
+
+                  }
+
+
+                  $("#tblUsuariosBaja tbody").html(tablaUsuariosBaja);
+
+
+               
 
               },
          error:function(result)
@@ -46,7 +136,17 @@ $(document).ready(function()
             }
             
           });
+
+
+
+    }
+
+
+  
+   createTablasusuarios(inicio,fin,pagination);
    
+
+
 
     $("body").on("click",".update",function()
     {
@@ -99,7 +199,7 @@ $(document).ready(function()
     });
 
 
-    $('#modalAlertaUpdateUsuario').on('hide.bs.modal', function (e) 
+    $('#modalAlertaUsuario').on('hide.bs.modal', function (e) 
     {
          location.reload();
     });
@@ -113,18 +213,81 @@ $(document).ready(function()
     })
 
 
-
-
-
-    $("body").on("click",".delete",function()
+    $("body").on("click",".baja",function()
     {
 
-      alert("delete");
+      var datosUsuario = {
+                               id_usuario : $(this).siblings(".id_usuario").text()          
+                             } 
+
+       $.ajax(
+          {
+              type: "POST",
+              url: "Usuarios/getDatosUpdateUsuario",
+              dataType:"json",
+              data: datosUsuario,
+               async: true,
+              success: function(result)
+                  {
+
+                    //console.log(result);
+
+                    var nombre = result.usuario[0].nombre +" "+result.usuario[0].apellidos;
+                    
+                    $("#modalBajaUsuario #txtMdlIdUsuario").val(result.usuario[0].id_usuario); 
+                    $("#modalBajaUsuario #nombre_usuario").text(nombre); 
+                    $("#modalBajaUsuario").modal("show");
+
+                    
+
+                  },
+             error:function(result)
+                {
+                  alert("Error");
+                 console.log(result.responseText);
+                  
+                }
+                
+          });
 
 
     });
 
 
+    $("body").on("click","#btnMdlBajaUsuario",function()
+    {
+
+      var datosUsuario = {
+                               id_usuario : $("#modalBajaUsuario #txtMdlIdUsuario").val()      
+                        } 
+
+                        
+
+        $.ajax(
+          {
+              type: "POST",
+              url: "Usuarios/bajaUsuario",
+              dataType:"json",
+              data: datosUsuario,
+               async: false,
+              success: function(result)
+                  {
+                    
+                    
+                    $("#modalAlertaUsuario .modal-body").text(result.msjConsulta);
+                    $("#modalAlertaUsuario").modal("show");
+                    
+                  },
+             error:function(result)
+                {
+                  alert("Error");
+                 console.log(result.responseText);
+                  
+                }
+                
+          });
+
+    });
 
 
   function validaFormUpdateUsuario()
@@ -278,8 +441,8 @@ $(document).ready(function()
                                     {
                                       //console.log(result);
                                       $('#modalUpdateUsuario').modal('hide');
-                                      $("#modalAlertaUpdateUsuario .modal-body").html(result.msjConsulta);
-                                      $("#modalAlertaUpdateUsuario").modal("show");
+                                      $("#modalAlertaUsuario .modal-body").html(result.msjConsulta);
+                                      $("#modalAlertaUsuario").modal("show");
 
                                     },
                                error:function(result)
@@ -297,6 +460,45 @@ $(document).ready(function()
 
 
   }
+
+  $("body").on("click","#pagiTblUsuariosAlta li.num",function(event)
+  {
+
+    event.preventDefault();
+
+
+    var index = $(this).index();
+
+    if(!$(this).hasClass("active"))
+    {
+      
+      var paginacion = false;
+      createTablasusuarios($(this).attr("data-inicio"),$(this).attr("data-fin"),paginacion);
+    
+    }
+
+
+
+    $("#pagiTblUsuariosAlta li").removeClass("active");
+    $(this).addClass("active");
+
+
+
+    
+  });
+
+
+  $("body").on("click","#pagiTblUsuariosAlta li.recorrer",function(event)
+  {
+
+    event.preventDefault();
+
+     $("#pagiTblUsuariosAlta li.hide:first").css("display","block");
+     $("#pagiTblUsuariosAlta li.visible:first").css("display","none");
+
+
+
+  });
   
 
 });

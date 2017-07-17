@@ -76,38 +76,77 @@
 					</div>
 					
 					<div class="container" style="margin-left:20%;width:79%;" >
-						<div class="row">
-							<div class="col-xs-12">
-								<h2 style="text-align: center;">Usuarios</h2>
-							</div>
-						</div>
-	
-						<div class="row">
-							<div class="col-xs-12">
-								
-								<div class="table-responsive">
-										<table class="table table-bordered table-hover" id="tblUsuarios">
-												<caption>Tabla de usuarios</caption>
-												<thead>
-									                    <tr class="info">
-									                      <th style="display:none">id_usuario</th>
-									                      <th style="display:none">id_rol</th>
-									                      <th>Nombre</th>
-									                      <th>Apellidos</th>
-									                      <th>Email</th>
-									                      <th>Fecha de registro</th>
-									                      <th>Tipo de usuario</th>
-									                      <th>Modificar</th>
-									                      <th>Eliminar</th>
-									                    </tr>
-								                </thead>
-										</table>
+
+								<div class="row">
+									<div class="col-xs-12">
+										<h2 style="text-align: center;">Usuarios</h2>
+									</div>
+								</div>
+								<br><br>
+
+								<div class="row">
+									<div class="col-xs-12">
+										
+												<div class="table-responsive">
+														<table class="table table-bordered table-hover" id="tblUsuariosAlta">
+																<caption>Tabla de usuarios dados de alta</caption>
+																<thead>
+													                    <tr class="info">
+													                    <th>No</th>
+													                      <th style="display:none">id_usuario</th>
+													                      <th style="display:none">id_rol</th>
+													                      <th>Nombre</th>
+													                      <th>Apellidos</th>
+													                      <th>Email</th>
+													                      <th>Fecha de registro</th>
+													                      <th>Tipo de usuario</th>
+													                      <th>Modificar</th>
+													                      <th>Dar de baja</th>
+													                    </tr>
+												                </thead>
+												                <tbody>
+												                </tbody>
+												        </table>
+												</div>
+									</div>
+								</div>
+								<div class="row">
+										<div class="col-xs-12 text-center">
+												<ul class="pagination" id="pagiTblUsuariosAlta">
+						                         
+						                        </ul>
+			                        	</div>
 								</div>
 
-							</div>
-						</div>
+								<br><br>
 
-					</div>
+								<div class="row">
+									<div class="col-xs-12">
+												
+												<table class="table table-bordered table-hover" id="tblUsuariosBaja">
+														<caption>Tabla de usuarios dados de baja</caption>
+														<thead>
+											                    <tr class="info">
+											                      <th>No</th>
+											                      <th style="display:none">id_usuario</th>
+											                      <th style="display:none">id_rol</th>
+											                      <th>Nombre</th>
+											                      <th>Apellidos</th>
+											                      <th>Email</th>
+											                      <th>Fecha de registro</th>
+											                      <th>Tipo de usuario</th>
+											                      <th>Dar de alta</th>
+											                    </tr>
+										                </thead>
+										                <tbody>
+												        </tbody>
+												</table>
+
+
+									</div>
+							   </div>
+
+				</div>
 
 	</div>
 
@@ -168,7 +207,7 @@
 </div>
 
    <!-- Modal -->
-<div id="modalAlertaUpdateUsuario" class="modal fade" role="dialog">
+<div id="modalAlertaUsuario" class="modal fade" role="dialog">
   <div class="modal-dialog">
 
     <!-- Modal content-->
@@ -188,6 +227,29 @@
   </div>
 </div>
 
+
+   <!-- Modal -->
+<div id="modalBajaUsuario" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+       <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Alerta</h4>
+      </div>
+      <div class="modal-body">
+        <p>¿Desea dar de baja al usuario <strong id="nombre_usuario"></strong> ?</p>
+      </div>
+      <div class="modal-footer">
+      <button type="button" class="btn btn-primary" data-dismiss="modal" id="btnMdlBajaUsuario">Aceptar</button>
+      <button type="button" class="btn btn-default" data-dismiss="modal" >Cancelar</button>
+      <input type="hidden" id="txtMdlIdUsuario" >
+      </div>
+    </div>
+
+  </div>
+</div>
 
 	<script src="<?php echo base_url(); ?>public/libreriasJS/jquery.min.js"></script>
 	<script src="<?php echo base_url(); ?>public/libreriasJS/bootstrap.min.js"></script>
