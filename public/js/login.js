@@ -19,7 +19,6 @@ $(document).on("ready",function()
 		{
 			
 
-
 			$('#FormLogin').bootstrapValidator(
 			{
 
@@ -41,7 +40,7 @@ $(document).on("ready",function()
 		                     regexp: {
                                 regexp: /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/,
 
-                                message: 'La dirección de email no es valida',
+                                message: 'La dirección de email no es válida',
 
                             },
 
@@ -53,7 +52,12 @@ $(document).on("ready",function()
 		                    notEmpty: {
 		                        message: 'Este campo es requerido'
 		                    },
-
+		                    stringLength: {
+		                        enabled: true,
+		                        min: 5,
+		                        max: 20,
+		                        message: 'El password debe contener como mínimo 5 caracteres y 20 como máximo'
+		                    },
 
 		                }
 		            }

@@ -47,10 +47,28 @@ class Usuarios extends CI_Controller
 		$nombre = $_POST["nombre"];
 		$apellidos = $_POST["apellidos"];
 		$email = $_POST["email"];
+		$password = $_POST["password"];
 
 
 
-		$datosUsuario = $this->users->actualizarUsuario($id_usuario,$id_rol,$nombre,$apellidos,$email);
+		$datosUsuario = $this->users->actualizarUsuario($id_usuario,$id_rol,$nombre,$apellidos,$email,$password);
+
+		//$datosUsuario["aa"] = $datosUsuario;
+
+		 echo json_encode($datosUsuario);
+		//echo $datosUsuario;
+	}
+
+
+	
+	public function checkEmail()
+	{
+		
+		$email = $_POST["email"];
+		$id_usuario = $_POST["id_usuario"];
+
+
+		$datosUsuario = $this->users->verificarEmail($email,$id_usuario);
 
 		//$datosUsuario["aa"] = $datosUsuario;
 

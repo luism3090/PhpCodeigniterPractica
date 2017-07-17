@@ -18,13 +18,12 @@
             <form name="form" id="FormLogin" class="form-horizontal" >
                 <div class="input-group">
                 <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-                    <input type="text" id="email" name="email" class="form-control" placeholder="Email" >
+                    <input type="text" id="email" name="email" class="form-control" placeholder="Email" maxlength="50">
                 </div>
                 <br>
                  <div class="input-group">
                   <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
-                    <input type="text"  id="password" name="password" class="form-control" placeholder="Password"  maxlength="18"
-                minlength="5" data-bv-stringlength-message="El password debe tener entre 5 y 20 caracteres" >
+                    <input type="text"  id="password" name="password" class="form-control" placeholder="Password" minlength="5" maxlength="20" >
                 </div>
                 <br>
                 <!-- <div id="remember" class="checkbox">
