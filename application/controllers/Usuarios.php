@@ -24,10 +24,9 @@ class Usuarios extends CI_Controller
 
 	public function cargarUsuarios()
 	{
-		$inicio = $_POST["inicio"];
-		$fin = $_POST["fin"];
 
-		$datosUsuarios = $this->users->obtenerUsuarios($inicio,$fin);
+
+		$datosUsuarios = $this->users->obtenerUsuarios();
 
 		echo json_encode($datosUsuarios);
 
@@ -36,6 +35,7 @@ class Usuarios extends CI_Controller
 	public function getDatosUpdateUsuario()
 	{
 		$id_usuario = $_POST["id_usuario"];
+
 
 		$datosUsuario = $this->users->obtenerDatosUsuario($id_usuario);
 
@@ -79,6 +79,16 @@ class Usuarios extends CI_Controller
 	}
 
 
+	public function getDatosBajaUsuario()
+	{
+		$id_usuario = $_POST["id_usuario"];
+
+
+		$datosUsuario = $this->users->obtenerDatosBajaUsuario($id_usuario);
+
+		echo json_encode($datosUsuario);
+	}
+
 	public function bajaUsuario()
 	{
 		
@@ -93,6 +103,30 @@ class Usuarios extends CI_Controller
 		//echo $datosUsuario;
 	}
 
+
+	public function getDatosAltaUsuario()
+	{
+		$id_usuario = $_POST["id_usuario"];
+
+
+		$datosUsuario = $this->users->obtenerDatosAltaUsuario($id_usuario);
+
+		echo json_encode($datosUsuario);
+	}
+
+	public function altaUsuario()
+	{
+		
+		$id_usuario = $_POST["id_usuario"];
+
+		
+		$datosUsuario = $this->users->darDeAltaUsuario($id_usuario);
+
+		//$datosUsuario["aa"] = $datosUsuario;
+
+		 echo json_encode($datosUsuario);
+		//echo $datosUsuario;
+	}
 
 }
 

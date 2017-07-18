@@ -7,10 +7,11 @@
 	<link rel="stylesheet" type="text/css" href="<?php echo base_url();?>public/css/estiloHomeMenu.css">
 	<link rel="stylesheet" type="text/css" href="<?php echo base_url();?>public/css/estiloBarraSuperior.css">
 	<link rel="stylesheet" type="text/css" href="<?php echo base_url();?>public/css/estiloTablasBootstrap.css">
+	<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.15/css/dataTables.bootstrap.min.css">
 </head>
 <body >
 	
-	<div id="contenedor-principal">
+	<div id="contenedor-principal" >
 					
 					<div class="navbar navbar-default navbar-fixed-top" role="navigation">
 
@@ -68,40 +69,33 @@
 									    </div>
 					</div>
 
-					<div class="sidebar left" style="">
+					<div class="sidebar left" >
 
 						  <ul class="list-sidebar bg-defoult" >
 
 						  </ul>
 					</div>
 					
-					<div class="container" style="margin-left:20%;width:79%;" >
-
-								<div class="row">
-									<div class="col-xs-12">
-										<h2 style="text-align: center;">Usuarios</h2>
-									</div>
-								</div>
-								<br><br>
-
+		            <div style="margin-left:22%;width:75%" class="container-fluid" >
+								
 								<div class="row">
 									<div class="col-xs-12">
 										
 												<div class="table-responsive">
 														<table class="table table-bordered table-hover" id="tblUsuariosAlta">
-																<caption>Tabla de usuarios dados de alta</caption>
+																<caption style="text-align: center"><h4><strong>Usuarios dados de alta</strong></h4></caption>
 																<thead>
 													                    <tr class="info">
-													                    <th>No</th>
-													                      <th style="display:none">id_usuario</th>
-													                      <th style="display:none">id_rol</th>
-													                      <th>Nombre</th>
-													                      <th>Apellidos</th>
-													                      <th>Email</th>
-													                      <th>Fecha de registro</th>
-													                      <th>Tipo de usuario</th>
-													                      <th>Modificar</th>
-													                      <th>Dar de baja</th>
+														                    <th>No</th>
+														                  <!--     <th>id_usuario</th>
+														                      <th>id_rol</th> -->
+														                      <th>Nombre</th>
+														                      <th>Apellidos</th>
+														                      <th>Email</th>
+														                      <th>Fecha de registro</th>
+														                      <th>Tipo de usuario</th>
+														                      <th>Modificar</th>
+														                      <th>Baja</th>
 													                    </tr>
 												                </thead>
 												                <tbody>
@@ -110,32 +104,25 @@
 												</div>
 									</div>
 								</div>
-								<div class="row">
-										<div class="col-xs-12 text-center">
-												<ul class="pagination" id="pagiTblUsuariosAlta">
-						                         
-						                        </ul>
-			                        	</div>
-								</div>
-
-								<br><br>
-
+								
+								<br><br><br><br><br><br>
 								<div class="row">
 									<div class="col-xs-12">
 												
-												<table class="table table-bordered table-hover" id="tblUsuariosBaja">
-														<caption>Tabla de usuarios dados de baja</caption>
+												<table class="table table-bordered table-hover" id="tblUsuariosBaja" data-page-list='[5, 10, 20, 50, 100, 200 ,300 ]'>
+														<caption style="text-align: center"><h4><strong>Usuarios dados de baja</strong></h4></caption>
 														<thead>
+															
 											                    <tr class="info">
 											                      <th>No</th>
-											                      <th style="display:none">id_usuario</th>
-											                      <th style="display:none">id_rol</th>
+											                     <!--  <th>id_usuario</th>
+											                      <th>id_rol</th> -->
 											                      <th>Nombre</th>
 											                      <th>Apellidos</th>
 											                      <th>Email</th>
 											                      <th>Fecha de registro</th>
 											                      <th>Tipo de usuario</th>
-											                      <th>Dar de alta</th>
+											                      <th>Alta</th>
 											                    </tr>
 										                </thead>
 										                <tbody>
@@ -149,6 +136,8 @@
 				</div>
 
 	</div>
+
+	<br><br><br><br><br>
 
 
    <!-- Modal -->
@@ -239,24 +228,54 @@
         <h4 class="modal-title">Alerta</h4>
       </div>
       <div class="modal-body">
-        <p>¿Desea dar de baja al usuario <strong id="nombre_usuario"></strong> ?</p>
+        <p>¿Desea dar de baja al usuario <strong class="nombre_usuario"></strong> ?</p>
       </div>
       <div class="modal-footer">
       <button type="button" class="btn btn-primary" data-dismiss="modal" id="btnMdlBajaUsuario">Aceptar</button>
       <button type="button" class="btn btn-default" data-dismiss="modal" >Cancelar</button>
-      <input type="hidden" id="txtMdlIdUsuario" >
+      <input type="hidden" class="txtMdlIdUsuario" >
       </div>
     </div>
 
   </div>
 </div>
 
+
+   <!-- Modal -->
+<div id="modalAltaUsuario" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+       <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Alerta</h4>
+      </div>
+      <div class="modal-body">
+        <p>¿Desea dar de alta al usuario <strong class="nombre_usuario"></strong> ?</p>
+      </div>
+      <div class="modal-footer">
+      <button type="button" class="btn btn-primary" data-dismiss="modal" id="btnMdlAltaUsuario">Aceptar</button>
+      <button type="button" class="btn btn-default" data-dismiss="modal" >Cancelar</button>
+      <input type="hidden" class="txtMdlIdUsuario" >
+      </div>
+    </div>
+
+  </div>
+</div>
+
+
 	<script src="<?php echo base_url(); ?>public/libreriasJS/jquery.min.js"></script>
 	<script src="<?php echo base_url(); ?>public/libreriasJS/bootstrap.min.js"></script>
+	<script src="https://cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js"></script>
+	<script src="https://cdn.datatables.net/1.10.15/js/dataTables.bootstrap.min.js"></script>
+
 	<script src="<?php echo base_url(); ?>public/libreriasJS/bootstrapValidator.js"></script>
+	<script src="<?php echo base_url(); ?>public/js/cargarUsuarios.js"></script>
 	<script src="<?php echo base_url(); ?>public/js/cargarMenu.js"></script>
 	<script src="<?php echo base_url(); ?>public/js/cerrarSesion.js"></script>
-	<script src="<?php echo base_url(); ?>public/js/cargarUsuarios.js"></script> 
+	
+
 	
 
 </body>
