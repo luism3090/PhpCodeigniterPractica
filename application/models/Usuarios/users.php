@@ -12,8 +12,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 		public function obtenerUsuarios($inicio,$fin)
 		{
 
+			
+
 			$inicio = (int)$inicio;
 			$fin = (int)$fin;
+
 			
 			$sqlUsuariosAlta =	"select 
 									usu.id_usuario,

@@ -14,3 +14,15 @@
 	font-size: 18px;
 	
 }
+
+#pagiTblUsuariosAlta li.hide
+{
+	display: none !important;
+	/*display: none !important;*/
+} 
+
+#pagiTblUsuariosAlta li.visible
+{
+	display: inline !important;
+	/*display: inline !important;*/
+} 

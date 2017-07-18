@@ -8,9 +8,11 @@ $(document).ready(function()
    var inicio=0;
    var fin=5;
    var pagination = true;
+   var cantPaginationVisible = 5;
 
     function createTablasusuarios(inicio,fin,pagination)
     {
+
 
 
        $.ajax(
@@ -23,7 +25,8 @@ $(document).ready(function()
           success: function(result)
               {
                 
-
+              
+               
                 var tablaUsuariosAlta = "";
 
                   for(var x=0 ; x < result.usuariosAlta.length ;x++)
@@ -45,7 +48,7 @@ $(document).ready(function()
                   }
 
 
-                  $("#tblUsuariosAlta tbody").html(tablaUsuariosAlta);
+                  $("#tblUsuariosAlta tbody").empty().html(tablaUsuariosAlta);
 
 
 
@@ -55,13 +58,24 @@ $(document).ready(function()
                   {
 
                       var numPagination = parseInt(result.msjTotalUsuariosAlta) / fin;
+                      var resiPagination = parseInt(result.msjTotalUsuariosAlta) % fin;
 
-                      numPagination =  parseInt(numPagination) + 1; 
+                      
 
-                      var  _inicio=0;
+                      if(resiPagination>0)
+                      {
+                        numPagination =  parseInt(numPagination) + 1; 
+                      }
+                      else
+                      {
+                        numPagination =  parseInt(numPagination); 
+                      }
+                      
+
+                      var  _inicio= inicio;
                       var _fin = fin;
 
-                      var paginations = '<li class="afterLi recorrer"><a href="#">&laquo;</a></li>';
+                      var paginations = '<li class="retrocederLi recorrer"><a href="#">&laquo;</a></li>';
 
                       for(var x=1 ;x <= numPagination;x++)
                       {
@@ -69,28 +83,28 @@ $(document).ready(function()
 
                         if(x==1)
                         {
-                        paginations += '<li class="active num visible" data-inicio='+_inicio+' data-fin='+_fin+'><a href="#" >'+ x +'</a></li>';
+                          paginations += '<li class="active num visible" data-inicio='+_inicio+' data-fin='+_fin+'><a href="#" >'+ x +'</a></li>';
                         }
                         else
                         {
-                          if(x<=2)
+                          if(x<=cantPaginationVisible)
                           {
                             paginations += '<li class="num visible" data-inicio='+_inicio+' data-fin='+_fin+'><a href="#" >'+ x +'</a></li>';
                           }
                           else
                           {
-                            paginations += '<li class="num hide" data-inicio='+_inicio+' data-fin='+_fin+' style="display:none" ><a href="#" >'+ x +'</a></li>';
+                            paginations += '<li class="num hide" data-inicio='+_inicio+' data-fin='+_fin+' ><a href="#" >'+ x +'</a></li>';
                           }
                           
                         }
 
-                        _inicio = _fin;
-                        _fin = _fin + 4 ;
+                        _inicio = _inicio + 5;
+                        
                         
                           
                       
                       }
-                      paginations += '<li class="afterLi recorrer"><a href="#">&raquo;</a></li>';
+                      paginations += '<li class="avanzarLi recorrer"><a href="#">&raquo;</a></li>';
 
 
                       $("#pagiTblUsuariosAlta").html(paginations);
@@ -467,8 +481,6 @@ $(document).ready(function()
     event.preventDefault();
 
 
-    var index = $(this).index();
-
     if(!$(this).hasClass("active"))
     {
       
@@ -493,8 +505,59 @@ $(document).ready(function()
 
     event.preventDefault();
 
-     $("#pagiTblUsuariosAlta li.hide:first").css("display","block");
-     $("#pagiTblUsuariosAlta li.visible:first").css("display","none");
+      var $liActive = $("#pagiTblUsuariosAlta li.active");
+      var $liSiguiente = $("#pagiTblUsuariosAlta li.active").next("li.num");
+      var $liAnterior = $("#pagiTblUsuariosAlta li.active").prev("li.num");
+
+
+     
+
+    if($(this).hasClass("retrocederLi"))
+    {
+      if($liAnterior.length > 0)
+      {
+         $liAnterior.addClass("active visible");
+         $liActive.removeClass("active");
+         var paginacion = false;
+         createTablasusuarios($liAnterior.attr("data-inicio"),$liAnterior.attr("data-fin"),paginacion);
+      }
+
+       var cantVisibles = $("#pagiTblUsuariosAlta li.visible:not(.active)").length;
+
+      if(cantVisibles==cantPaginationVisible)
+      {
+        $("#pagiTblUsuariosAlta li.visible:last").removeClass("visible").addClass("hide");
+        
+      }
+    }
+
+    if($(this).hasClass("avanzarLi"))
+    {
+      
+
+      if($liSiguiente.length > 0)
+      {
+         $liSiguiente.addClass("active visible");
+         $liActive.removeClass("active");
+         var paginacion = false;
+         createTablasusuarios($liSiguiente.attr("data-inicio"),$liSiguiente.attr("data-fin"),paginacion);
+        
+      }
+
+      var cantVisibles = $("#pagiTblUsuariosAlta li.visible:not(.active)").length;
+
+      if(cantVisibles==cantPaginationVisible)
+      {
+        $("#pagiTblUsuariosAlta li.visible:first").removeClass("visible").addClass("hide");
+      }
+
+     
+      
+    }
+
+
+     // $("#pagiTblUsuariosAlta li.hide:first").css("display","block");
+     // $("#pagiTblUsuariosAlta li.visible:first").css("display","none");
 
 
 
