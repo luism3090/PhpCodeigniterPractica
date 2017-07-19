@@ -18,7 +18,6 @@ $(document).ready(function()
               {
                 
               
-               
                 var tablaUsuariosAlta = "";
 
                   for(var x=0 ; x < result.usuariosAlta.length ;x++)
@@ -503,6 +502,8 @@ $("body").on("click",".alta",function()
               
         });
 
+      location.href = result.base_url;
+      
   });
 
 

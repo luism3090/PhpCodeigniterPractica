@@ -79,6 +79,14 @@
 		            <div style="margin-left:22%;width:75%" class="container-fluid" >
 								
 								<div class="row">
+									<div class="col-xs-12 text-center">
+										
+										<h3>Modificar Usuarios</h3>	
+									
+									</div>
+								</div>
+								<br><br><br>
+								<div class="row">
 									<div class="col-xs-12">
 										
 												<div class="table-responsive">
@@ -176,7 +184,7 @@
 										<select id="slTipoUsuario" class="form-control" name="slTipoUsuario">
 											<option value="1">Super Usuario</option>
 											<option value="2">Administrador</option> 
-											<option value="3">Cliente</option>
+											<option value="3" selected>Cliente</option>
 										</select> 
 									</div>
 									<input type="hidden" id="txtIdUsuario" class="form-control">

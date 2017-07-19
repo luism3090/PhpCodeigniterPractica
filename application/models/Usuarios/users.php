@@ -25,7 +25,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 									from usuarios usu
 									join usuarios_roles usu_ro on (usu.id_usuario = usu_ro.id_usuario)
 									join roles rol on (usu_ro.id_rol = rol.id_rol) where usu.id_usuario != 1 and usu.estado = '1' 
-									order by usu.fecha_registro";
+									order by usu.fecha_registro desc";
 
 			$queryUsuariosAlta = $this->db->query($sqlUsuariosAlta);
 
@@ -43,7 +43,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 						from usuarios usu
 						join usuarios_roles usu_ro on (usu.id_usuario = usu_ro.id_usuario)
 						join roles rol on (usu_ro.id_rol = rol.id_rol) where usu.id_usuario != 1 and usu.estado = '0' 
-						order by usu.fecha_registro ";
+						order by usu.fecha_registro desc ";
 
 		    $queryUsuariosBaja = $this->db->query($sqlUsuariosBaja);
 

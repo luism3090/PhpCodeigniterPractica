@@ -15,7 +15,7 @@ $(document).ready(function()
                 {
                     $(".list-sidebar").html(result.rowsMenu);
 
-
+                    $("body .sidebar a[href='"+window.location.href.replace("#","")+"']").closest("ul").siblings().closest("ul").siblings().click();
                     $("body .sidebar a[href='"+window.location.href.replace("#","")+"']").closest("ul").siblings().click();
                     $("body .sidebar a[href='"+window.location.href.replace("#","")+"']").addClass('selecionado');
 

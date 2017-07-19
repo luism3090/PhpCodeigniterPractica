@@ -13,7 +13,11 @@ class Usuarios extends CI_Controller
 		if($this->session->userdata('login')==null)
 		{
 			redirect('/Login');
-		} 
+		}
+		if($this->session->userdata('id_rol')=='3')
+		{
+			redirect('/index');
+		}  
 		
 	}
 	public function index()
@@ -31,6 +35,7 @@ class Usuarios extends CI_Controller
 		echo json_encode($datosUsuarios);
 
 	}
+
 
 	public function getDatosUpdateUsuario()
 	{
