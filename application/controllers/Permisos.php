@@ -28,6 +28,8 @@ class Permisos extends CI_Controller
 	public function listaMenuRoles()
 	{
 		$id_rol = $_POST['id_rol'];
+		$id_rol_select = $_POST['id_rol_select'];
+
 
 		$this->load->model('Permisos/listaPermisos');
 
@@ -37,7 +39,7 @@ class Permisos extends CI_Controller
 		$dataMenu = $this->buildListaMenuRoles($datosMenu,false,false,$id_rol);
 
 
-		$datosElementosRol = $this->listaPermisos->elementosMenuPermisoRol($id_rol);
+		$datosElementosRol = $this->listaPermisos->elementosMenuPermisoRol($id_rol_select);
 
 
 		$datos["rowsMenu"] = $dataMenu;
@@ -83,8 +85,8 @@ class Permisos extends CI_Controller
 	            {
 	            	//<a href='#'><i class='".$properties->icono."'></i>$properties->descripcion</a>
 	            	
-	            	 $menu .= "<li class='list-group-item list-group-item-warning'>
-					            	 $properties->descripcion
+	            	 $menu .= "<li class='list-group-item list-group-item-warning' data-id-elemento-menu='$properties->id_elemento_menu'>
+					            	 $properties->descripcion <input type='checkbox' >
 					            	 $sub
 	            	 		   </li>";
 	            	

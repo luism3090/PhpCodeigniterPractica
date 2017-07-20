@@ -64,7 +64,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 
 
-		public function elementosMenuPermisoRol($id_rol)
+		public function elementosMenuPermisoRol($id_rol_select)
 		{
 
 			$sql =	"select  me.id_elemento_menu
@@ -73,7 +73,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 						join menus me on (uro.id_elemento_menu = me.id_elemento_menu)
 						where ro.id_rol = ?";
 
-					$query = $this->db->query($sql,array($id_rol));
+					$query = $this->db->query($sql,array($id_rol_select));
 
 
 			return $query->result();

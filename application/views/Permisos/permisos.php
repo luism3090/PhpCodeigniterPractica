@@ -102,13 +102,13 @@
 								<br><br>
 								<div class="row">
 									<div class="col-xs-12 ">
-										<form action="" id="formRegistrarUsuario">
+										<form action="" id="formPermisos">
 											<h4>Elementos del menú</h4>
 											<br>
 											<ul id="ulListaPermisos" class="list-group">
 												
 											</ul>
-											
+											<button type="submit" class="btn btn-primary center-block" id="btnGuardarPermisosRol">Guardar</button>
 										</form>
 									</div>
 								</div>
