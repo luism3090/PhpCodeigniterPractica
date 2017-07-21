@@ -38,103 +38,141 @@ $(document).ready(function()
 	 {
 	 	event.preventDefault();
 
+	 	 var datosElementosMenu = [];
+
+	 	$("#ulListaPermisos li input:checked").parent().each(function()
+	 	{
+
+	 		var elemento = 	{
+	 							id_elemento_menu:$(this).attr("data-id-elemento-menu") 
+	 						}
+
+
+
+	 		datosElementosMenu.push(elemento);
+
+
+	 	});
+
+	 	//console.log(datosElementosMenu);
+
+	 	 $.ajax(
+          {
+              type: "POST",
+              url: "Permisos/insertarPermisosRoles",
+              dataType:"json",
+              data: {datosElementosMenu,id_rol:$("#slTipoUsuario").val()},
+               async: true,
+              success: function(result)
+                  {
+
+                  	$("#modalGuardarMenusRoles .modal-body h4").text(result.msjConsulta);
+                  	$("#modalGuardarMenusRoles").modal("show");
+
+
+                  },
+             error:function(result)
+                {
+                  alert("Error");
+                 $("#formRegistrarUsuario").html(result.responseText);
+                 console.log(result.responseText);
+                  
+                }
+                
+          });
+
+
 
 	 	//OBTENER ELEMENTOS PRIMER NIVEL
 
-	 	var datosElementosPrimerNivel = [
+	 	// var datosElementosPrimerNivel = [
 	 								
-	 							 ];
+	 	// 						 ];
 
-	 	$("#ulListaPermisos > li").each(function(index)
-	 	{
+	 	// $("#ulListaPermisos > li").each(function(index)
+	 	// {
 	 		
 
-	 		// arrayElementosMenu = [ { 
-		 	// 							nombreElemento: elemento[0].childNodes[0].nodeValue.trim(), 
-		 	// 							hijos:[{ 
-		 	// 									nombreElementoHijo: elemento[0].childNodes[0].nodeValue.trim()
-		 	// 								 }]
-	 		// 					   }, 
-	 		// 					   { 
-	 		// 					   	 	nombreElemento2: "Descripcion" 
-	 		// 					   }
-	 		// 					];
-	 		// debugger;
+	 	// 	// arrayElementosMenu = [ { 
+		 // 	// 							nombreElemento: elemento[0].childNodes[0].nodeValue.trim(), 
+		 // 	// 							hijos:[{ 
+		 // 	// 									nombreElementoHijo: elemento[0].childNodes[0].nodeValue.trim()
+		 // 	// 								 }]
+	 	// 	// 					   }, 
+	 	// 	// 					   { 
+	 	// 	// 					   	 	nombreElemento2: "Descripcion" 
+	 	// 	// 					   }
+	 	// 	// 					];
+	 	// 	// debugger;
 	 		
 
-	 		var elemento = 
-	 		{
-	 			elementoJquery:$(this),
-	 			nombreElemento: $(this)[0].childNodes[0].nodeValue.trim(),
-	 			id_elemento_menu:$(this).attr("data-id-elemento-menu"),
-	 			 hijos:[]	
-	 		}
+	 	// 	var elemento = 
+	 	// 	{
+	 	// 		elementoJquery:$(this),
+	 	// 		nombreElemento: $(this)[0].childNodes[0].nodeValue.trim(),
+	 	// 		id_elemento_menu:$(this).attr("data-id-elemento-menu"),
+	 	// 		 hijos:[]	
+	 	// 	}
 
 
-	 		datosElementosPrimerNivel.push(elemento);
+	 	// 	datosElementosPrimerNivel.push(elemento);
 
-	 	});
+	 	// });
 
 	 	// OBTENER ELEMENTOS SEGUNDO NIVEL
 	 
 
 	 	
-	 	datosElementosSegundoNivel = [];
-	 	
-	 	function buildObject(arrayElementosMenu)
-	 	{
+	 	// datosElementosSegundoNivel = [];
 
-	 		for(var x=0 ; x < arrayElementosMenu.length ;x++)
-	 		{
+	 	// function buildObject(arrayElementosMenu)
+	 	// {
 
-	 			datosElementosSegundoNivel[x] = getHijosElementosLista(arrayElementosMenu[x]);
+	 	// 	for(var x=0 ; x < arrayElementosMenu.length ;x++)
+	 	// 	{
+
+	 	// 		datosElementosSegundoNivel[x] = getHijosElementosLista(arrayElementosMenu[x]);
 	 			
-	 		}
+	 	// 	}
 
-	 	}
-	 	function getHijosElementosLista(arrayElementosMenu)
-	 	{
+	 	// }
+	 	// function getHijosElementosLista(arrayElementosMenu)
+	 	// {
 	 		
 
-	 		arrayElementosHijos = [];
+	 	// 	arrayElementosHijos = [];
 
 	 		
-	 		arrayElementosMenu.elementoJquery.find(">ul > li").each(function(index)
-	 		{
+	 	// 	arrayElementosMenu.elementoJquery.find(">ul > li").each(function(index)
+	 	// 	{
 
 	 			
 
-	 			var Hijo = 
-	 					{ 
-	 						nombreElementoHijo : $(this)[0].childNodes[0].nodeValue.trim(),
-	 						elementoJquery : $(this)
+	 	// 		var Hijo = 
+	 	// 				{ 
+	 	// 					nombreElementoHijo : $(this)[0].childNodes[0].nodeValue.trim(),
+	 	// 					elementoJquery : $(this)
 	 						
-	 					}
+	 	// 				}
 
 
-	 			arrayElementosHijos.push(Hijo);
+	 	// 		arrayElementosHijos.push(Hijo);
 
 	 			
 
-	 		});
+	 	// 	});
 
 	 		
 
-	 		return arrayElementosHijos;
+	 	// 	return arrayElementosHijos;
 
-	 	}
+	 	// }
 
-
-
-
-
-	 	buildObject(datosElementosPrimerNivel);
-	 	buildObject(datosHijosSegundoNivel);
+	 	// buildObject(datosElementosPrimerNivel);
+	 	// buildObject(datosHijosSegundoNivel);
 	 	
-
-
-	 	console.log(datosElementosPrimerNivel);
-	 	console.log(datosElementosSegundoNivel);
+	 	// console.log(datosElementosPrimerNivel);
+	 	// console.log(datosElementosSegundoNivel);
 
 	 	
 	 	

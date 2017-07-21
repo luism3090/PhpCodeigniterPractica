@@ -15,6 +15,16 @@ class Permisos extends CI_Controller
 			redirect('/Login');
 		} 
 
+		$this->load->model('Home/VerificarUsuarioActivo');
+
+		$datosMenu = $this->VerificarUsuarioActivo->verificarUserActivo($this->session->userdata('id'));
+
+		if($datosMenu == 0)
+		{
+			$this->session->sess_destroy();
+			redirect('/Login');
+		}
+
 		
 	}
 	public function index()
@@ -24,6 +34,21 @@ class Permisos extends CI_Controller
 
 	}
 
+	public function insertarPermisosRoles()
+	{
+		$datosElementosMenu = $_POST["datosElementosMenu"];
+		$id_rol = $_POST["id_rol"];
+
+		$this->load->model('Permisos/insertarPermisosRoles');
+
+		$datos = $this->insertarPermisosRoles->insertElementsPermisosRoles($datosElementosMenu,$id_rol);
+
+		//$da["algo"] = $datos;
+
+		echo json_encode($datos);
+
+		
+	}
 
 	public function listaMenuRoles()
 	{
@@ -107,6 +132,9 @@ class Permisos extends CI_Controller
 		return $menu . "</ul>";
 
 	}
+
+
+	
 
 
 
