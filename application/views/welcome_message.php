@@ -11,7 +11,7 @@
 <body>
 
 <div id="container">
-	<h1>Hola mundo codeIgniter</h1>
+	<h3>Acceso denegado</h3>
 </div>
 
 </body>

@@ -10,20 +10,20 @@ class Permisos extends CI_Controller
 
 		
 
-		if($this->session->userdata('login')==null)
-		{
-			redirect('/Login');
-		} 
+		// if($this->session->userdata('login')==null)
+		// {
+		// 	redirect('/Login');
+		// } 
 
-		$this->load->model('Home/VerificarUsuarioActivo');
+		// $this->load->model('Home/VerificarUsuarioActivo');
 
-		$datosMenu = $this->VerificarUsuarioActivo->verificarUserActivo($this->session->userdata('id'));
+		// $datosMenu = $this->VerificarUsuarioActivo->verificarUserActivo($this->session->userdata('id'));
 
-		if($datosMenu == 0)
-		{
-			$this->session->sess_destroy();
-			redirect('/Login');
-		}
+		// if($datosMenu == 0)
+		// {
+		// 	$this->session->sess_destroy();
+		// 	redirect('/Login');
+		// }
 
 		
 	}

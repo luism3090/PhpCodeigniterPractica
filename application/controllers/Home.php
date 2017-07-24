@@ -9,23 +9,24 @@ class Home extends CI_Controller
 		parent::__construct();
 
 
-		if($this->session->userdata('login')==null)
-		{
-			redirect('/Login');
-		} 
+		// if($this->session->userdata('login')==null)
+		// {
+		// 	redirect('/Login');
+		// } 
 
-		$this->load->model('Home/VerificarUsuarioActivo');
+		// $this->load->model('Home/VerificarUsuarioActivo');
 
-		$datosMenu = $this->VerificarUsuarioActivo->verificarUserActivo($this->session->userdata('id'));
+		// $datosMenu = $this->VerificarUsuarioActivo->verificarUserActivo($this->session->userdata('id'));
 
-		if($datosMenu == 0)
-		{
-			$this->session->sess_destroy();
-			redirect('/Login');
-		}
+		// if($datosMenu == 0)
+		// {
+		// 	$this->session->sess_destroy();
+		// 	redirect('/Login');
+		// }
 
 		
 	}
+
 	public function index()
 	{
 
@@ -127,7 +128,7 @@ class Home extends CI_Controller
 	public function cerrarSesion()
 	{
 	
-		if($this->session->userdata('login')!=null)
+		if($this->session->userdata('logueado')!=null)
 		{
 			
 			$this->session->sess_destroy();

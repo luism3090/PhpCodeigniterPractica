@@ -10,14 +10,14 @@ class RegistrarUsuarios extends CI_Controller
 
 		$this->load->model('RegistrarUsuarios/registrarUsers');
 
-		if($this->session->userdata('login')==null)
-		{
-			redirect('/Login');
-		} 
-		if($this->session->userdata('id_rol')=='3')
-		{
-			redirect('/index');
-		} 
+		// if($this->session->userdata('login')==null)
+		// {
+		// 	redirect('/Login');
+		// } 
+		// if($this->session->userdata('id_rol')=='3')
+		// {
+		// 	redirect('/index');
+		// } 
 		
 	}
 	public function index()

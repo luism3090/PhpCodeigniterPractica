@@ -8,16 +8,16 @@ class Usuarios extends CI_Controller
 	{
 		parent::__construct();
 
-		$this->load->model('Usuarios/users');
+		 $this->load->model('Usuarios/users');
 
-		if($this->session->userdata('login')==null)
-		{
-			redirect('/Login');
-		}
-		if($this->session->userdata('id_rol')=='3')
-		{
-			redirect('/index');
-		}  
+		// if($this->session->userdata('login')==null)
+		// {
+		// 	redirect('/Login');
+		// }
+		// if($this->session->userdata('id_rol')=='3')
+		// {
+		// 	redirect('/index');
+		// }  
 		
 	}
 	public function index()

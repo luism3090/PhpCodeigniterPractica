@@ -7,10 +7,9 @@ class Login extends CI_Controller
 	public function __construct()
 	{
 		parent::__construct();
-
-		
-		
+	
 	}
+
 	public function index()
 	{
 		
@@ -53,7 +52,7 @@ class Login extends CI_Controller
 									"nombre" => $datosLogin["loginUsuario"][0]->nombre,
 									"apellidos" => $datosLogin["loginUsuario"][0]->apellidos,
 									"email" => $datosLogin["loginUsuario"][0]->email, 
-									"login" => true
+									"logueado" => true
 								  );
 										
 

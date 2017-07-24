@@ -12,25 +12,79 @@ class HookValidarDatosUsuario
 
 	 function validarUsuarios()
 	{
-		//$this->ci =& get_instance();
+	
+		$controlador = $this->ci->router->class;
+		$funcion = $this->ci->router->method;
 
 
-
-		if($this->ci->session->userdata('login') === true)
+		if($controlador == 'Login')
 		{
-			redirect('/Home');
+			// if($this->ci->session->userdata('logueado') === true)
+			// {
+			// 	redirect('/Home');
+			// }
+		}
+		else
+		{
+			if($this->ci->session->userdata('logueado') === null)
+			{
+				redirect('/Login');
+			}
+	
+		}
+
+		
+
+		// redirect('/Welcome');
+
+		if($this->ci->session->userdata('id_rol') != null)
+		{
+
+			$id_rol = $this->ci->session->userdata('id_rol');
+			$controladores_rol ="";
+			$controladorPermitido = false;
+
+			if($id_rol == '1')
+			{
+				$controladores_rol = array("Home","Usuarios","RegistrarUsuarios","Permisos");
+
+				$controladorPermitido = in_array($controlador,$controladores_rol);
+
+			}
+			else if($id_rol == '2')
+			{
+				$controladores_rol = array("Home","Usuarios","RegistrarUsuarios");
+
+				$controladorPermitido = in_array($controlador,$controladores_rol);
+
+			}
+			else if($id_rol == '3')
+			{
+				$controladores_rol = array("Home");
+
+				$controladorPermitido = in_array($controlador,$controladores_rol);
+			}
+
+		
+			if($controlador != "Welcome")
+			{
+				if($controladorPermitido==false)
+				{
+					redirect('/Welcome');
+				}
+			}
+			
+		
 		}
 		
 		
+		
+		
+		
 
-
-
-		// verficamos si el usuarios 
-
-		// if($this->ci->session->userdata('login') == null)
-		// {
-		// 	redirect('Login');
-		// }
+		
+		
+		
 
 
 		//$controllersprivados = array('home');
