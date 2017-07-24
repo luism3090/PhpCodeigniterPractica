@@ -137,15 +137,25 @@ $(document).ready(function()
                   {
 
                     //console.log(result);
+    
+                    if(typeof(result.baja) == "undefined") 
+                    {
 
-                    $("#txtNombre").val(result.usuario[0].nombre);
-                    $("#txtApellidos").val(result.usuario[0].apellidos);
-                    $("#txtEmail").val(result.usuario[0].email);
-                    $("#txtIdUsuario").val(result.usuario[0].id_usuario);
-                    $("#txtPassword").val(result.usuario[0].password);
-                    $("#slTipoUsuario option[value="+result.usuario[0].id_rol+"]").prop('selected', 'selected');
+                      $("#txtNombre").val(result.usuario[0].nombre);
+                      $("#txtApellidos").val(result.usuario[0].apellidos);
+                      $("#txtEmail").val(result.usuario[0].email);
+                      $("#txtIdUsuario").val(result.usuario[0].id_usuario);
+                      $("#txtPassword").val(result.usuario[0].password);
+                      $("#slTipoUsuario option[value="+result.usuario[0].id_rol+"]").prop('selected', 'selected');
 
-                    $("#modalUpdateUsuario").modal("show");
+                      $("#modalUpdateUsuario").modal("show");
+                      
+                    }
+                    else
+                    {
+                       window.location = result.url;
+                     
+                    }
 
                   },
              error:function(result)
@@ -246,16 +256,23 @@ $(document).ready(function()
                                                  async: false,
                                                 success: function(result)
                                                     {
-                                                      if(result.msjCantidadRegistros > 0)
+
+                                                      if(typeof(result.baja) == "undefined") 
                                                       {
-                                                         valida = false;
+                                                        if(result.msjCantidadRegistros > 0)
+                                                        {
+                                                           valida = false;
+                                                        }
+                                                        else
+                                                        {
+                                                          valida = true;
+                                                        }
+
                                                       }
                                                       else
                                                       {
-                                                        valida = true;
+                                                        window.location = result.url;
                                                       }
-
-                                                     
                                                       
                                                     },
                                                error:function(result)
@@ -324,9 +341,18 @@ $(document).ready(function()
                                 success: function(result)
                                     {
                                       //console.log(result);
-                                      $('#modalUpdateUsuario').modal('hide');
-                                      $("#modalAlertaUsuario .modal-body").html(result.msjConsulta);
-                                      $("#modalAlertaUsuario").modal("show");
+
+                                      if(typeof(result.baja) == "undefined") 
+                                      {
+                                          $('#modalUpdateUsuario').modal('hide');
+                                          $("#modalAlertaUsuario .modal-body").html(result.msjConsulta);
+                                          $("#modalAlertaUsuario").modal("show");
+                                      }
+                                      else
+                                      {
+                                          window.location = result.url;
+                                      }
+                                      
 
                                     },
                                error:function(result)
@@ -369,11 +395,20 @@ $(document).ready(function()
 
                     //console.log(result);
 
-                    var nombre = result.usuario[0].nombre +" "+result.usuario[0].apellidos;
+                    if(typeof(result.baja) == "undefined") 
+                    {
+                      var nombre = result.usuario[0].nombre +" "+result.usuario[0].apellidos;
                     
-                    $("#modalBajaUsuario .txtMdlIdUsuario").val(result.usuario[0].id_usuario); 
-                    $("#modalBajaUsuario .nombre_usuario").text(nombre); 
-                    $("#modalBajaUsuario").modal("show");
+                      $("#modalBajaUsuario .txtMdlIdUsuario").val(result.usuario[0].id_usuario); 
+                      $("#modalBajaUsuario .nombre_usuario").text(nombre); 
+                      $("#modalBajaUsuario").modal("show");
+                    }
+                   else
+                    {
+                       window.location = result.url;
+                     
+                    }
+                    
 
                     
 
@@ -410,9 +445,17 @@ $(document).ready(function()
             success: function(result)
                 {
                   
+                  if(typeof(result.baja) == "undefined") 
+                  {
+
+                    $("#modalAlertaUsuario .modal-body").text(result.msjConsulta);
+                    $("#modalAlertaUsuario").modal("show");
+                  }
+                  else
+                  {
+                    window.location = result.url;
+                  }
                   
-                  $("#modalAlertaUsuario .modal-body").text(result.msjConsulta);
-                  $("#modalAlertaUsuario").modal("show");
                   
                 },
            error:function(result)
@@ -430,33 +473,81 @@ $(document).ready(function()
 // FUNCIONES PARA EL ALTA DE USUARIOS 
 
 
-$("body").on("click",".alta",function()
+  $("body").on("click",".alta",function()
+  {
+
+        var datosUsuario = {
+                                 id_usuario : $(this).parent().attr("data-id-usuario")         
+                               } 
+
+         $.ajax(
+            {
+                type: "POST",
+                url: "Usuarios/getDatosAltaUsuario",
+                dataType:"json",
+                data: datosUsuario,
+                 async: true,
+                success: function(result)
+                    {
+
+                      //console.log(result);
+
+                       if(typeof(result.baja) == "undefined") 
+                       {
+                           var nombre = result.usuario[0].nombre +" "+result.usuario[0].apellidos;
+                      
+                          $("#modalAltaUsuario .txtMdlIdUsuario").val(result.usuario[0].id_usuario); 
+                          $("#modalAltaUsuario .nombre_usuario").text(nombre); 
+                          $("#modalAltaUsuario").modal("show");
+                       }
+                       else
+                      {
+                        window.location = result.url;
+                      }
+
+                    },
+               error:function(result)
+                  {
+                    alert("Error");
+                   console.log(result.responseText);
+                    
+                  }
+                  
+            });
+
+
+  });
+
+
+  $("body").on("click","#btnMdlAltaUsuario",function()
   {
 
       var datosUsuario = {
-                               id_usuario : $(this).parent().attr("data-id-usuario")         
-                             } 
+                               id_usuario : $("#modalAltaUsuario .txtMdlIdUsuario").val()      
+                        } 
 
-       $.ajax(
+        $.ajax(
           {
               type: "POST",
-              url: "Usuarios/getDatosAltaUsuario",
+              url: "Usuarios/altaUsuario",
               dataType:"json",
               data: datosUsuario,
-               async: true,
+               async: false,
               success: function(result)
                   {
-
-                    //console.log(result);
-
-                    var nombre = result.usuario[0].nombre +" "+result.usuario[0].apellidos;
                     
-                    $("#modalAltaUsuario .txtMdlIdUsuario").val(result.usuario[0].id_usuario); 
-                    $("#modalAltaUsuario .nombre_usuario").text(nombre); 
-                    $("#modalAltaUsuario").modal("show");
-
+                    if(typeof(result.baja) == "undefined") 
+                    {
+                       $("#modalAlertaUsuario .modal-body").text(result.msjConsulta);
+                       $("#modalAlertaUsuario").modal("show");
+                    }
+                    else
+                    {
+                      window.location = result.url;
+                    }
                     
-
+                   
+                    
                   },
              error:function(result)
                 {
@@ -467,43 +558,8 @@ $("body").on("click",".alta",function()
                 
           });
 
-
-  });
-
-
-  $("body").on("click","#btnMdlAltaUsuario",function()
-  {
-
-    var datosUsuario = {
-                             id_usuario : $("#modalAltaUsuario .txtMdlIdUsuario").val()      
-                      } 
-
-      $.ajax(
-        {
-            type: "POST",
-            url: "Usuarios/altaUsuario",
-            dataType:"json",
-            data: datosUsuario,
-             async: false,
-            success: function(result)
-                {
-                  
-                  
-                  $("#modalAlertaUsuario .modal-body").text(result.msjConsulta);
-                  $("#modalAlertaUsuario").modal("show");
-                  
-                },
-           error:function(result)
-              {
-                alert("Error");
-               console.log(result.responseText);
-                
-              }
-              
-        });
-
-      location.href = result.base_url;
-      
+        location.href = result.base_url;
+        
   });
 
 

@@ -17,25 +17,84 @@ class HookValidarDatosUsuario
 		$funcion = $this->ci->router->method;
 
 
+		// primero verificamos si el usuario esta logueado 
+
 		if($controlador == 'Login')
 		{
-			// if($this->ci->session->userdata('logueado') === true)
-			// {
-			// 	redirect('/Home');
-			// }
+			if($this->ci->session->userdata('logueado') === true)
+			{
+				
+				redirect('/Home');
+				exit();
+			
+			}
 		}
 		else
 		{
 			if($this->ci->session->userdata('logueado') === null)
 			{
-				redirect('/Login');
+				if( $this->ci->input->is_ajax_request())
+				{
+					$datos["baja"]=true;
+					$datos["url"]= base_url()."index.php/login";
+
+					echo json_encode($datos);
+
+					//redirect(, 'location', 302);
+					
+					exit();
+				}
+				else
+				{
+					redirect('/Login');
+					exit();
+				}
+				
 			}
 	
 		}
 
+
+		// Verificar si el usuario esta dado de alta 
+
+		if($controlador != 'Login' && $this->ci->session->userdata('logueado') === true)
+		{
+			$this->ci->load->model('Home/VerificarUsuarioActivo');
+
+			$datosMenu = $this->ci->VerificarUsuarioActivo->verificarUserActivo($this->ci->session->userdata('id'));
+
+			if($datosMenu == 0)
+			{
+				if( $this->ci->input->is_ajax_request())
+				{
+					$this->ci->session->sess_destroy();
+
+					$datos["baja"]=true;
+					$datos["url"]= base_url()."index.php/login";
+					echo json_encode($datos);
+					
+					exit();
+				}
+				else
+				{
+					
+					$this->ci->session->sess_destroy();
+					redirect('/Login');
+					exit();
+				}
+
+
+				
+			}
+			
+
+
+
+		}
+
 		
 
-		// redirect('/Welcome');
+		// verificar si el usuario tiene permisos de acuerdo a su rol para visualizar tales elementos del menú
 
 		if($this->ci->session->userdata('id_rol') != null)
 		{
@@ -53,7 +112,7 @@ class HookValidarDatosUsuario
 			}
 			else if($id_rol == '2')
 			{
-				$controladores_rol = array("Home","Usuarios","RegistrarUsuarios");
+				$controladores_rol = array("Home","Usuarios","RegistrarUsuarios","Permisos");
 
 				$controladorPermitido = in_array($controlador,$controladores_rol);
 
@@ -66,11 +125,11 @@ class HookValidarDatosUsuario
 			}
 
 		
-			if($controlador != "Welcome")
+			if($controlador != "AccesoDenegado")
 			{
 				if($controladorPermitido==false)
 				{
-					redirect('/Welcome');
+					redirect('/AccesoDenegado');
 				}
 			}
 			
@@ -78,18 +137,7 @@ class HookValidarDatosUsuario
 		}
 		
 		
-		
-		
-		
-
-		
-		
-		
-
-
-		//$controllersprivados = array('home');
-
-		//echo "Hola";
+	
 
 
 

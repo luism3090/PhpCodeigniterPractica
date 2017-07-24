@@ -1,14 +1,13 @@
-<?php
-defined('BASEPATH') OR exit('No direct script access allowed');
-?><!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8">
-<title>404 Página no encontrada</title>
-	<link rel="stylesheet" type="text/css" href="http://localhost:8080/PhpCodeigniterPractica/public/css/bootstrap.min.css">
-	<link rel="stylesheet" type="text/css" href="http://localhost:8080/PhpCodeigniterPractica/public/css/estilo_page_not_found.css">
+	<meta charset="UTF-8">
+	<title>Error 403 Acceso denegado</title>
+	<link rel="stylesheet" type="text/css" href="<?php echo base_url();?>public/css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="<?php echo base_url();?>public/css/estilo_page_not_found.css">
 </head>
 <body>
+	
 	<div class="container">
 	    <div class="row">
 	        <div class="col-md-12">
@@ -16,9 +15,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 	                <h1>
 	                    Oops!</h1>
 	                <h2>
-	                    Error 404 página no encontrada</h2>
+	                    Error 403 , Acceso denegado</h2>
 	                <div class="error-details">
-	                    Lo sentimos, ha ocurrido un error, La página solicitada no fue encontrada!
+	                    Lo sentimos, ha ocurrido un error, acceso denegado de la página solicitada!
 	                </div>
 	                <div class="error-actions">
 	                    <a href="http://localhost:8080/PhpCodeigniterPractica/index.php/Home" class="btn btn-primary btn-lg"><span class="glyphicon glyphicon-home"></span>
@@ -28,8 +27,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 	        </div>
 	    </div>
 	</div>
-<script src="http://localhost:8080/PhpCodeigniterPractica/public/libreriasJS/jquery.min.js"></script>
-	<script src="http://localhost:8080/PhpCodeigniterPractica/public/libreriasJS/bootstrap.min.js"></script>
+<script src="<?php echo base_url();?>public/libreriasJS/jquery.min.js"></script>
+	<script src="<?php echo base_url();?>public/libreriasJS/bootstrap.min.js"></script>
+
 
 </body>
 </html>

@@ -103,6 +103,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 			$query = $this->db->query($sql,array($id_usuario));
 
+			// return $query;
+			// exit();
+
 
 			$datos = array("msjCantidadRegistros" => 0, "msjNoHayRegistros" => '',"usuario" => array());
 

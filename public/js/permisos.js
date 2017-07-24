@@ -66,8 +66,17 @@ $(document).ready(function()
               success: function(result)
                   {
 
-                  	$("#modalGuardarMenusRoles .modal-body h4").text(result.msjConsulta);
-                  	$("#modalGuardarMenusRoles").modal("show");
+                  	if(typeof(result.baja) == "undefined") 
+                    {
+                    	$("#modalGuardarMenusRoles .modal-body h4").text(result.msjConsulta);
+                  		$("#modalGuardarMenusRoles").modal("show");
+                    }
+                    else
+                    {
+                      window.location = result.url;
+                    }
+
+                  	
 
 
                   },
@@ -196,22 +205,29 @@ $(document).ready(function()
               success: function(result)
                   {
 
-                   $("#ulListaPermisos").html(result.rowsMenu);
+                  	if(typeof(result.baja) == "undefined") 
+                    {
+                    	$("#ulListaPermisos").html(result.rowsMenu);
+
+	                    for(var x=0 ; x < result.elementosMenu.length;x++)
+	                    {
+
+	                    	$("#ulListaPermisos li[data-id-elemento-menu="+result.elementosMenu[x].id_elemento_menu+"] > input").prop("checked","checked");
+
+	                    }
+                    }
+                    else
+                    {
+                      window.location = result.url;
+                    }
 
                    
-
-                    for(var x=0 ; x < result.elementosMenu.length;x++)
-                    {
-
-                    	$("#ulListaPermisos li[data-id-elemento-menu="+result.elementosMenu[x].id_elemento_menu+"] > input").prop("checked","checked");
-
-                    }
 
                   },
              error:function(result)
                 {
                   alert("Error");
-                 $("#formRegistrarUsuario").html(result.responseText);
+                 //$("#formRegistrarUsuario").html(result.responseText);
                  console.log(result.responseText);
                   
                 }

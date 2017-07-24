@@ -9,15 +9,6 @@ class Usuarios extends CI_Controller
 		parent::__construct();
 
 		 $this->load->model('Usuarios/users');
-
-		// if($this->session->userdata('login')==null)
-		// {
-		// 	redirect('/Login');
-		// }
-		// if($this->session->userdata('id_rol')=='3')
-		// {
-		// 	redirect('/index');
-		// }  
 		
 	}
 	public function index()
@@ -42,9 +33,26 @@ class Usuarios extends CI_Controller
 		$id_usuario = $_POST["id_usuario"];
 
 
+		//$datos["id"] = $id_usuario;
+		// echo json_encode($datos);
+		// exit();
+
+
 		$datosUsuario = $this->users->obtenerDatosUsuario($id_usuario);
 
-		echo json_encode($datosUsuario);
+		$datos["algo"] = "Hola";
+
+		if(is_array($datosUsuario))
+		{
+			echo json_encode($datosUsuario);
+		}
+		else
+		{
+			$datos["algo"] = "Hola";
+			echo json_encode($datos);
+		}
+
+		
 	}
 
 	public function updateUsuario()
