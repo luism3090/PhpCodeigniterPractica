@@ -31,5 +31,6 @@
 	<script src="<?php echo base_url();?>public/libreriasJS/bootstrap.min.js"></script>
 
 
+
 </body>
 </html>

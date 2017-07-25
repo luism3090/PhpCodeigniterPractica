@@ -103,9 +103,26 @@ class HookValidarDatosUsuario
 			$controladores_rol ="";
 			$controladorPermitido = false;
 
+			$this->ci->load->model('Home/VerificarControladoresRol');
+
+			$datosControles = $this->ci->VerificarControladoresRol->VerifyControlesRol($this->ci->session->userdata('id_rol'));
+
+			//var_dump($datosControles["controladores"]);
+			//exit();
+
 			if($id_rol == '1')
-			{
+			{	
+				if($datosControles["msjCantidadRegistros"] > 0)
+				{
+					//$controladores_rol = array("Home","Usuarios","RegistrarUsuarios","Permisos");
+
+					//$controladores_rol = $datosControles["controladores"];
+
+					
+				}
+
 				$controladores_rol = array("Home","Usuarios","RegistrarUsuarios","Permisos");
+
 
 				$controladorPermitido = in_array($controlador,$controladores_rol);
 
@@ -129,7 +146,7 @@ class HookValidarDatosUsuario
 			{
 				if($controladorPermitido==false)
 				{
-					redirect('/AccesoDenegado');
+					redirect('/AccesoDenegado',$datosControles);
 				}
 			}
 			
