@@ -36,155 +36,72 @@ $(document).ready(function()
 
 	 $("body").on("submit","#formPermisos",function(event)
 	 {
-	 	event.preventDefault();
+		 	event.preventDefault();
 
-	 	 var datosElementosMenu = [];
+		 	 var datosElementosMenu = [];
 
-	 	$("#ulListaPermisos li input:checked").parent().each(function()
-	 	{
+		 	 if($("#ulListaPermisos li input:checked").length > 0 )
+		 	 {
 
-	 		var elemento = 	{
-	 							id_elemento_menu:$(this).attr("data-id-elemento-menu") 
-	 						}
+		 	 	$("#ulListaPermisos li input:checked").parent().each(function()
+			 	{
 
-
-
-	 		datosElementosMenu.push(elemento);
-
-
-	 	});
-
-	 	//console.log(datosElementosMenu);
-
-	 	 $.ajax(
-          {
-              type: "POST",
-              url: "Permisos/insertarPermisosRoles",
-              dataType:"json",
-              data: {datosElementosMenu,id_rol:$("#slTipoUsuario").val()},
-               async: true,
-              success: function(result)
-                  {
-
-                  	if(typeof(result.baja) == "undefined") 
-                    {
-                    	$("#modalGuardarMenusRoles .modal-body h4").text(result.msjConsulta);
-                  		$("#modalGuardarMenusRoles").modal("show");
-                    }
-                    else
-                    {
-                      window.location = result.url;
-                    }
-
-                  	
-
-
-                  },
-             error:function(result)
-                {
-                  alert("Error");
-                 $("#formRegistrarUsuario").html(result.responseText);
-                 console.log(result.responseText);
-                  
-                }
-                
-          });
+			 		var elemento = 	{
+			 							id_elemento_menu:$(this).attr("data-id-elemento-menu") 
+			 						}
 
 
 
-	 	//OBTENER ELEMENTOS PRIMER NIVEL
-
-	 	// var datosElementosPrimerNivel = [
-	 								
-	 	// 						 ];
-
-	 	// $("#ulListaPermisos > li").each(function(index)
-	 	// {
-	 		
-
-	 	// 	// arrayElementosMenu = [ { 
-		 // 	// 							nombreElemento: elemento[0].childNodes[0].nodeValue.trim(), 
-		 // 	// 							hijos:[{ 
-		 // 	// 									nombreElementoHijo: elemento[0].childNodes[0].nodeValue.trim()
-		 // 	// 								 }]
-	 	// 	// 					   }, 
-	 	// 	// 					   { 
-	 	// 	// 					   	 	nombreElemento2: "Descripcion" 
-	 	// 	// 					   }
-	 	// 	// 					];
-	 	// 	// debugger;
-	 		
-
-	 	// 	var elemento = 
-	 	// 	{
-	 	// 		elementoJquery:$(this),
-	 	// 		nombreElemento: $(this)[0].childNodes[0].nodeValue.trim(),
-	 	// 		id_elemento_menu:$(this).attr("data-id-elemento-menu"),
-	 	// 		 hijos:[]	
-	 	// 	}
+			 		datosElementosMenu.push(elemento);
 
 
-	 	// 	datosElementosPrimerNivel.push(elemento);
+			 		 $.ajax(
+				      {
+				          type: "POST",
+				          url: "Permisos/insertarPermisosRoles",
+				          dataType:"json",
+				          data: {datosElementosMenu,id_rol:$("#slTipoUsuario").val()},
+				           async: true,
+				          success: function(result)
+				              {
 
-	 	// });
+				              	if(typeof(result.baja) == "undefined") 
+				                {
+				                	$("#modalGuardarMenusRoles .modal-body h4").text(result.msjConsulta);
+				              		$("#modalGuardarMenusRoles").modal("show");
+				                }
+				                else
+				                {
+				                  window.location = result.url;
+				                }
 
-	 	// OBTENER ELEMENTOS SEGUNDO NIVEL
-	 
-
-	 	
-	 	// datosElementosSegundoNivel = [];
-
-	 	// function buildObject(arrayElementosMenu)
-	 	// {
-
-	 	// 	for(var x=0 ; x < arrayElementosMenu.length ;x++)
-	 	// 	{
-
-	 	// 		datosElementosSegundoNivel[x] = getHijosElementosLista(arrayElementosMenu[x]);
-	 			
-	 	// 	}
-
-	 	// }
-	 	// function getHijosElementosLista(arrayElementosMenu)
-	 	// {
-	 		
-
-	 	// 	arrayElementosHijos = [];
-
-	 		
-	 	// 	arrayElementosMenu.elementoJquery.find(">ul > li").each(function(index)
-	 	// 	{
-
-	 			
-
-	 	// 		var Hijo = 
-	 	// 				{ 
-	 	// 					nombreElementoHijo : $(this)[0].childNodes[0].nodeValue.trim(),
-	 	// 					elementoJquery : $(this)
-	 						
-	 	// 				}
+				              },
+				         error:function(result)
+				            {
+				              alert("Error");
+				             $("#formRegistrarUsuario").html(result.responseText);
+				             console.log(result.responseText);
+				              
+				            }
+				            
+				      });
 
 
-	 	// 		arrayElementosHijos.push(Hijo);
+			 	});
 
-	 			
+		 	 }
+		 	 else
+		 	 {
+		 	 	$("#modalGuardarMenusRoles .modal-body h4").text("Debe seleccionar cuando menos un permiso para el rol");
+          		$("#modalGuardarMenusRoles").modal("show");
+		 	 }
 
-	 	// 	});
+		 	
 
-	 		
 
-	 	// 	return arrayElementosHijos;
+			 	//console.log(datosElementosMenu);
 
-	 	// }
-
-	 	// buildObject(datosElementosPrimerNivel);
-	 	// buildObject(datosHijosSegundoNivel);
-	 	
-	 	// console.log(datosElementosPrimerNivel);
-	 	// console.log(datosElementosSegundoNivel);
-
-	 	
-	 	
+		 	
 	 	 
 
 	 });
@@ -242,31 +159,54 @@ $(document).ready(function()
 	$("body").on("click","#ulListaPermisos li > input",function() 
 	{
 		
-		if(!$(this).is(':checked') )
+		if(!$(this).is(':checked'))  // si se le da cllick a un check y se desmarca entra aquí
 		{
-			$(this).parent().find("ul li > input").prop("checked","");
+			$(this).parent().find("ul li > input").prop("checked",""); 
+			// si el check que se desmarcó tiene mas hijos checks, pues desmarca esos hijos 
 		}
-		else
+		else  // si se le da click a un check y se marca ese check entra aquí
 		{
 			$(this).parent().find("ul li > input").prop("checked","checked");
+			$(this).parents("ul").parent("li").find(">input").prop("checked","checked"); 
+			// si el check que se marco tiene mas hijos checks, pues se marcan esos hijos 
 		}
 
 
 		var cantChecks = $(this).closest("ul").find("li input").length;
-		var cantCheckeados = $(this).closest("ul").find("li input:not(:checked)").length;
+		// verificar la cantidad de hermanos checks que tiene el check al que se le dio click 
 
+		var cantSiCheckeados = $(this).closest("ul").find("li input:checked").length;
+		// verificar la cantidad de hermanos checks  SI marcados que tiene el check al que se le dio click 
 
-		if(cantCheckeados > 0 )
+		var cantNoCheckeados = $(this).closest("ul").find("li input:not(:checked)").length;
+		// verificar la cantidad de hermanos checks NO marcados que tiene el check al que se le dio click 
+
+	    // si la cantidad de checks hermanos SI marcados es por lo menos de uno entra aquí
+		if(cantSiCheckeados == 1 ) 
 		{
 			$(this).parents("ul").parent("li").find(">input").prop("checked","checked");
-			//$(this).closest("ul").parent().find(">input").prop("checked","checked");
+			// si por lo menos hay un check hermano marcado entonces marca a todos sus checks padres tambien 
+			
 		}
 
-		if(cantChecks == cantCheckeados )
+		// si la cantidad de checks hemanos es igual a la cantidad de checks no marcados entra aquí 
+		if(cantChecks == cantNoCheckeados) 
 		{
-			$(this).parents("ul").parent("li").find(">input").prop("checked","");
-			//$(this).closest("ul").parent().find("input").prop("checked","");
+			
+			$(this).parents("ul").parent("li").find(">input").prop("checked","");   // desmarca todos sus checks padres de ese check  
+
+			// si hya un elemento padre que tiene mas hijos checks marcados entonces entra aqui 
+			if($(this).closest("ul").parent().parents("ul").parent("li").find("ul  li input:checked").length > 0) 
+			{
+				// si fue asi entonces ese check padre se vuelve marcado debido a que tiene algun o algunos otros hijos marcados
+				$(this).closest("ul").parent().parents("ul").parent("li").find(">input").prop("checked","checked");
+			}
+
+			
+			
 		}
+
+		
 
 	});
 

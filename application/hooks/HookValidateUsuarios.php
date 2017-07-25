@@ -105,41 +105,41 @@ class HookValidarDatosUsuario
 
 			$this->ci->load->model('Home/VerificarControladoresRol');
 
-			$datosControles = $this->ci->VerificarControladoresRol->VerifyControlesRol($this->ci->session->userdata('id_rol'));
+			$datos = $this->ci->VerificarControladoresRol->VerifyControlesRol($this->ci->session->userdata('id_rol'));
 
-			//var_dump($datosControles["controladores"]);
-			//exit();
-
-			if($id_rol == '1')
-			{	
-				if($datosControles["msjCantidadRegistros"] > 0)
-				{
-					//$controladores_rol = array("Home","Usuarios","RegistrarUsuarios","Permisos");
-
-					//$controladores_rol = $datosControles["controladores"];
-
-					
-				}
-
-				$controladores_rol = array("Home","Usuarios","RegistrarUsuarios","Permisos");
-
-
-				$controladorPermitido = in_array($controlador,$controladores_rol);
-
-			}
-			else if($id_rol == '2')
+			if($datos["msjCantidadRegistros"] > 0)
 			{
-				$controladores_rol = array("Home","Usuarios","RegistrarUsuarios","Permisos");
-
+				$controladores_rol = explode(",", $datos["controllers"][0]->controladores);
 				$controladorPermitido = in_array($controlador,$controladores_rol);
-
 			}
-			else if($id_rol == '3')
+			else
 			{
-				$controladores_rol = array("Home");
-
+				$controladores_rol = array();
 				$controladorPermitido = in_array($controlador,$controladores_rol);
 			}
+			//var_dump($datos["controllers"][0]->controladores);
+			
+			 //exit();
+
+
+			// if($id_rol == '1')
+			// {	
+				
+
+			// }
+			// else if($id_rol == '2')
+			// {
+			// 	$controladores_rol = array("Home","Usuarios","RegistrarUsuarios","Permisos");
+
+			// 	$controladorPermitido = in_array($controlador,$controladores_rol);
+
+			// }
+			// else if($id_rol == '3')
+			// {
+			// 	$controladores_rol = array("Home");
+
+			// 	$controladorPermitido = in_array($controlador,$controladores_rol);
+			// }
 
 		
 			if($controlador != "AccesoDenegado")

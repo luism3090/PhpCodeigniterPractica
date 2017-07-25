@@ -14,7 +14,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 			
 
-			$sql =	"select controlador 
+			$sql =	"select CONCAT('Home,',ifnull(group_concat(me.controlador),'')) as controladores
 					from menus me
 					join rel_menu_usuarios rmu on me.id_elemento_menu = rmu.id_elemento_menu
 					join roles rol on rmu.id_rol = rol.id_rol 
@@ -23,14 +23,14 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 					$query = $this->db->query($sql,array($id_rol));
 
 
-			$datos = array("msjCantidadRegistros" => 0, "msjNoHayRegistros" => '' ,"controladores" => array());
+			$datos = array("msjCantidadRegistros" => 0, "msjNoHayRegistros" => '' ,"controllers" => array());
 
 
 				$datos["msjCantidadRegistros"] = $query->num_rows(); 
 
 				if($datos["msjCantidadRegistros"] > 0)
 				{
-					$datos["controladores"] = $query->result(); 
+					$datos["controllers"] = $query->result(); 
 					
 				}
 				else{
