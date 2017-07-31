@@ -9,74 +9,249 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 		}
 
 
-		public function obtenerUsuarios()
+		public function obtenerUsuariosAlta($request)
 		{
 
+					$requestData= $request;
+
+
+					
+					$sqlUsuariosAlta =	"select 
+											usu.id_usuario,
+											rol.id_rol,
+											usu.nombre,
+											usu.apellidos,
+											usu.email,
+											usu.fecha_registro,
+											rol.descripcion as tipoUsuario,
+											'<button  type=''button'' class=''btn btn-primary updateUsersAlta''> <span class=''glyphicon glyphicon-pencil''></span> </button>' as modificar,
+											'<button  type=''button'' class=''btn btn-danger bajaUsersAlta''> <span class=''glyphicon glyphicon-circle-arrow-down''></span> </button>' as eliminar 
+											from usuarios usu
+											join usuarios_roles usu_ro on (usu.id_usuario = usu_ro.id_usuario)
+											join roles rol on (usu_ro.id_rol = rol.id_rol) where usu.id_usuario != 1 and usu.estado = '1' 
+											order by usu.fecha_registro desc ";
+
+					$query = $this->db->query($sqlUsuariosAlta);
+					$totalData = $query->num_rows();
+					$totalFiltered = $totalData;
+
+					if( !empty($requestData['search']['value']) ) 
+					{   
+
+						$sqlUsuariosAlta = "select 
+													usu.id_usuario,
+													rol.id_rol,
+													usu.nombre,
+													usu.apellidos,
+													usu.email,
+													usu.fecha_registro,
+													usu.fecha_actualizacion,
+													rol.descripcion as tipoUsuario,
+													'<button  type=''button'' class=''btn btn-primary updateUsersAlta''> <span class=''glyphicon glyphicon-pencil''></span> </button>' as modificar,
+												    '<button  type=''button'' class=''btn btn-danger bajaUsersAlta''> <span class=''glyphicon glyphicon-circle-arrow-down''></span> </button>' as eliminar 
+													from usuarios usu
+													join usuarios_roles usu_ro on (usu.id_usuario = usu_ro.id_usuario)
+													join roles rol on (usu_ro.id_rol = rol.id_rol)
+													 where usu.id_usuario != 1 and usu.estado = '1' and 
+													 ( 
+																		 usu.nombre like '%".$this->db->escape_str($requestData['search']['value'])."%' or  
+																		 usu.apellidos like '%".$this->db->escape_str($requestData['search']['value'])."%' or 
+																		 usu.email like '%".$this->db->escape_str($requestData['search']['value'])."%' or 
+																		 usu.fecha_registro like '%".$this->db->escape_str($requestData['search']['value'])."%' or
+																		 rol.descripcion like '%".$this->db->escape_str($requestData['search']['value'])."%' 
+													 ) order by usu.fecha_registro desc ";
+
+
+											
+						$query = $this->db->query($sqlUsuariosAlta);
+						$totalFiltered = $query->num_rows(); 
+						
+
+					}
+
+					$limit = " LIMIT ".$this->db->escape_str($requestData['start'])." ,".$this->db->escape_str($requestData['length'])." ";
+		            $sqlUsuariosAlta .= $limit;
+		                
+		            $query = $this->db->query($sqlUsuariosAlta);
+
+
+
+		            $data = array();
+
+							foreach ($query->result_array() as $row)
+							{ 
+								$nestedData=array();
+
+							    $nestedData[] = $row["id_usuario"];
+							    $nestedData[] = $row["id_rol"];
+								$nestedData[] = $row["nombre"];
+								$nestedData[] = $row["apellidos"];
+								$nestedData[] = $row["email"];
+								$nestedData[] = $row["fecha_registro"];
+								$nestedData[] = $row["tipoUsuario"];
+								$nestedData[] = $row["modificar"];
+								$nestedData[] = $row["eliminar"];
+
+								$data[] = $nestedData;
+							}
+
+
+				$json_data = array(
+					"draw"            => intval( $requestData['draw'] ),   // for every request/draw by clientside , they send a number as a parameter, when they recieve a response/data they first check the draw number, so we are sending same number in draw. 
+					"recordsTotal"    => intval( $totalData ),  // total number of records
+					"recordsFiltered" => intval( $totalFiltered ), // total number of records after searching, if there is no searching then totalFiltered = totalData
+					"data"            => $data  // total data array
+					);
+
+
+				return $json_data;
+
+
+					// $sqlUsuariosBaja =	"select 
+					// 			usu.id_usuario,
+					// 			rol.id_rol,
+					// 			usu.nombre,
+					// 			usu.apellidos,
+					// 			usu.email,
+					// 			usu.fecha_registro,
+					// 			usu.fecha_actualizacion,
+					// 			rol.descripcion as tipoUsuario
+					// 			from usuarios usu
+					// 			join usuarios_roles usu_ro on (usu.id_usuario = usu_ro.id_usuario)
+					// 			join roles rol on (usu_ro.id_rol = rol.id_rol) where usu.id_usuario != 1 and usu.estado = '0' 
+					// 			order by usu.fecha_registro desc ";
+
+				 //    $queryUsuariosBaja = $this->db->query($sqlUsuariosBaja);
+
+
+
+						// $datos = array("msjCantidadRegistrosAlta" => 0, "msjNoHayRegistrosAlta" => '' ,"usuariosAlta" => array(), "msjCantidadRegistrosBaja" => 0, "msjNoHayRegistrosBaja" => '' ,"usuariosBaja" => array() );
+
+
+						// $datos["msjCantidadRegistrosAlta"] = $queryUsuariosAlta->num_rows(); 
+
+						// if($datos["msjCantidadRegistrosAlta"] > 0)
+						// {
+						// 	$datos["usuariosAlta"] = $queryUsuariosAlta->result(); 
+							
+						// }
+						// else{
+						// 	$datos["msjNoHayRegistrosAlta"] = "No hay usuarios dados de alta";
+						// }
+
+						
+						// $datos["msjCantidadRegistrosBaja"] = $queryUsuariosBaja->num_rows(); 
+
+						// if($datos["msjCantidadRegistrosBaja"] > 0)
+						// {
+						// 	$datos["usuariosBaja"] = $queryUsuariosBaja->result(); 
+							
+						// }
+						// else{
+						// 	$datos["msjNoHayRegistrosBaja"] = "No hay usuarios dados de baja";
+						// }
+
+						
+						// return $datos;
+
 			
-			$sqlUsuariosAlta =	"select 
-									usu.id_usuario,
-									rol.id_rol,
-									usu.nombre,
-									usu.apellidos,
-									usu.email,
-									usu.fecha_registro,
-									usu.fecha_actualizacion,
-									rol.descripcion as tipoUsuario
-									from usuarios usu
-									join usuarios_roles usu_ro on (usu.id_usuario = usu_ro.id_usuario)
-									join roles rol on (usu_ro.id_rol = rol.id_rol) where usu.id_usuario != 1 and usu.estado = '1' 
-									order by usu.fecha_registro desc";
-
-			$queryUsuariosAlta = $this->db->query($sqlUsuariosAlta);
+		}
 
 
 
-			$sqlUsuariosBaja =	"select 
-						usu.id_usuario,
-						rol.id_rol,
-						usu.nombre,
-						usu.apellidos,
-						usu.email,
-						usu.fecha_registro,
-						usu.fecha_actualizacion,
-						rol.descripcion as tipoUsuario
-						from usuarios usu
-						join usuarios_roles usu_ro on (usu.id_usuario = usu_ro.id_usuario)
-						join roles rol on (usu_ro.id_rol = rol.id_rol) where usu.id_usuario != 1 and usu.estado = '0' 
-						order by usu.fecha_registro desc ";
+		public function obtenerUsuariosBaja($request)
+		{
 
-		    $queryUsuariosBaja = $this->db->query($sqlUsuariosBaja);
+					$requestData= $request;
 
 
-
-				$datos = array("msjCantidadRegistrosAlta" => 0, "msjNoHayRegistrosAlta" => '' ,"usuariosAlta" => array(), "msjCantidadRegistrosBaja" => 0, "msjNoHayRegistrosBaja" => '' ,"usuariosBaja" => array() );
-
-
-				$datos["msjCantidadRegistrosAlta"] = $queryUsuariosAlta->num_rows(); 
-
-				if($datos["msjCantidadRegistrosAlta"] > 0)
-				{
-					$datos["usuariosAlta"] = $queryUsuariosAlta->result(); 
 					
-				}
-				else{
-					$datos["msjNoHayRegistrosAlta"] = "No hay usuarios dados de alta";
-				}
+					$sqlUsuariosBaja =	"select 
+											usu.id_usuario,
+											rol.id_rol,
+											usu.nombre,
+											usu.apellidos,
+											usu.email,
+											usu.fecha_registro,
+											rol.descripcion as tipoUsuario,
+											'<button  type=''button'' class=''btn btn-primary usersBajaAlta''> <span class=''glyphicon glyphicon-circle-arrow-up''></span> </button>' as alta 
+											from usuarios usu
+											join usuarios_roles usu_ro on (usu.id_usuario = usu_ro.id_usuario)
+											join roles rol on (usu_ro.id_rol = rol.id_rol) where usu.id_usuario != 1 and usu.estado = '0' 
+											order by usu.fecha_registro desc ";
 
-				
-				$datos["msjCantidadRegistrosBaja"] = $queryUsuariosBaja->num_rows(); 
+					$query = $this->db->query($sqlUsuariosBaja);
+					$totalData = $query->num_rows();
+					$totalFiltered = $totalData;
 
-				if($datos["msjCantidadRegistrosBaja"] > 0)
-				{
-					$datos["usuariosBaja"] = $queryUsuariosBaja->result(); 
-					
-				}
-				else{
-					$datos["msjNoHayRegistrosBaja"] = "No hay usuarios dados de baja";
-				}
+					if( !empty($requestData['search']['value']) ) 
+					{   
 
-				
-				return $datos;
+						$sqlUsuariosBaja = "select 
+													usu.id_usuario,
+													rol.id_rol,
+													usu.nombre,
+													usu.apellidos,
+													usu.email,
+													usu.fecha_registro,
+													rol.descripcion as tipoUsuario,
+													'<button  type=''button'' class=''btn btn-primary usersBajaAlta''> <span class=''glyphicon glyphicon-circle-arrow-up''></span> </button>' as alta
+													from usuarios usu
+													join usuarios_roles usu_ro on (usu.id_usuario = usu_ro.id_usuario)
+													join roles rol on (usu_ro.id_rol = rol.id_rol)
+													 where usu.id_usuario != 1 and usu.estado = '0' and 
+													 ( 
+																		 usu.nombre like '%".$this->db->escape_str($requestData['search']['value'])."%' or  
+																		 usu.apellidos like '%".$this->db->escape_str($requestData['search']['value'])."%' or 
+																		 usu.email like '%".$this->db->escape_str($requestData['search']['value'])."%' or 
+																		 usu.fecha_registro like '%".$this->db->escape_str($requestData['search']['value'])."%' or
+																		 rol.descripcion like '%".$this->db->escape_str($requestData['search']['value'])."%' 
+													 ) order by usu.fecha_registro desc ";
+
+
+											
+						$query = $this->db->query($sqlUsuariosBaja);
+						$totalFiltered = $query->num_rows(); 
+						
+
+					}
+
+					$limit = " LIMIT ".$this->db->escape_str($requestData['start'])." ,".$this->db->escape_str($requestData['length'])." ";
+		            $sqlUsuariosBaja .= $limit;
+		                
+		            $query = $this->db->query($sqlUsuariosBaja);
+
+
+
+		            $data = array();
+
+							foreach ($query->result_array() as $row)
+							{ 
+								$nestedData=array();
+
+							    $nestedData[] = $row["id_usuario"];
+							    $nestedData[] = $row["id_rol"];
+								$nestedData[] = $row["nombre"];
+								$nestedData[] = $row["apellidos"];
+								$nestedData[] = $row["email"];
+								$nestedData[] = $row["fecha_registro"];
+								$nestedData[] = $row["tipoUsuario"];
+								$nestedData[] = $row["alta"];
+
+								$data[] = $nestedData;
+							}
+
+
+				$json_data = array(
+					"draw"            => intval( $requestData['draw'] ),   // for every request/draw by clientside , they send a number as a parameter, when they recieve a response/data they first check the draw number, so we are sending same number in draw. 
+					"recordsTotal"    => intval( $totalData ),  // total number of records
+					"recordsFiltered" => intval( $totalFiltered ), // total number of records after searching, if there is no searching then totalFiltered = totalData
+					"data"            => $data  // total data array
+					);
+
+
+				return $json_data;
+
 
 			
 		}

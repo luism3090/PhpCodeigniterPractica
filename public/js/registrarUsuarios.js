@@ -163,6 +163,8 @@ $(document).ready(function()
 
           }
         }).on('success.form.bv', function (e) {
+
+                         // debugger;
               
                var datosUsuario = {
                                  
@@ -180,13 +182,14 @@ $(document).ready(function()
                                 url: "RegistrarUsuarios/insertarUsuario",
                                 dataType:"json",
                                 data: datosUsuario,
-                                 async: true,
+                                async: true,
                                 success: function(result)
                                     {
+                                     
                                       
                                       if(typeof(result.baja) == "undefined") 
                                       {
-                                         $("#modalUsuarioRegistrado #base_url").val(result.base_url);
+                                        $("#modalUsuarioRegistrado #base_url").val(result.base_url);
                                          $("#modalUsuarioRegistrado").modal("show");
                                       }
                                       else

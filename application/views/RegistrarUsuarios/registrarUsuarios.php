@@ -116,6 +116,12 @@
 													<option value="3" selected >Cliente</option>
 												</select> 
 											</div>
+											
+											<!-- <div class="form-group">
+											<label for="elegir">Subir imagen:</label> 
+												<input type="file" id="fileSubir" multiple class="form-control" >
+											</div> -->
+
 											<button type="submit" class="btn btn-primary"  >Guardar</button>
 										</form>
 

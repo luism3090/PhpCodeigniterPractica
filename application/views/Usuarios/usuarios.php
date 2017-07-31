@@ -90,13 +90,12 @@
 									<div class="col-xs-12">
 										
 												<div class="table-responsive">
-														<table class="table table-bordered table-hover" id="tblUsuariosAlta">
+														<table class="table table-bordered table-hover" id="tblUsuariosAlta" cellspacing="0"  width="100%" style="text-align: center;">
 																<caption style="text-align: center"><h4><strong>Usuarios dados de alta</strong></h4></caption>
 																<thead>
-													                    <tr class="info">
-														                    <th>No</th>
-														                  <!--     <th>id_usuario</th>
-														                      <th>id_rol</th> -->
+													                    <tr>
+														                      <th>id_usuario</th>
+														                      <th>id_rol</th>
 														                      <th>Nombre</th>
 														                      <th>Apellidos</th>
 														                      <th>Email</th>
@@ -106,8 +105,6 @@
 														                      <th>Baja</th>
 													                    </tr>
 												                </thead>
-												                <tbody>
-												                </tbody>
 												        </table>
 												</div>
 									</div>
@@ -117,14 +114,13 @@
 								<div class="row">
 									<div class="col-xs-12">
 												
-												<table class="table table-bordered table-hover" id="tblUsuariosBaja" data-page-list='[5, 10, 20, 50, 100, 200 ,300 ]'>
+												<table class="table table-bordered table-hover" id="tblUsuariosBaja" cellspacing="0"  width="100%" style="text-align: center;">
 														<caption style="text-align: center"><h4><strong>Usuarios dados de baja</strong></h4></caption>
 														<thead>
 															
-											                    <tr class="info">
-											                      <th>No</th>
-											                     <!--  <th>id_usuario</th>
-											                      <th>id_rol</th> -->
+											                    <tr>
+											                      <th>id_usuario</th>
+											                      <th>id_rol</th>
 											                      <th>Nombre</th>
 											                      <th>Apellidos</th>
 											                      <th>Email</th>
@@ -133,8 +129,6 @@
 											                      <th>Alta</th>
 											                    </tr>
 										                </thead>
-										                <tbody>
-												        </tbody>
 												</table>
 
 

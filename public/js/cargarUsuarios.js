@@ -4,7 +4,7 @@ $(document).ready(function()
   validaFormUpdateUsuario();
   
 
-    function createTablasusuarios(inicio)
+    function createTablasusuarios()
     {
 
        $.ajax(
@@ -112,18 +112,102 @@ $(document).ready(function()
     }
 
 
-  
-   createTablasusuarios();
+
+  var tableUsersAlta = $('#tblUsuariosAlta').DataTable( 
+      {
+        "processing": true,
+        "serverSide": true,
+         "select": 'single',
+         "language": {
+                        "url": "//cdn.datatables.net/plug-ins/1.10.15/i18n/Spanish.json"
+                      },
+                  "scrollY":        "500px",
+                  "scrollCollapse": true,
+        "ajax":{
+          url :"Usuarios/cargarUsuariosAlta", 
+          type: "post",  
+          error: function(d){ 
+            $(".employee-grid-error").html("");
+            $("#employee-grid").append('<tbody class="employee-grid-error"><tr><th colspan="3">No se encontraron datos</th></tr></tbody>');
+            $("#employee-grid_processing").css("display","none");
+            
+          },
+          // ,
+          // success:function(d)
+          // {
+          //  debugger;
+          // }
+        },
+        "columnDefs": [
+                      {
+                          "targets": [ 0 ],
+                          "visible": false,
+                          "searchable": false
+                      },
+                      {
+                          "targets": [ 1 ],
+                          "visible": false,
+                          "searchable": false
+                      }
+                  ],
+        
+
+      } );
+
+
+  var tableUsersBaja = $('#tblUsuariosBaja').DataTable( 
+      {
+        "processing": true,
+        "serverSide": true,
+         "select": 'single',
+         "language": {
+                        "url": "//cdn.datatables.net/plug-ins/1.10.15/i18n/Spanish.json"
+                      },
+                  "scrollY":        "500px",
+                  "scrollCollapse": true,
+        "ajax":{
+          url :"Usuarios/cargarUsuariosBaja", 
+          type: "post",  
+          error: function(d){ 
+            $(".employee-grid-error").html("");
+            $("#employee-grid").append('<tbody class="employee-grid-error"><tr><th colspan="3">No se encontraron datos</th></tr></tbody>');
+            $("#employee-grid_processing").css("display","none");
+            
+          },
+          // ,
+          // success:function(d)
+          // {
+          //  debugger;
+          // }
+        },
+        "columnDefs": [
+                      {
+                          "targets": [ 0 ],
+                          "visible": false,
+                          "searchable": false
+                      },
+                      {
+                          "targets": [ 1 ],
+                          "visible": false,
+                          "searchable": false
+                      }
+                  ],
+        
+
+      } );
+
+
+   //createTablasusuarios2();
    
 
 // FUNCIONES PARA ACTUALIZAR USUARIOS 
 
-    $("body").on("click",".update",function()
+    $("body").on("click",".updateUsersAlta",function()
     {
       
 
           var datosUsuario = {
-                               id_usuario : $(this).parent().attr("data-id-usuario")       
+                               id_usuario : tableUsersAlta.rows($(this).closest("tr").index()).data().pluck(0)[0]       
                              } 
 
           $.ajax(
@@ -376,11 +460,11 @@ $(document).ready(function()
 // FUNCIONES PARA DAR BAJA DE USUARIO
 
 
-  $("body").on("click",".baja",function()
+  $("body").on("click",".bajaUsersAlta",function()
   {
 
       var datosUsuario = {
-                               id_usuario : $(this).parent().attr("data-id-usuario")         
+                               id_usuario : tableUsersAlta.rows($(this).closest("tr").index()).data().pluck(0)[0]         
                              } 
 
        $.ajax(
@@ -408,9 +492,6 @@ $(document).ready(function()
                        window.location = result.url;
                      
                     }
-                    
-
-                    
 
                   },
              error:function(result)
@@ -473,11 +554,11 @@ $(document).ready(function()
 // FUNCIONES PARA EL ALTA DE USUARIOS 
 
 
-  $("body").on("click",".alta",function()
+  $("body").on("click",".usersBajaAlta",function()
   {
 
         var datosUsuario = {
-                                 id_usuario : $(this).parent().attr("data-id-usuario")         
+                                 id_usuario : tableUsersBaja.rows($(this).closest("tr").index()).data().pluck(0)[0]            
                                } 
 
          $.ajax(

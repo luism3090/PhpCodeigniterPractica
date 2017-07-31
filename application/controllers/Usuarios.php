@@ -17,16 +17,24 @@ class Usuarios extends CI_Controller
 
 	}
 
-	public function cargarUsuarios()
+	public function cargarUsuariosAlta()
 	{
 
+		$datosUsuariosAlta = $this->users->obtenerUsuariosAlta($_REQUEST);
 
-		$datosUsuarios = $this->users->obtenerUsuarios();
-
-		echo json_encode($datosUsuarios);
+		echo json_encode($datosUsuariosAlta);
 
 	}
 
+	public function cargarUsuariosBaja()
+	{
+
+
+		$datosUsuariosBaja = $this->users->obtenerUsuariosBaja($_REQUEST);
+
+		echo json_encode($datosUsuariosBaja);
+
+	}
 
 	public function getDatosUpdateUsuario()
 	{
