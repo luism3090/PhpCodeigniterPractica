@@ -42,15 +42,20 @@ class RegistrarUsuarios extends CI_Controller
 	public function insertarUsuario()
 	{
 
+		$nombre= $_REQUEST["nombre"];
+		$apellidos = $_REQUEST["apellidos"];
+		$email = $_REQUEST["email"];
+		$password = $_REQUEST["password"];
+		$id_rol = $_REQUEST["id_rol"];
+
 		
-		$nombre = $_POST["nombre"];
-		$apellidos = $_POST["apellidos"];
-		$email = $_POST["email"];
-		$password = $_POST["password"];
-		$id_rol = $_POST["id_rol"];
+		// $email = $_POST["email"];
+		// $password = $_POST["password"];
+		// $id_rol = $_POST["id_rol"];
 
+		
 
-		$datosUsuario = $this->registrarUsers->insertUsers($nombre,$apellidos,$email,$password,$id_rol);
+		$datosUsuario = $this->registrarUsers->insertUsers($nombre,$apellidos,$email,$password,$id_rol,$_FILES);
 
 		//$datosUsuario["aa"] = $datosUsuario;
 

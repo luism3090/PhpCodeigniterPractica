@@ -40,9 +40,51 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 		}
 
 
-		public function insertUsers($nombre,$apellidos,$email,$password,$id_rol)
+		public function insertUsers($nombre,$apellidos,$email,$password,$id_rol,$files)
 		{
 
+			$nombreAleatorio = substr(str_shuffle(str_repeat('ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789',80)),0,80);
+
+			$ruta = $_SERVER['DOCUMENT_ROOT']."/PhpCodeigniterPractica/public/uploads/";
+
+			$nombreOriginal = "";
+
+			foreach ( $files as $key) 
+			{
+
+			 //    return $files;
+				// exit();
+
+				if($key['error'] == UPLOAD_ERR_OK)
+				{
+					//$nombreOriginal = $key["name"];
+					$tipoImage = explode("/", $key['type']);
+					$nombreOriginal = $nombreAleatorio.".".$tipoImage[1];
+					$temporal = $key["tmp_name"];
+					//$temporal = $nombreAleatorio;
+					$destino = $ruta.$nombreOriginal;
+
+					//return $destino;
+
+
+
+					$subir = move_uploaded_file($temporal, $destino);
+
+					
+
+				}
+
+
+			}
+
+			$foto = "default_avatar.png";
+
+			if($nombreOriginal != "")
+			{
+				$foto = $nombreOriginal;
+			}
+			
+		
 			$this->db->trans_begin();
 
 			
@@ -54,7 +96,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 											password,
 											fecha_registro,
 											fecha_actualizacion,
-											estado
+											estado,
+											foto
 										) 
 										values 
 										(
@@ -65,7 +108,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 											?,
 											now(),
 											null,
-											1
+											1,
+											'".$foto."'
 										)
 				   ";
 

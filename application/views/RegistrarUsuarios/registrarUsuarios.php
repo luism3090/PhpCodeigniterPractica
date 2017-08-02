@@ -4,12 +4,15 @@
 	<meta charset="UTF-8">
 	<title>Usuarios</title>
 	<link rel="stylesheet" type="text/css" href="<?php echo base_url();?>public/css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="<?php echo base_url();?>public/css/fileInput/fileinput.min.css">
 	<link rel="stylesheet" type="text/css" href="<?php echo base_url();?>public/css/estiloHomeMenu.css">
 	<link rel="stylesheet" type="text/css" href="<?php echo base_url();?>public/css/estiloBarraSuperior.css">
 	<link rel="stylesheet" type="text/css" href="<?php echo base_url();?>public/css/estiloTablasBootstrap.css">
 	<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.15/css/dataTables.bootstrap.min.css">
 </head>
 <body >
+
+
 	
 	<div id="contenedor-principal" >
 					
@@ -94,11 +97,11 @@
 
 											<div class="form-group">
 												<label for="txtNombre">Nombre:</label>
-												<input type="text" id="txtNombre" name="txtNombre" class="form-control" placeholder="Nombre">
+												<input type="text" id="txtNombre" name="txtNombre"  class="form-control" placeholder="Nombre">
 											</div>
 											<div class="form-group">
 												<label for="txtApellidos">Apellidos:</label>
-												<input type="text" id="txtApellidos" name="txtApellidos" class="form-control" placeholder="Apellidos">
+												<input type="text" id="txtApellidos" name="txtApellidos"  class="form-control" placeholder="Apellidos">
 											</div>
 											<div class="form-group">
 												<label for="txtEmail">Email:</label>
@@ -117,12 +120,15 @@
 												</select> 
 											</div>
 											
-											<!-- <div class="form-group">
-											<label for="elegir">Subir imagen:</label> 
-												<input type="file" id="fileSubir" multiple class="form-control" >
-											</div> -->
+											 <div class="form-group">
+											 <label for="elegir" class="center-block text-center" >Foto:</label> 
+												<div class="kv-avatar center-block text-center" style="width:200px">
+									                <input id="avatar-2" name="avatar-2" type="file" class="file-loading" >
+									            </div>
 
-											<button type="submit" class="btn btn-primary"  >Guardar</button>
+									          </div>
+											<br><br>
+											<button type="submit" class="btn btn-primary center-block text-center"  >Guardar</button>
 										</form>
 
 
@@ -160,13 +166,41 @@
 
 	<script src="<?php echo base_url(); ?>public/libreriasJS/jquery.min.js"></script>
 	<script src="<?php echo base_url(); ?>public/libreriasJS/bootstrap.min.js"></script>
+	<script src="<?php echo base_url(); ?>public/libreriasJS/fileInput/fileinput.min.js"></script>
+	<script src="<?php echo base_url(); ?>public/libreriasJS/fileInput/es.js"></script>
 	<script src="https://cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js"></script>
 	<script src="https://cdn.datatables.net/1.10.15/js/dataTables.bootstrap.min.js"></script>
+
+
+
 
 	<script src="<?php echo base_url(); ?>public/libreriasJS/bootstrapValidator.js"></script>
 	<script src="<?php echo base_url(); ?>public/js/registrarUsuarios.js"></script>
 	<script src="<?php echo base_url(); ?>public/js/cargarMenu.js"></script>
 	<script src="<?php echo base_url(); ?>public/js/cerrarSesion.js"></script>
+
+
+
+	<script>
+		
+		$("#avatar-2").fileinput({
+		    overwriteInitial: true,
+		    maxFileSize: 1500,
+		    showClose: false,
+		    showCaption: false,
+		    showBrowse: false,
+		    browseOnZoneClick: true,
+		    removeLabel: '',
+		    language: "es",
+		    removeIcon: '<i class="glyphicon glyphicon-remove"></i>',
+		    removeTitle: 'Cancelar',
+		    elErrorContainer: '#kv-avatar-errors-2',
+		    msgErrorClass: 'alert alert-block alert-danger',
+		    defaultPreviewContent: '<img src="<?php echo base_url(); ?>public/uploads/default_avatar.png" alt="Your Avatar" style="width:160px"><h6 class="text-muted">Clic para subir tu avatar</h6>',
+		    layoutTemplates: {main2: '{preview} {remove} {browse}'},
+		    allowedFileExtensions: ["jpg", "png", "gif"]
+		});
+</script>
 	
 
 	

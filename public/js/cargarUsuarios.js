@@ -4,112 +4,112 @@ $(document).ready(function()
   validaFormUpdateUsuario();
   
 
-    function createTablasusuarios()
-    {
+    // function createTablasusuarios()
+    // {
 
-       $.ajax(
-      {
-          type: "POST",
-          url: "Usuarios/cargarUsuarios",
-          dataType:"json",
-          data:'',
-           async: true,
-          success: function(result)
-              {
+    //    $.ajax(
+    //   {
+    //       type: "POST",
+    //       url: "Usuarios/cargarUsuarios",
+    //       dataType:"json",
+    //       data:'',
+    //        async: true,
+    //       success: function(result)
+    //           {
                 
               
-                var tablaUsuariosAlta = "";
+    //             var tablaUsuariosAlta = "";
 
-                  for(var x=0 ; x < result.usuariosAlta.length ;x++)
-                  {
+    //               for(var x=0 ; x < result.usuariosAlta.length ;x++)
+    //               {
 
-                    tablaUsuariosAlta += "<tr data-id-usuario='"+result.usuariosAlta[x].id_usuario+"' data-id-rol='"+result.usuariosAlta[x].id_rol+"' >"+
-                                            "<td>"+(x+1)+"</td>"+
-                                            // "<td class='id_usuario'>"+result.usuariosAlta[x].id_usuario+"</td>"+
-                                            // "<td class='id_rol' >"+result.usuariosAlta[x].id_rol+"</td>"+
-                                            "<td>"+result.usuariosAlta[x].nombre+"</td>"+
-                                            "<td>"+result.usuariosAlta[x].apellidos+"</td>"+
-                                            "<td>"+result.usuariosAlta[x].email+"</td>"+
-                                            "<td>"+result.usuariosAlta[x].fecha_registro+"</td>"+
-                                            "<td>"+result.usuariosAlta[x].tipoUsuario+"</td>"+
-                                            "<td class='edit update' ><span class='glyphicon glyphicon-pencil' aria-hidden='true'></span></td>"+
-                                            "<td class='edit baja'><span class='glyphicon glyphicon-circle-arrow-down' aria-hidden='true'></span></td>"+
-                                          "</tr>";
+    //                 tablaUsuariosAlta += "<tr data-id-usuario='"+result.usuariosAlta[x].id_usuario+"' data-id-rol='"+result.usuariosAlta[x].id_rol+"' >"+
+    //                                         "<td>"+(x+1)+"</td>"+
+    //                                         // "<td class='id_usuario'>"+result.usuariosAlta[x].id_usuario+"</td>"+
+    //                                         // "<td class='id_rol' >"+result.usuariosAlta[x].id_rol+"</td>"+
+    //                                         "<td>"+result.usuariosAlta[x].nombre+"</td>"+
+    //                                         "<td>"+result.usuariosAlta[x].apellidos+"</td>"+
+    //                                         "<td>"+result.usuariosAlta[x].email+"</td>"+
+    //                                         "<td>"+result.usuariosAlta[x].fecha_registro+"</td>"+
+    //                                         "<td>"+result.usuariosAlta[x].tipoUsuario+"</td>"+
+    //                                         "<td class='edit update' ><span class='glyphicon glyphicon-pencil' aria-hidden='true'></span></td>"+
+    //                                         "<td class='edit baja'><span class='glyphicon glyphicon-circle-arrow-down' aria-hidden='true'></span></td>"+
+    //                                       "</tr>";
 
-                  }
+    //               }
 
 
-                  $("#tblUsuariosAlta tbody").empty().append(tablaUsuariosAlta);
-                  $('#tblUsuariosAlta').DataTable({
-                                                      "language": {
-                                                                    "url": "//cdn.datatables.net/plug-ins/1.10.15/i18n/Spanish.json"
-                                                                  },
-                                                              "scrollY":        "500px",
-                                                              "scrollCollapse": true,
-                                                }
+    //               $("#tblUsuariosAlta tbody").empty().append(tablaUsuariosAlta);
+    //               $('#tblUsuariosAlta').DataTable({
+    //                                                   "language": {
+    //                                                                 "url": "//cdn.datatables.net/plug-ins/1.10.15/i18n/Spanish.json"
+    //                                                               },
+    //                                                           "scrollY":        "500px",
+    //                                                           "scrollCollapse": true,
+    //                                             }
                                                             
-                                            );
+    //                                         );
 
                                              
 
-                  var tablaUsuariosBaja = "";
+    //               var tablaUsuariosBaja = "";
 
-                  for(var x=0 ; x < result.usuariosBaja.length ;x++)
-                  {
+    //               for(var x=0 ; x < result.usuariosBaja.length ;x++)
+    //               {
 
-                    tablaUsuariosBaja += "<tr data-id-usuario='"+result.usuariosBaja[x].id_usuario+"' data-id-rol='"+result.usuariosBaja[x].id_rol+"'>"+
-                                          "<td>"+(x+1)+"</td>"+
-                                          // "<td>"+result.usuariosBaja[x].id_usuario+"</td>"+
-                                          // "<td>"+result.usuariosBaja[x].id_rol+"</td>"+
-                                          "<td>"+result.usuariosBaja[x].nombre+"</td>"+
-                                          "<td>"+result.usuariosBaja[x].apellidos+"</td>"+
-                                          "<td>"+result.usuariosBaja[x].email+"</td>"+
-                                          "<td>"+result.usuariosBaja[x].fecha_registro+"</td>"+
-                                          "<td>"+result.usuariosBaja[x].tipoUsuario+"</td>"+
-                                          "<td class='edit alta'><span class='glyphicon glyphicon-circle-arrow-up' aria-hidden='true'></span></td>"+
-                                      "</tr>";
+    //                 tablaUsuariosBaja += "<tr data-id-usuario='"+result.usuariosBaja[x].id_usuario+"' data-id-rol='"+result.usuariosBaja[x].id_rol+"'>"+
+    //                                       "<td>"+(x+1)+"</td>"+
+    //                                       // "<td>"+result.usuariosBaja[x].id_usuario+"</td>"+
+    //                                       // "<td>"+result.usuariosBaja[x].id_rol+"</td>"+
+    //                                       "<td>"+result.usuariosBaja[x].nombre+"</td>"+
+    //                                       "<td>"+result.usuariosBaja[x].apellidos+"</td>"+
+    //                                       "<td>"+result.usuariosBaja[x].email+"</td>"+
+    //                                       "<td>"+result.usuariosBaja[x].fecha_registro+"</td>"+
+    //                                       "<td>"+result.usuariosBaja[x].tipoUsuario+"</td>"+
+    //                                       "<td class='edit alta'><span class='glyphicon glyphicon-circle-arrow-up' aria-hidden='true'></span></td>"+
+    //                                   "</tr>";
 
-                  }
+    //               }
 
-                  $("#tblUsuariosBaja tbody").empty().append(tablaUsuariosBaja);
-                  $('#tblUsuariosBaja').DataTable({
-                                                      "language": {
-                                                                    "url": "//cdn.datatables.net/plug-ins/1.10.15/i18n/Spanish.json"
-                                                                  },
-                                                              //   "columnDefs": [
-                                                              //     {
-                                                              //         "targets": [ 1 ],
-                                                              //         "visible": false,
-                                                              //         "searchable": false
-                                                              //     },
-                                                              //     {
-                                                              //         "targets": [ 2 ],
-                                                              //         "visible": false
-                                                              //     },
+    //               $("#tblUsuariosBaja tbody").empty().append(tablaUsuariosBaja);
+    //               $('#tblUsuariosBaja').DataTable({
+    //                                                   "language": {
+    //                                                                 "url": "//cdn.datatables.net/plug-ins/1.10.15/i18n/Spanish.json"
+    //                                                               },
+    //                                                           //   "columnDefs": [
+    //                                                           //     {
+    //                                                           //         "targets": [ 1 ],
+    //                                                           //         "visible": false,
+    //                                                           //         "searchable": false
+    //                                                           //     },
+    //                                                           //     {
+    //                                                           //         "targets": [ 2 ],
+    //                                                           //         "visible": false
+    //                                                           //     },
 
-                                                              // ],
-                                                              "scrollY":        "500px",
-                                                              "scrollCollapse": true,
-                                                }
+    //                                                           // ],
+    //                                                           "scrollY":        "500px",
+    //                                                           "scrollCollapse": true,
+    //                                             }
                                                             
-                                            );
+    //                                         );
 
 
                
 
-              },
-         error:function(result)
-            {
-              alert("Error");
-             console.log(result.responseText);
+    //           },
+    //      error:function(result)
+    //         {
+    //           alert("Error");
+    //          console.log(result.responseText);
               
-            }
+    //         }
             
-          });
+    //       });
 
 
 
-    }
+    // }
 
 
 
@@ -231,6 +231,8 @@ $(document).ready(function()
                       $("#txtIdUsuario").val(result.usuario[0].id_usuario);
                       $("#txtPassword").val(result.usuario[0].password);
                       $("#slTipoUsuario option[value="+result.usuario[0].id_rol+"]").prop('selected', 'selected');
+
+                       $("#txtFoto").val(result.usuario[0].foto);
 
                       $("#modalUpdateUsuario").modal("show");
                       

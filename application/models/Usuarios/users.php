@@ -269,7 +269,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 					usu.password,
 					usu.fecha_registro,
 					usu.fecha_actualizacion,
-					rol.descripcion as tipoUsuario
+					rol.descripcion as tipoUsuario,
+					usu.foto
 					from usuarios usu
 					join usuarios_roles usu_ro on (usu.id_usuario = usu_ro.id_usuario)
 					join roles rol on (usu_ro.id_rol = rol.id_rol)
