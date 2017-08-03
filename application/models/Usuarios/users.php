@@ -283,7 +283,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			// exit();
 
 
-			$datos = array("msjCantidadRegistros" => 0, "msjNoHayRegistros" => '',"usuario" => array());
+			$datos = array("msjCantidadRegistros" => 0, "msjNoHayRegistros" => '',"usuario" => array(), "base_url" => base_url()."public/uploads/");
 
 			$datos["msjCantidadRegistros"] = $query->num_rows(); 
 
@@ -303,8 +303,69 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 
 
-		public function actualizarUsuario($id_usuario,$id_rol,$nombre,$apellidos,$email,$password)
+		public function actualizarUsuario($id_usuario,$id_rol,$nombre,$apellidos,$email,$password,$files)
 		{
+
+			$sql1 = "select foto from usuarios where id_usuario = ? and estado = '1' ";
+
+
+			$query1 = $this->db->query($sql1,array($id_usuario));
+
+			$foto = $query1->result()[0]->foto;
+
+
+			if(!empty($files))
+			{
+					$nombreAleatorio = substr(str_shuffle(str_repeat('ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789',80)),0,80);
+
+					$ruta = $_SERVER['DOCUMENT_ROOT']."/PhpCodeigniterPractica/public/uploads/";
+
+					$nombreOriginal = "";
+
+					// return $files;
+					// exit();
+
+					foreach ( $files as $key) 
+					{
+
+						if($key['error'] == UPLOAD_ERR_OK)
+						{
+							//$nombreOriginal = $key["name"];
+							$tipoImage = explode("/", $key['type']);
+							$nombreMejorado = $nombreAleatorio.".".$tipoImage[1];
+							$temporal = $key["tmp_name"];
+							//$temporal = $nombreAleatorio;
+							$destino = $ruta.$nombreMejorado;
+
+							//return $destino;
+
+							$subir = move_uploaded_file($temporal, $destino);
+
+
+						}
+
+
+						$rutaFileEliminar = base_url()."public/uploads/".$foto;
+
+
+						//return $rutaFileEliminar;
+
+						//unlink("./../../../public/uploads/".$foto);
+						unlink($_SERVER['DOCUMENT_ROOT']."PhpCodeigniterPractica/public/uploads/".$foto);
+
+						exit();
+
+
+					}
+
+					
+				    $foto = $nombreMejorado;
+				
+
+			}
+
+
+			
 
 			$this->db->trans_begin();
 
@@ -314,11 +375,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 						apellidos = ?,
 						email = ? ,
 						password = ?,
-						fecha_actualizacion = now()
+						fecha_actualizacion = now(),
+						foto = ?
 					where id_usuario = ? and estado = '1'";
 
 
-			$query1 = $this->db->query($sql1,array($nombre,$apellidos,$email,$password,$id_usuario));
+			$query1 = $this->db->query($sql1,array($nombre,$apellidos,$email,$password,$foto,$id_usuario));
 
 
 			$sql2 = "update usuarios_roles set 

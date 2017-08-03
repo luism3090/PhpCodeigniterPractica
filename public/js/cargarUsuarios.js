@@ -220,7 +220,7 @@ $(document).ready(function()
               success: function(result)
                   {
 
-                    //console.log(result);
+                   // console.log(result);
     
                     if(typeof(result.baja) == "undefined") 
                     {
@@ -231,8 +231,50 @@ $(document).ready(function()
                       $("#txtIdUsuario").val(result.usuario[0].id_usuario);
                       $("#txtPassword").val(result.usuario[0].password);
                       $("#slTipoUsuario option[value="+result.usuario[0].id_rol+"]").prop('selected', 'selected');
+                      var urlFoto = "";
 
-                       $("#txtFoto").val(result.usuario[0].foto);
+                      if(result.usuario[0].foto!="default_avatar.png")
+                      {
+                          urlFoto = result.base_url+result.usuario[0].foto;
+                      }
+                      
+                        
+                        var urlFotoDefault = result.base_url+"default_avatar.png";
+
+
+                           $('#fileFoto').fileinput('destroy');
+
+                           $('#fileFoto').fileinput({
+                                showUpload: false,
+                                browseOnZoneClick: true,              
+                                language: 'es',
+                                maxFileCount: 1,
+                                showClose: false,
+                                showCaption: false,
+                                maxFileSize: 1500,
+                                theme: 'explorer',                
+                                allowedFileExtensions: ['jpg','png'],
+                                initialPreviewAsData: true,
+                                initialPreview: urlFoto,
+                                initialPreviewConfig: [
+                                                {
+                                                    caption: result.usuario[0].foto, 
+                                                    width: '120px', 
+                                                    url: urlFoto, // server delete action 
+                                                    key: 100, 
+                                                    extra: {id: 100}
+                                                }
+                                            ],
+                               defaultPreviewContent: '<img src="'+urlFotoDefault+'" alt="Tu Avatar" style="width:160px"><h6 class="text-muted">Clic para subir tu foto</h6>',
+                                removeIcon: '<i class="glyphicon glyphicon-remove"></i>',
+                              removeTitle: 'Remover imagen',
+                            }); 
+                        
+                        $(".kv-file-remove.btn.btn-xs.btn-default , .file-upload-indicator").remove();
+                        $(".file-preview-image.kv-preview-data").css("width","160px");
+                        $(".file-input.theme-explorer button").css("margin","10px");
+
+
 
                       $("#modalUpdateUsuario").modal("show");
                       
@@ -256,6 +298,13 @@ $(document).ready(function()
 
 
     });
+
+    $('#avatar-2').on('fileselect', function(event) 
+    {
+        $("body .file-upload-indicator").remove();
+    });
+
+
 
     $("body").on("submit","#FormUpdateUsuario",function(event)
     {
@@ -407,37 +456,60 @@ $(document).ready(function()
           }
         }).on('success.form.bv', function (e) {
               
-               var datosUsuario = {
-                                 id_usuario : $("#txtIdUsuario").val(),
-                                 id_rol: $("#slTipoUsuario").val(),
-                                 nombre : $("#txtNombre").val(),
-                                 apellidos: $("#txtApellidos").val(),      
-                                 email: $("#txtEmail").val(),
-                                 password: $("#txtPassword").val()
 
-                               } 
+               var datosUsuarioUrl = "?id_usuario="+ $("#txtIdUsuario").val()+
+                                     "&id_rol= "+$("#slTipoUsuario").val()+
+                                     "&nombre="+$("#txtNombre").val()+
+                                     "&apellidos="+$("#txtApellidos").val()+
+                                     "&email="+$("#txtEmail").val()+
+                                     "&password="+$("#txtPassword").val();
+
+
+               // var datosUsuario = {
+               //                   id_usuario : $("#txtIdUsuario").val(),
+               //                   id_rol: $("#slTipoUsuario").val(),
+               //                   nombre : $("#txtNombre").val(),
+               //                   apellidos: $("#txtApellidos").val(),      
+               //                   email: $("#txtEmail").val(),
+               //                   password: $("#txtPassword").val()
+
+               //                 } 
+
+
+                         var archivos = document.getElementById("fileFoto");  
+
+                          var archivo = archivos.files;
+                          var archivos = new FormData();
+                          for(i=0; i<archivo.length;i++)
+                          {
+                            archivos.append('archivo',archivo[i])
+                          }
 
                             $.ajax(
                             {
                                 type: "POST",
-                                url: "Usuarios/updateUsuario",
+                                url: "Usuarios/updateUsuario"+datosUsuarioUrl,
                                 dataType:"json",
-                                data: datosUsuario,
+                                contentType:false,
+                                processData:false,
+                                data: archivos,
                                  async: true,
                                 success: function(result)
                                     {
-                                      //console.log(result);
+                                      console.log(result);
 
-                                      if(typeof(result.baja) == "undefined") 
-                                      {
-                                          $('#modalUpdateUsuario').modal('hide');
-                                          $("#modalAlertaUsuario .modal-body").html(result.msjConsulta);
-                                          $("#modalAlertaUsuario").modal("show");
-                                      }
-                                      else
-                                      {
-                                          window.location = result.url;
-                                      }
+                                      
+
+                                      // if(typeof(result.baja) == "undefined") 
+                                      // {
+                                      //     $('#modalUpdateUsuario').modal('hide');
+                                      //     $("#modalAlertaUsuario .modal-body").html(result.msjConsulta);
+                                      //     $("#modalAlertaUsuario").modal("show");
+                                      // }
+                                      // else
+                                      // {
+                                      //     window.location = result.url;
+                                      // }
                                       
 
                                     },
@@ -655,6 +727,11 @@ $(document).ready(function()
     {
          location.reload();
     });
+
+    // $('#modalUpdateUsuario').on('hide.bs.modal', function (e) 
+    // {
+    //      $('#avatar-2').fileinput('clear');
+    // });
 
 
     $('#modalUpdateUsuario').on('hide.bs.modal', function (e) 

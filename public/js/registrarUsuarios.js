@@ -174,7 +174,7 @@ $(document).ready(function()
                             "&id_rol="+$("#slTipoUsuario").val();
 
 
-                      var archivos = document.getElementById("avatar-2");  
+                      var archivos = document.getElementById("fileFoto");  
 
                         var archivo = archivos.files;
                         var archivos = new FormData();
@@ -215,53 +215,11 @@ $(document).ready(function()
                                   }
                                   
                  });          
-                              
-                    
-                     // var datosUsuario = {
-                                       
-                     //                   nombre : $("#txtNombre").val(),
-                     //                   apellidos: $("#txtApellidos").val(),      
-                     //                   email: $("#txtEmail").val(),
-                     //                   password: $("#txtPassword").val(),
-                     //                   id_rol:$("#slTipoUsuario").val()
-
-                     //                 } 
-
-                     //              $.ajax(
-                     //              {
-                     //                  type: "POST",
-                     //                  url: "RegistrarUsuarios/insertarUsuario",
-                     //                  dataType:"json",
-                     //                  // contentType:false,
-                     //                  // processData:false,
-                     //                  data: datosUsuario,
-                     //                  async: true,
-                     //                  success: function(result)
-                     //                      {
-
-                     //                        if(typeof(result.baja) == "undefined") 
-                     //                        {
-                     //                          $("#modalUsuarioRegistrado #base_url").val(result.base_url);
-                     //                           $("#modalUsuarioRegistrado").modal("show");
-                     //                        }
-                     //                        else
-                     //                        {
-                     //                          window.location = result.url;
-                     //                        }
-
-                     //                      },
-                     //                 error:function(result)
-                     //                    {
-                     //                      alert("Error");
-                     //                     console.log(result.responseText);
-                                          
-                     //                    }
-                                        
-                     //              });
+                            
 
 
 
-                });
+           });
 
 
   }

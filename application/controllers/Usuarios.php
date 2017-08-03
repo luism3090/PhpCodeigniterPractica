@@ -41,14 +41,8 @@ class Usuarios extends CI_Controller
 		$id_usuario = $_POST["id_usuario"];
 
 
-		//$datos["id"] = $id_usuario;
-		// echo json_encode($datos);
-		// exit();
-
-
 		$datosUsuario = $this->users->obtenerDatosUsuario($id_usuario);
 
-		$datos["algo"] = "Hola";
 
 		if(is_array($datosUsuario))
 		{
@@ -65,20 +59,25 @@ class Usuarios extends CI_Controller
 
 	public function updateUsuario()
 	{
-		$id_usuario = $_POST["id_usuario"];
-		$id_rol = $_POST["id_rol"];
-		$nombre = $_POST["nombre"];
-		$apellidos = $_POST["apellidos"];
-		$email = $_POST["email"];
-		$password = $_POST["password"];
+		$id_usuario = $_REQUEST["id_usuario"];
+		$id_rol = $_REQUEST["id_rol"];
+		$nombre = $_REQUEST["nombre"];
+		$apellidos = $_REQUEST["apellidos"];
+		$email = $_REQUEST["email"];
+		$password = $_REQUEST["password"];
 
 
+		// echo $nombre;
+		// echo json_encode($_FILES);
 
-		$datosUsuario = $this->users->actualizarUsuario($id_usuario,$id_rol,$nombre,$apellidos,$email,$password);
+		// exit();
+
+
+		$datosUsuario = $this->users->actualizarUsuario($id_usuario,$id_rol,$nombre,$apellidos,$email,$password,$_FILES);
 
 		//$datosUsuario["aa"] = $datosUsuario;
 
-		 echo json_encode($datosUsuario);
+		echo json_encode($datosUsuario);
 		//echo $datosUsuario;
 	}
 

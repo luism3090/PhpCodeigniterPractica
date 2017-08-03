@@ -4,6 +4,7 @@
 	<meta charset="UTF-8">
 	<title>Usuarios</title>
 	<link rel="stylesheet" type="text/css" href="<?php echo base_url();?>public/css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="<?php echo base_url();?>public/css/fileInput/fileinput.min.css">
 	<link rel="stylesheet" type="text/css" href="<?php echo base_url();?>public/css/estiloHomeMenu.css">
 	<link rel="stylesheet" type="text/css" href="<?php echo base_url();?>public/css/estiloBarraSuperior.css">
 	<link rel="stylesheet" type="text/css" href="<?php echo base_url();?>public/css/estiloTablasBootstrap.css">
@@ -181,6 +182,15 @@
 											<option value="3" selected>Cliente</option>
 										</select> 
 									</div>
+
+									<div class="form-group">
+											 <label for="elegir" class="center-block text-center" >Foto:</label> 
+												<div class="kv-avatar center-block text-center" style="width:200px">
+									                <input id="fileFoto" name="avatar-2" type="file" class="file-loading" >
+									            </div>
+
+									  </div>
+											<br><br>
 									<input type="hidden" id="txtIdUsuario" class="form-control">
 									
 								
@@ -269,6 +279,8 @@
 
 	<script src="<?php echo base_url(); ?>public/libreriasJS/jquery.min.js"></script>
 	<script src="<?php echo base_url(); ?>public/libreriasJS/bootstrap.min.js"></script>
+		<script src="<?php echo base_url(); ?>public/libreriasJS/fileInput/fileinput.min.js"></script>
+	<script src="<?php echo base_url(); ?>public/libreriasJS/fileInput/es.js"></script>
 	<script src="https://cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js"></script>
 	<script src="https://cdn.datatables.net/1.10.15/js/dataTables.bootstrap.min.js"></script>
 
@@ -277,7 +289,6 @@
 	<script src="<?php echo base_url(); ?>public/js/cargarMenu.js"></script>
 	<script src="<?php echo base_url(); ?>public/js/cerrarSesion.js"></script>
 	
-
 	
 
 </body>

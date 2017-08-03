@@ -123,7 +123,7 @@
 											 <div class="form-group">
 											 <label for="elegir" class="center-block text-center" >Foto:</label> 
 												<div class="kv-avatar center-block text-center" style="width:200px">
-									                <input id="avatar-2" name="avatar-2" type="file" class="file-loading" >
+									                <input id="fileFoto" name="avatar-2" type="file" class="file-loading" >
 									            </div>
 
 									          </div>
@@ -180,23 +180,20 @@
 	<script src="<?php echo base_url(); ?>public/js/cerrarSesion.js"></script>
 
 
-
 	<script>
 		
-		$("#avatar-2").fileinput({
+		$("#fileFoto").fileinput({
 		    overwriteInitial: true,
 		    maxFileSize: 1500,
 		    showClose: false,
 		    showCaption: false,
+		    maxFileCount:1,
 		    showBrowse: false,
 		    browseOnZoneClick: true,
-		    removeLabel: '',
 		    language: "es",
 		    removeIcon: '<i class="glyphicon glyphicon-remove"></i>',
 		    removeTitle: 'Cancelar',
-		    elErrorContainer: '#kv-avatar-errors-2',
-		    msgErrorClass: 'alert alert-block alert-danger',
-		    defaultPreviewContent: '<img src="<?php echo base_url(); ?>public/uploads/default_avatar.png" alt="Your Avatar" style="width:160px"><h6 class="text-muted">Clic para subir tu avatar</h6>',
+		    defaultPreviewContent: '<img src="<?php echo base_url(); ?>public/uploads/default_avatar.png" alt="Your Avatar" style="width:200px"><h6 class="text-muted">Clic para subir tu foto</h6>',
 		    layoutTemplates: {main2: '{preview} {remove} {browse}'},
 		    allowedFileExtensions: ["jpg", "png", "gif"]
 		});
