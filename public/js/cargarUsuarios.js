@@ -273,7 +273,7 @@ $(document).ready(function()
                         $(".kv-file-remove.btn.btn-xs.btn-default , .file-upload-indicator").remove();
                         $(".file-preview-image.kv-preview-data").css("width","160px");
                         $(".file-input.theme-explorer button").css("margin","10px");
-
+                        $("#modalUpdateUsuario #btnModificarUsuario").prop("imagen",result.usuario[0].foto);
 
 
                       $("#modalUpdateUsuario").modal("show");
@@ -299,9 +299,10 @@ $(document).ready(function()
 
     });
 
-    $('#avatar-2').on('fileselect', function(event) 
+    $('#fileFoto').on('fileselect', function(event) 
     {
         $("body .file-upload-indicator").remove();
+        
     });
 
 
@@ -457,12 +458,31 @@ $(document).ready(function()
         }).on('success.form.bv', function (e) {
               
 
+              var imagenBD = $("#modalUpdateUsuario #btnModificarUsuario").prop("imagen");
+
+              var imagenLoad = $("body .file-preview img").attr("src").split("/")[6];
+
+              var cambioImagen = "NO";
+
+              if(imagenBD!=imagenLoad)
+              {
+                  cambioImagen = "SI";
+              }
+
+              console.log(cambioImagen);
+
+              // var cambioImagen = $("#modalUpdateUsuario #btnModificarUsuario").prop("cambioImagen");
+
+
                var datosUsuarioUrl = "?id_usuario="+ $("#txtIdUsuario").val()+
                                      "&id_rol= "+$("#slTipoUsuario").val()+
                                      "&nombre="+$("#txtNombre").val()+
                                      "&apellidos="+$("#txtApellidos").val()+
                                      "&email="+$("#txtEmail").val()+
-                                     "&password="+$("#txtPassword").val();
+                                     "&password="+$("#txtPassword").val()+
+                                     "&cambioImagen="+cambioImagen;
+
+                
 
 
                // var datosUsuario = {
@@ -498,18 +518,16 @@ $(document).ready(function()
                                     {
                                       console.log(result);
 
-                                      
-
-                                      // if(typeof(result.baja) == "undefined") 
-                                      // {
-                                      //     $('#modalUpdateUsuario').modal('hide');
-                                      //     $("#modalAlertaUsuario .modal-body").html(result.msjConsulta);
-                                      //     $("#modalAlertaUsuario").modal("show");
-                                      // }
-                                      // else
-                                      // {
-                                      //     window.location = result.url;
-                                      // }
+                                      if(typeof(result.baja) == "undefined") 
+                                      {
+                                          $('#modalUpdateUsuario').modal('hide');
+                                          $("#modalAlertaUsuario .modal-body").html(result.msjConsulta);
+                                          $("#modalAlertaUsuario").modal("show");
+                                      }
+                                      else
+                                      {
+                                          window.location = result.url;
+                                      }
                                       
 
                                     },
@@ -528,6 +546,20 @@ $(document).ready(function()
 
 
   }
+
+
+
+// $('body').on('click','.fileinput-remove-button', function(event, id, index) 
+// {
+  
+//       var index = $("body .file-preview img").attr("src").indexOf("default_avatar.png");
+
+//       if(index > -1 )
+//       {
+//         $("#modalUpdateUsuario #btnModificarUsuario").prop("cambioImagen","SI");
+//       }
+
+// });
 
 
 

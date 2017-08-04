@@ -303,20 +303,29 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 
 
-		public function actualizarUsuario($id_usuario,$id_rol,$nombre,$apellidos,$email,$password,$files)
+		public function actualizarUsuario($id_usuario,$id_rol,$nombre,$apellidos,$email,$password,$cambioImagen,$files)
 		{
 
 			$sql1 = "select foto from usuarios where id_usuario = ? and estado = '1' ";
-
 
 			$query1 = $this->db->query($sql1,array($id_usuario));
 
 			$foto = $query1->result()[0]->foto;
 
+		    if( $cambioImagen == 'SI' && $foto != "default_avatar.png" )
+			{
+				$rutaFileEliminar = "./public/uploads/".$foto;
 
+				unlink($rutaFileEliminar);
+
+				$foto = "default_avatar.png";
+
+			}
+
+			
 			if(!empty($files))
 			{
-					$nombreAleatorio = substr(str_shuffle(str_repeat('ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789',80)),0,80);
+					$nombreAleatorio = substr(str_shuffle(str_repeat('ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789',50)),0,50);
 
 					$ruta = $_SERVER['DOCUMENT_ROOT']."/PhpCodeigniterPractica/public/uploads/";
 
@@ -345,24 +354,17 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 						}
 
 
-						$rutaFileEliminar = base_url()."public/uploads/".$foto;
-
-
-						//return $rutaFileEliminar;
-
-						//unlink("./../../../public/uploads/".$foto);
-						unlink($_SERVER['DOCUMENT_ROOT']."PhpCodeigniterPractica/public/uploads/".$foto);
-
-						exit();
-
-
 					}
 
+					
 					
 				    $foto = $nombreMejorado;
 				
 
 			}
+
+
+		
 
 
 			

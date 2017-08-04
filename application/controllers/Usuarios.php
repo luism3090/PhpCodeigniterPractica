@@ -65,6 +65,9 @@ class Usuarios extends CI_Controller
 		$apellidos = $_REQUEST["apellidos"];
 		$email = $_REQUEST["email"];
 		$password = $_REQUEST["password"];
+		$cambioImagen = $_REQUEST["cambioImagen"];
+
+		
 
 
 		// echo $nombre;
@@ -73,7 +76,7 @@ class Usuarios extends CI_Controller
 		// exit();
 
 
-		$datosUsuario = $this->users->actualizarUsuario($id_usuario,$id_rol,$nombre,$apellidos,$email,$password,$_FILES);
+		$datosUsuario = $this->users->actualizarUsuario($id_usuario,$id_rol,$nombre,$apellidos,$email,$password,$cambioImagen,$_FILES);
 
 		//$datosUsuario["aa"] = $datosUsuario;
 

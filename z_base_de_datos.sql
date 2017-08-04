@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 31-07-2017 a las 20:35:15
+-- Tiempo de generación: 05-08-2017 a las 00:21:27
 -- Versión del servidor: 5.6.20
 -- Versión de PHP: 5.5.15
 
@@ -244,33 +244,39 @@ CREATE TABLE IF NOT EXISTS `usuarios` (
   `password` varchar(45) NOT NULL,
   `fecha_registro` datetime DEFAULT NULL,
   `fecha_actualizacion` datetime DEFAULT NULL,
-  `estado` char(1) DEFAULT NULL
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=309 ;
+  `estado` char(1) DEFAULT NULL,
+  `foto` varchar(300) DEFAULT NULL
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=314 ;
 
 --
 -- Volcado de datos para la tabla `usuarios`
 --
 
-INSERT INTO `usuarios` (`id_usuario`, `nombre`, `apellidos`, `email`, `password`, `fecha_registro`, `fecha_actualizacion`, `estado`) VALUES
-(1, 'root', 'root', 'super_usuario@outlook.com', 'superRoot', '2017-07-02 00:00:01', NULL, '1'),
-(2, 'Luis', 'Mora', 'luis_mora@hotmail.com', '123452', '2017-07-02 00:00:02', '2017-07-19 11:54:20', '1'),
-(3, 'Erick', 'Torres', 'eric_torres@hotmail.com', '12345', '2017-07-02 00:00:03', '2017-07-19 11:26:50', '1'),
-(4, 'Juan', 'Luna', 'juan_luna@hotmail.com', '12345', '2017-07-02 00:00:04', NULL, '1'),
-(5, 'Luis', 'Molina', 'luisame@outlook.com', '12345', '2017-07-02 00:00:05', '2017-07-17 12:33:19', '1'),
-(6, 'Raúl', 'Fernandez', 'raul@hotmail.com', '12345', '2017-07-02 00:00:06', NULL, '1'),
-(7, 'Ana', 'García', 'ana@hotmail.com', '12345', '2017-07-02 00:00:07', NULL, '1'),
-(8, 'Luz', 'Moreno', 'luz@hotmail.com', '12345', '2017-07-02 00:00:08', NULL, '1'),
-(9, 'Roberto', 'Huerta', 'roberto@hotmail.com', '12345', '2017-07-02 00:00:09', NULL, '1'),
-(10, 'Veronica', 'Herrera', 'vero@hotmail.com', '12345', '2017-07-02 00:00:10', NULL, '1'),
-(11, 'Joaquin', 'Sanchez', 'joaquin@hotmail.com', '12345', '2017-07-02 00:00:11', NULL, '1'),
-(12, 'Angel', 'López', 'angel@hotmail.com', '12345', '2017-07-02 00:00:12', NULL, '1'),
-(13, 'Marco', 'Suarez', 'marco@hotmail.com', '12345', '2017-07-19 13:37:39', NULL, '0'),
-(14, 'Hugo', 'Camo', 'hugo@hotmail.com', '12345', '2017-07-19 13:51:31', NULL, '1'),
-(16, 'Alberto', 'Garcia', 'alberto@hotmail.com', '12345', '2017-07-19 14:03:21', '2017-07-19 14:08:11', '1'),
-(17, 'Benito', 'Moreno', 'benito@hotmail.com', '12345', '2017-07-19 14:05:53', '2017-07-19 14:09:04', '0'),
-(18, 'Carmen', 'Rincon', 'carmen@hotmail.com', '12345', '2017-07-19 14:06:18', '2017-07-24 17:39:54', '1'),
-(19, 'Angelica', 'Hernandez', 'angelica@hotmail.com', '12345', '2017-07-19 14:10:42', '2017-07-24 17:33:47', '1'),
-(20, 'Daniel', 'Aguilar', 'dani@hotmail.com', '12345', '2017-07-26 12:40:13', '2017-07-31 11:17:07', '1');
+INSERT INTO `usuarios` (`id_usuario`, `nombre`, `apellidos`, `email`, `password`, `fecha_registro`, `fecha_actualizacion`, `estado`, `foto`) VALUES
+(1, 'root', 'root', 'super_usuario@outlook.com', 'superRoot', '2017-07-02 00:00:01', '2017-08-03 17:41:29', '1', 'default_avatar.png'),
+(2, 'Luis', 'Mora', 'luis_mora@hotmail.com', '123452', '2017-07-02 00:00:02', '2017-07-19 11:54:20', '1', 'default_avatar.png'),
+(3, 'Erick', 'Torres', 'eric_torres@hotmail.com', '12345', '2017-07-02 00:00:03', '2017-07-19 11:26:50', '1', 'default_avatar.png'),
+(4, 'Juan', 'Luna', 'juan_luna@hotmail.com', '12345', '2017-07-02 00:00:04', NULL, '1', 'default_avatar.png'),
+(5, 'Luis', 'Molina', 'luisame@outlook.com', '12345', '2017-07-02 00:00:05', '2017-07-17 12:33:19', '0', 'default_avatar.png'),
+(6, 'Raúl', 'Fernandez', 'raul@hotmail.com', '12345', '2017-07-02 00:00:06', NULL, '1', 'default_avatar.png'),
+(7, 'Ana', 'García', 'ana@hotmail.com', '12345', '2017-07-02 00:00:07', NULL, '1', 'default_avatar.png'),
+(8, 'Luz', 'Moreno', 'luz@hotmail.com', '12345', '2017-07-02 00:00:08', '2017-07-31 16:08:30', '1', 'default_avatar.png'),
+(9, 'Roberto', 'Huerta', 'roberto@hotmail.com', '12345', '2017-07-02 00:00:09', NULL, '1', 'default_avatar.png'),
+(10, 'Veronica', 'Herrera', 'vero@hotmail.com', '12345', '2017-07-02 00:00:10', NULL, '1', 'default_avatar.png'),
+(11, 'Joaquin', 'Sanchez', 'joaquin@hotmail.com', '12345', '2017-07-02 00:00:11', NULL, '1', 'default_avatar.png'),
+(12, 'Angel', 'López', 'angel@hotmail.com', '12345', '2017-07-02 00:00:12', NULL, '1', 'default_avatar.png'),
+(13, 'Marco', 'Suarez', 'marco@hotmail.com', '12345', '2017-07-19 13:37:39', NULL, '0', 'default_avatar.png'),
+(14, 'Hugo', 'Camo', 'hugo@hotmail.com', '12345', '2017-07-19 13:51:31', NULL, '1', 'default_avatar.png'),
+(16, 'Alberto', 'Garcia', 'alberto@hotmail.com', '12345', '2017-07-19 14:03:21', '2017-07-19 14:08:11', '1', 'default_avatar.png'),
+(17, 'Benito', 'Moreno', 'benito@hotmail.com', '12345', '2017-07-19 14:05:53', '2017-07-19 14:09:04', '0', 'default_avatar.png'),
+(18, 'Carmen', 'Rincon', 'carmen@hotmail.com', '12345', '2017-07-19 14:06:18', '2017-07-24 17:39:54', '1', 'default_avatar.png'),
+(19, 'Angelica', 'Hernandez', 'angelica@hotmail.com', '12345', '2017-07-19 14:10:42', '2017-07-24 17:33:47', '1', 'default_avatar.png'),
+(20, 'Daniel', 'Aguilar', 'dani@hotmail.com', '12345', '2017-07-26 12:40:13', '2017-08-04 17:03:36', '1', 'TLxPd3CmOxcHNSAjEcMNqEMlsc4ON5nfEl0D5dagwJmiM3rKs8.png'),
+(309, 'Luis', 'Luis', 'luis23@hotmail.com', '12345', '2017-08-02 16:55:11', '2017-08-04 17:05:52', '1', 'default_avatar.png'),
+(310, 'Luis666', 'Molina666', 'luis666@hotmail.com', '12345666', '2017-08-02 16:57:44', '2017-08-04 17:04:53', '1', 'tuQkxjAEyDDqxReRhIfKdGjgXwUHAHXsU7L6EWCvxIQTZTNEOc.png'),
+(311, 'rrrr', 'Rirr', 'rrrrrr@hotamail.com', '12345', '2017-08-04 17:08:16', NULL, '1', '14r1gymLJbjOHbdoLuQd3mnYbqy2nSNzTOcg6CS2quEhGum56AnxYpwW6vC4zsbAI5sPWTzXdW80Ph8C.jpeg'),
+(312, 'eee', 'eee', 'eeee@hotmail.com', '12345', '2017-08-04 17:13:35', NULL, '1', 'RviDk1fb9PuuKeA37bXRJHGlloTzqyZ4rxp25SfVijsOYPXWEWB9ugzzCulKpWTJg4P8tG9a9lUYB7Qb.png'),
+(313, 'ddd', 'ddd', 'dddd@hotmail.com', '12345', '2017-08-04 17:14:43', '2017-08-04 17:16:13', '1', 'default_avatar.png');
 
 -- --------------------------------------------------------
 
@@ -294,7 +300,7 @@ INSERT INTO `usuarios_roles` (`id_usuario`, `id_rol`) VALUES
 (5, 2),
 (6, 3),
 (7, 3),
-(8, 3),
+(8, 2),
 (9, 3),
 (10, 3),
 (11, 3),
@@ -306,7 +312,12 @@ INSERT INTO `usuarios_roles` (`id_usuario`, `id_rol`) VALUES
 (18, 2),
 (19, 2),
 (20, 3),
-(1, 1);
+(1, 1),
+(309, 3),
+(310, 2),
+(311, 3),
+(312, 2),
+(313, 3);
 
 --
 -- Índices para tablas volcadas
@@ -371,7 +382,7 @@ MODIFY `id_tipo_menu` int(11) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=6;
 -- AUTO_INCREMENT de la tabla `usuarios`
 --
 ALTER TABLE `usuarios`
-MODIFY `id_usuario` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=309;
+MODIFY `id_usuario` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=314;
 --
 -- Restricciones para tablas volcadas
 --
