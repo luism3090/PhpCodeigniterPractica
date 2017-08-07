@@ -57,6 +57,89 @@ class Usuarios extends CI_Controller
 		
 	}
 
+	public function enviarEmailUsuario()
+	{
+
+		$id_usuario = $_POST["id_usuario"];
+
+
+		$datosUsuario = $this->users->obtenerDatosUsuario($id_usuario);
+
+
+
+		if(is_array($datosUsuario))
+		{
+
+			$envioEmail = $this->sendMailGmail($datosUsuario["usuario"][0]);
+
+
+			if($envioEmail)
+			{
+				$msjEnvioEmail['msj'] = "Email enviado con éxito";
+
+				echo json_encode($msjEnvioEmail);
+			}
+			else
+			{
+				$msjEnvioEmail['msj'] = "Ocurrió un error a la hora de enviar el email, intente de nuevo";
+				echo json_encode($msjEnvioEmail);
+			}
+
+			
+		}
+		else
+		{
+			$datos["algo"] = "Hola";
+			echo json_encode($datos);
+		}
+
+	}
+
+
+	function sendMailGmail($datosUsuario)
+ 	{
+
+ 		$this->load->library("email");
+ 
+         //configuracion para gmail
+		 $configGmail = array(
+		 'protocol' => 'smtp',
+		 'smtp_host' => 'ssl://smtp.gmail.com',
+		 'smtp_port' => 465,
+		 'smtp_user' => 'luis.molina.testing@gmail.com',
+		 'smtp_pass' => 'tesTingSendEmail_1',
+		 'mailtype' => 'html',
+		 'charset' => 'utf-8',
+		 'newline' => "\r\n"
+		 );    
+		 
+		 //cargamos la configuración para enviar con gmail
+		 $this->email->initialize($configGmail);
+		 
+		 $this->email->from('luis.molina.testing@gmail.com');
+		 $this->email->to($datosUsuario->email);
+		 //$this->email->to("luisame@outlook.com");
+		 $this->email->subject('Probando Email de prueba');
+
+		// $message = $this->load->view('Email/email',TRUE);
+		 $this->email->message('<h3>Email enviado con codeigniter haciendo uso del smtp de gmail</h3><hr><br> Mensaje de de prueba
+    							enlace de descarga: <br>
+								<a href="http://localhost:8080/PhpCodeigniterPractica/public/uploads/14r1gymLJbjOHbdoLuQd3mnYbqy2nSNzTOcg6CS2quEhGum56AnxYpwW6vC4zsbAI5sPWTzXdW80Ph8C.jpeg" download>
+									imagen
+								</a>');
+		 $envio = $this->email->send();
+
+		 return $envio;
+
+ 	}
+
+
+
+
+
+
+
+
 	public function updateUsuario()
 	{
 		$id_usuario = $_REQUEST["id_usuario"];

@@ -547,20 +547,103 @@ $(document).ready(function()
 
   }
 
+$("body").on("click","#btnMdlEnviarEmailUsuario",function()
+{
+
+  datosUsuario =  {
+                      id_usuario:$("#modalEnviarEmailUsuario .txtMdlIdUsuario").val()
+                  } 
 
 
-// $('body').on('click','.fileinput-remove-button', function(event, id, index) 
-// {
+
+      $.ajax(
+          {
+              type: "POST",
+              url: "Usuarios/enviarEmailUsuario",
+              dataType:"json",
+              data: datosUsuario,
+               async: true,
+              success: function(result)
+                  {
+
+                    //console.log(result);
+
+                    if(typeof(result.baja) == "undefined") 
+                    {
+                    
+                        $("#modalAlertaUsuario .modal-body").text(result.msj);
+                         
+                        $("#modalAlertaUsuario").modal("show");
+
+                    }
+                   else
+                    {
+                       window.location = result.url;
+                     
+                    }
+
+                  },
+             error:function(result)
+                {
+                  alert("Error");
+                 console.log(result.responseText);
+                  
+                }
+              
+          });
+
+
+});
+
+
+$("body").on("click",".sendEmailUser",function()
+{
   
-//       var index = $("body .file-preview img").attr("src").indexOf("default_avatar.png");
+          var datosUsuario = {
+                               id_usuario : tableUsersAlta.rows($(this).closest("tr").index()).data().pluck(0)[0]       
+                             } 
 
-//       if(index > -1 )
-//       {
-//         $("#modalUpdateUsuario #btnModificarUsuario").prop("cambioImagen","SI");
-//       }
 
-// });
+      $.ajax(
+          {
+              type: "POST",
+              url: "Usuarios/getDatosUpdateUsuario",
+              dataType:"json",
+              data: datosUsuario,
+               async: true,
+              success: function(result)
+                  {
 
+                    //console.log(result);
+
+                    if(typeof(result.baja) == "undefined") 
+                    {
+                        var nombre = result.usuario[0].nombre +" "+result.usuario[0].apellidos;
+                    
+                        $("#modalEnviarEmailUsuario .nombre_usuario").text(nombre);
+                         $("#modalEnviarEmailUsuario .txtMdlIdUsuario").val(result.usuario[0].id_usuario);
+                        $("#modalEnviarEmailUsuario").modal("show");
+
+                    }
+                   else
+                    {
+                       window.location = result.url;
+                     
+                    }
+
+                  },
+             error:function(result)
+                {
+                  alert("Error");
+                 console.log(result.responseText);
+                  
+                }
+              
+          });
+
+
+
+    });
 
 
 // FUNCIONES PARA DAR BAJA DE USUARIO

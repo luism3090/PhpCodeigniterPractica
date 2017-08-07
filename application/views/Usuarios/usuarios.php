@@ -104,6 +104,7 @@
 														                      <th>Tipo de usuario</th>
 														                      <th>Modificar</th>
 														                      <th>Baja</th>
+														                      <th>Enviar Email</th>
 													                    </tr>
 												                </thead>
 												        </table>
@@ -268,6 +269,30 @@
       </div>
       <div class="modal-footer">
       <button type="button" class="btn btn-primary" data-dismiss="modal" id="btnMdlAltaUsuario">Aceptar</button>
+      <button type="button" class="btn btn-default" data-dismiss="modal" >Cancelar</button>
+      <input type="hidden" class="txtMdlIdUsuario" >
+      </div>
+    </div>
+
+  </div>
+</div>
+
+
+  <!-- Modal -->
+<div id="modalEnviarEmailUsuario" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+       <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Alerta</h4>
+      </div>
+      <div class="modal-body">
+        <p>¿Desea enviar un email al usuario <strong class="nombre_usuario"></strong> ?</p>
+      </div>
+      <div class="modal-footer">
+      <button type="button" class="btn btn-primary" data-dismiss="modal" id="btnMdlEnviarEmailUsuario">Aceptar</button>
       <button type="button" class="btn btn-default" data-dismiss="modal" >Cancelar</button>
       <input type="hidden" class="txtMdlIdUsuario" >
       </div>

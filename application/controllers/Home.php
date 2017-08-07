@@ -8,22 +8,6 @@ class Home extends CI_Controller
 	{
 		parent::__construct();
 
-
-		// if($this->session->userdata('login')==null)
-		// {
-		// 	redirect('/Login');
-		// } 
-
-		// $this->load->model('Home/VerificarUsuarioActivo');
-
-		// $datosMenu = $this->VerificarUsuarioActivo->verificarUserActivo($this->session->userdata('id'));
-
-		// if($datosMenu == 0)
-		// {
-		// 	$this->session->sess_destroy();
-		// 	redirect('/Login');
-		// }
-
 		
 	}
 

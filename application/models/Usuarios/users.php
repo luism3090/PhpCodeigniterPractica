@@ -25,7 +25,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 											usu.fecha_registro,
 											rol.descripcion as tipoUsuario,
 											'<button  type=''button'' class=''btn btn-primary updateUsersAlta''> <span class=''glyphicon glyphicon-pencil''></span> </button>' as modificar,
-											'<button  type=''button'' class=''btn btn-danger bajaUsersAlta''> <span class=''glyphicon glyphicon-circle-arrow-down''></span> </button>' as eliminar 
+											'<button  type=''button'' class=''btn btn-danger bajaUsersAlta''> <span class=''glyphicon glyphicon-circle-arrow-down''></span> </button>' as eliminar ,
+											'<button  type=''button'' class=''btn btn-success sendEmailUser''> <span class=''glyphicon glyphicon-envelope''></span> </button>' as EnviarEmail 
 											from usuarios usu
 											join usuarios_roles usu_ro on (usu.id_usuario = usu_ro.id_usuario)
 											join roles rol on (usu_ro.id_rol = rol.id_rol) where usu.id_usuario != 1 and usu.estado = '1' 
@@ -48,7 +49,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 													usu.fecha_actualizacion,
 													rol.descripcion as tipoUsuario,
 													'<button  type=''button'' class=''btn btn-primary updateUsersAlta''> <span class=''glyphicon glyphicon-pencil''></span> </button>' as modificar,
-												    '<button  type=''button'' class=''btn btn-danger bajaUsersAlta''> <span class=''glyphicon glyphicon-circle-arrow-down''></span> </button>' as eliminar 
+												    '<button  type=''button'' class=''btn btn-danger bajaUsersAlta''> <span class=''glyphicon glyphicon-circle-arrow-down''></span> </button>' as eliminar,
+												    '<button  type=''button'' class=''btn btn-success sendEmailUser''> <span class=''glyphicon glyphicon-envelope''></span> </button>' as EnviarEmail 
 													from usuarios usu
 													join usuarios_roles usu_ro on (usu.id_usuario = usu_ro.id_usuario)
 													join roles rol on (usu_ro.id_rol = rol.id_rol)
@@ -91,6 +93,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 								$nestedData[] = $row["tipoUsuario"];
 								$nestedData[] = $row["modificar"];
 								$nestedData[] = $row["eliminar"];
+								$nestedData[] = $row["EnviarEmail"];
 
 								$data[] = $nestedData;
 							}
@@ -106,53 +109,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 				return $json_data;
 
-
-					// $sqlUsuariosBaja =	"select 
-					// 			usu.id_usuario,
-					// 			rol.id_rol,
-					// 			usu.nombre,
-					// 			usu.apellidos,
-					// 			usu.email,
-					// 			usu.fecha_registro,
-					// 			usu.fecha_actualizacion,
-					// 			rol.descripcion as tipoUsuario
-					// 			from usuarios usu
-					// 			join usuarios_roles usu_ro on (usu.id_usuario = usu_ro.id_usuario)
-					// 			join roles rol on (usu_ro.id_rol = rol.id_rol) where usu.id_usuario != 1 and usu.estado = '0' 
-					// 			order by usu.fecha_registro desc ";
-
-				 //    $queryUsuariosBaja = $this->db->query($sqlUsuariosBaja);
-
-
-
-						// $datos = array("msjCantidadRegistrosAlta" => 0, "msjNoHayRegistrosAlta" => '' ,"usuariosAlta" => array(), "msjCantidadRegistrosBaja" => 0, "msjNoHayRegistrosBaja" => '' ,"usuariosBaja" => array() );
-
-
-						// $datos["msjCantidadRegistrosAlta"] = $queryUsuariosAlta->num_rows(); 
-
-						// if($datos["msjCantidadRegistrosAlta"] > 0)
-						// {
-						// 	$datos["usuariosAlta"] = $queryUsuariosAlta->result(); 
-							
-						// }
-						// else{
-						// 	$datos["msjNoHayRegistrosAlta"] = "No hay usuarios dados de alta";
-						// }
-
-						
-						// $datos["msjCantidadRegistrosBaja"] = $queryUsuariosBaja->num_rows(); 
-
-						// if($datos["msjCantidadRegistrosBaja"] > 0)
-						// {
-						// 	$datos["usuariosBaja"] = $queryUsuariosBaja->result(); 
-							
-						// }
-						// else{
-						// 	$datos["msjNoHayRegistrosBaja"] = "No hay usuarios dados de baja";
-						// }
-
-						
-						// return $datos;
 
 			
 		}
