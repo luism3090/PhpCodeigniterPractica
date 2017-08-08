@@ -4,114 +4,6 @@ $(document).ready(function()
   validaFormUpdateUsuario();
   
 
-    // function createTablasusuarios()
-    // {
-
-    //    $.ajax(
-    //   {
-    //       type: "POST",
-    //       url: "Usuarios/cargarUsuarios",
-    //       dataType:"json",
-    //       data:'',
-    //        async: true,
-    //       success: function(result)
-    //           {
-                
-              
-    //             var tablaUsuariosAlta = "";
-
-    //               for(var x=0 ; x < result.usuariosAlta.length ;x++)
-    //               {
-
-    //                 tablaUsuariosAlta += "<tr data-id-usuario='"+result.usuariosAlta[x].id_usuario+"' data-id-rol='"+result.usuariosAlta[x].id_rol+"' >"+
-    //                                         "<td>"+(x+1)+"</td>"+
-    //                                         // "<td class='id_usuario'>"+result.usuariosAlta[x].id_usuario+"</td>"+
-    //                                         // "<td class='id_rol' >"+result.usuariosAlta[x].id_rol+"</td>"+
-    //                                         "<td>"+result.usuariosAlta[x].nombre+"</td>"+
-    //                                         "<td>"+result.usuariosAlta[x].apellidos+"</td>"+
-    //                                         "<td>"+result.usuariosAlta[x].email+"</td>"+
-    //                                         "<td>"+result.usuariosAlta[x].fecha_registro+"</td>"+
-    //                                         "<td>"+result.usuariosAlta[x].tipoUsuario+"</td>"+
-    //                                         "<td class='edit update' ><span class='glyphicon glyphicon-pencil' aria-hidden='true'></span></td>"+
-    //                                         "<td class='edit baja'><span class='glyphicon glyphicon-circle-arrow-down' aria-hidden='true'></span></td>"+
-    //                                       "</tr>";
-
-    //               }
-
-
-    //               $("#tblUsuariosAlta tbody").empty().append(tablaUsuariosAlta);
-    //               $('#tblUsuariosAlta').DataTable({
-    //                                                   "language": {
-    //                                                                 "url": "//cdn.datatables.net/plug-ins/1.10.15/i18n/Spanish.json"
-    //                                                               },
-    //                                                           "scrollY":        "500px",
-    //                                                           "scrollCollapse": true,
-    //                                             }
-                                                            
-    //                                         );
-
-                                             
-
-    //               var tablaUsuariosBaja = "";
-
-    //               for(var x=0 ; x < result.usuariosBaja.length ;x++)
-    //               {
-
-    //                 tablaUsuariosBaja += "<tr data-id-usuario='"+result.usuariosBaja[x].id_usuario+"' data-id-rol='"+result.usuariosBaja[x].id_rol+"'>"+
-    //                                       "<td>"+(x+1)+"</td>"+
-    //                                       // "<td>"+result.usuariosBaja[x].id_usuario+"</td>"+
-    //                                       // "<td>"+result.usuariosBaja[x].id_rol+"</td>"+
-    //                                       "<td>"+result.usuariosBaja[x].nombre+"</td>"+
-    //                                       "<td>"+result.usuariosBaja[x].apellidos+"</td>"+
-    //                                       "<td>"+result.usuariosBaja[x].email+"</td>"+
-    //                                       "<td>"+result.usuariosBaja[x].fecha_registro+"</td>"+
-    //                                       "<td>"+result.usuariosBaja[x].tipoUsuario+"</td>"+
-    //                                       "<td class='edit alta'><span class='glyphicon glyphicon-circle-arrow-up' aria-hidden='true'></span></td>"+
-    //                                   "</tr>";
-
-    //               }
-
-    //               $("#tblUsuariosBaja tbody").empty().append(tablaUsuariosBaja);
-    //               $('#tblUsuariosBaja').DataTable({
-    //                                                   "language": {
-    //                                                                 "url": "//cdn.datatables.net/plug-ins/1.10.15/i18n/Spanish.json"
-    //                                                               },
-    //                                                           //   "columnDefs": [
-    //                                                           //     {
-    //                                                           //         "targets": [ 1 ],
-    //                                                           //         "visible": false,
-    //                                                           //         "searchable": false
-    //                                                           //     },
-    //                                                           //     {
-    //                                                           //         "targets": [ 2 ],
-    //                                                           //         "visible": false
-    //                                                           //     },
-
-    //                                                           // ],
-    //                                                           "scrollY":        "500px",
-    //                                                           "scrollCollapse": true,
-    //                                             }
-                                                            
-    //                                         );
-
-
-               
-
-    //           },
-    //      error:function(result)
-    //         {
-    //           alert("Error");
-    //          console.log(result.responseText);
-              
-    //         }
-            
-    //       });
-
-
-
-    // }
-
-
 
   var tableUsersAlta = $('#tblUsuariosAlta').DataTable( 
       {
@@ -196,8 +88,6 @@ $(document).ready(function()
 
       } );
 
-
-   //createTablasusuarios2();
    
 
 // FUNCIONES PARA ACTUALIZAR USUARIOS 
@@ -320,330 +210,330 @@ $(document).ready(function()
     // FUNCION PARA VALIDAR DATOS AL ACTUALIZAR EL USUARIO
 
 
- function validaFormUpdateUsuario()
-  {
+   function validaFormUpdateUsuario()
+    {
 
 
-        $('#FormUpdateUsuario').bootstrapValidator(
-        {
+          $('#FormUpdateUsuario').bootstrapValidator(
+          {
 
-              message: 'This value is not valid',
-              container: 'tooltip',
-              feedbackIcons: {
-                  valid: 'glyphicon glyphicon-ok',
-                  invalid: 'glyphicon glyphicon-remove',
-                  validating: 'glyphicon glyphicon-refresh'
-              },
-              fields: {
-                  txtNombre: {
-                     group: '.form-group',
+                message: 'This value is not valid',
+                container: 'tooltip',
+                feedbackIcons: {
+                    valid: 'glyphicon glyphicon-ok',
+                    invalid: 'glyphicon glyphicon-remove',
+                    validating: 'glyphicon glyphicon-refresh'
+                },
+                fields: {
+                    txtNombre: {
+                       group: '.form-group',
+                        validators: 
+                        {
+                            notEmpty: {
+                                message: 'Este campo es requerido'
+                            },
+                            
+
+                        }
+                    },
+                    txtApellidos: {
+                        group: '.form-group',
+                        validators: {
+                            notEmpty: {
+                                message: 'Este campo es requerido'
+                            },
+                            
+
+
+                        }
+                    },
+                    txtEmail: {
+                      group: '.form-group',
                       validators: 
                       {
                           notEmpty: {
                               message: 'Este campo es requerido'
                           },
-                          
+                           regexp: {
+                                  regexp: /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/,
+
+                                  message: 'La dirección de email no es válida',
+
+                              },
+                              callback: {
+                              message: 'El Email ingresado no esta disponible',
+                              callback: function(value, validator) {
+                                  // Get the selected options
+
+                                  var valida = true;
+
+                                  var datosUsuario = {
+                                                        id_usuario : $("#txtIdUsuario").val(),
+                                                        email:$("#txtEmail").val()
+                                                      }
+
+
+                                              $.ajax(
+                                              {
+                                                  type: "POST",
+                                                  url: "Usuarios/checkEmail",
+                                                  dataType:"json",
+                                                  data: datosUsuario,
+                                                   async: false,
+                                                  success: function(result)
+                                                      {
+
+                                                        if(typeof(result.baja) == "undefined") 
+                                                        {
+                                                          if(result.msjCantidadRegistros > 0)
+                                                          {
+                                                             valida = false;
+                                                          }
+                                                          else
+                                                          {
+                                                            valida = true;
+                                                          }
+
+                                                        }
+                                                        else
+                                                        {
+                                                          window.location = result.url;
+                                                        }
+                                                        
+                                                      },
+                                                 error:function(result)
+                                                    {
+                                                      alert("Error");
+                                                     console.log(result.responseText);
+                                                      
+                                                    }
+                                                    
+                                              });
+
+                                              return valida;
+
+                                  // var options = validator.getFieldElements('colors').val();
+                                  // return (options != null && options.length >= 2 && options.length <= 4);
+                              }
+                          },
 
                       }
                   },
-                  txtApellidos: {
+                  txtPassword: {
                       group: '.form-group',
                       validators: {
                           notEmpty: {
                               message: 'Este campo es requerido'
                           },
-                          
-
+                          stringLength: {
+                              enabled: true,
+                              min: 5,
+                              max: 20,
+                              message: 'El password debe contener como mínimo 5 caracteres y 20 como máximo'
+                          },
 
                       }
                   },
-                  txtEmail: {
+                   slTipoUsuario: {
                     group: '.form-group',
-                    validators: 
-                    {
-                        notEmpty: {
-                            message: 'Este campo es requerido'
-                        },
-                         regexp: {
-                                regexp: /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/,
-
-                                message: 'La dirección de email no es válida',
-
-                            },
-                            callback: {
-                            message: 'El Email ingresado no esta disponible',
-                            callback: function(value, validator) {
-                                // Get the selected options
-
-                                var valida = true;
-
-                                var datosUsuario = {
-                                                      id_usuario : $("#txtIdUsuario").val(),
-                                                      email:$("#txtEmail").val()
-                                                    }
+                      validators: {
+                          notEmpty: {
+                              message: 'Seleciona un tipo de usuario.'
+                          }
+                      }
+                  }
 
 
-                                            $.ajax(
-                                            {
-                                                type: "POST",
-                                                url: "Usuarios/checkEmail",
-                                                dataType:"json",
-                                                data: datosUsuario,
-                                                 async: false,
-                                                success: function(result)
-                                                    {
-
-                                                      if(typeof(result.baja) == "undefined") 
-                                                      {
-                                                        if(result.msjCantidadRegistros > 0)
-                                                        {
-                                                           valida = false;
-                                                        }
-                                                        else
-                                                        {
-                                                          valida = true;
-                                                        }
-
-                                                      }
-                                                      else
-                                                      {
-                                                        window.location = result.url;
-                                                      }
-                                                      
-                                                    },
-                                               error:function(result)
-                                                  {
-                                                    alert("Error");
-                                                   console.log(result.responseText);
-                                                    
-                                                  }
-                                                  
-                                            });
-
-                                            return valida;
-
-                                // var options = validator.getFieldElements('colors').val();
-                                // return (options != null && options.length >= 2 && options.length <= 4);
-                            }
-                        },
-
-                    }
-                },
-                txtPassword: {
-                    group: '.form-group',
-                    validators: {
-                        notEmpty: {
-                            message: 'Este campo es requerido'
-                        },
-                        stringLength: {
-                            enabled: true,
-                            min: 5,
-                            max: 20,
-                            message: 'El password debe contener como mínimo 5 caracteres y 20 como máximo'
-                        },
-
-                    }
-                },
-                 slTipoUsuario: {
-                  group: '.form-group',
-                    validators: {
-                        notEmpty: {
-                            message: 'Seleciona un tipo de usuario.'
-                        }
-                    }
-                }
-
-
-          }
-        }).on('success.form.bv', function (e) {
-              
-
-              var imagenBD = $("#modalUpdateUsuario #btnModificarUsuario").prop("imagen");
-
-              var imagenLoad = $("body .file-preview img").attr("src").split("/")[6];
-
-              var cambioImagen = "NO";
-
-              if(imagenBD!=imagenLoad)
-              {
-                  cambioImagen = "SI";
-              }
-
-              console.log(cambioImagen);
-
-              // var cambioImagen = $("#modalUpdateUsuario #btnModificarUsuario").prop("cambioImagen");
-
-
-               var datosUsuarioUrl = "?id_usuario="+ $("#txtIdUsuario").val()+
-                                     "&id_rol= "+$("#slTipoUsuario").val()+
-                                     "&nombre="+$("#txtNombre").val()+
-                                     "&apellidos="+$("#txtApellidos").val()+
-                                     "&email="+$("#txtEmail").val()+
-                                     "&password="+$("#txtPassword").val()+
-                                     "&cambioImagen="+cambioImagen;
-
+            }
+          }).on('success.form.bv', function (e) {
                 
 
+                var imagenBD = $("#modalUpdateUsuario #btnModificarUsuario").prop("imagen");
 
-               // var datosUsuario = {
-               //                   id_usuario : $("#txtIdUsuario").val(),
-               //                   id_rol: $("#slTipoUsuario").val(),
-               //                   nombre : $("#txtNombre").val(),
-               //                   apellidos: $("#txtApellidos").val(),      
-               //                   email: $("#txtEmail").val(),
-               //                   password: $("#txtPassword").val()
+                var imagenLoad = $("body .file-preview img").attr("src").split("/")[6];
 
-               //                 } 
+                var cambioImagen = "NO";
+
+                if(imagenBD!=imagenLoad)
+                {
+                    cambioImagen = "SI";
+                }
+
+                console.log(cambioImagen);
+
+                // var cambioImagen = $("#modalUpdateUsuario #btnModificarUsuario").prop("cambioImagen");
 
 
-                         var archivos = document.getElementById("fileFoto");  
+                 var datosUsuarioUrl = "?id_usuario="+ $("#txtIdUsuario").val()+
+                                       "&id_rol= "+$("#slTipoUsuario").val()+
+                                       "&nombre="+$("#txtNombre").val()+
+                                       "&apellidos="+$("#txtApellidos").val()+
+                                       "&email="+$("#txtEmail").val()+
+                                       "&password="+$("#txtPassword").val()+
+                                       "&cambioImagen="+cambioImagen;
 
-                          var archivo = archivos.files;
-                          var archivos = new FormData();
-                          for(i=0; i<archivo.length;i++)
-                          {
-                            archivos.append('archivo',archivo[i])
-                          }
+                  
 
-                            $.ajax(
+
+                 // var datosUsuario = {
+                 //                   id_usuario : $("#txtIdUsuario").val(),
+                 //                   id_rol: $("#slTipoUsuario").val(),
+                 //                   nombre : $("#txtNombre").val(),
+                 //                   apellidos: $("#txtApellidos").val(),      
+                 //                   email: $("#txtEmail").val(),
+                 //                   password: $("#txtPassword").val()
+
+                 //                 } 
+
+
+                           var archivos = document.getElementById("fileFoto");  
+
+                            var archivo = archivos.files;
+                            var archivos = new FormData();
+                            for(i=0; i<archivo.length;i++)
                             {
-                                type: "POST",
-                                url: "Usuarios/updateUsuario"+datosUsuarioUrl,
-                                dataType:"json",
-                                contentType:false,
-                                processData:false,
-                                data: archivos,
-                                 async: true,
-                                success: function(result)
+                              archivos.append('archivo',archivo[i])
+                            }
+
+                              $.ajax(
+                              {
+                                  type: "POST",
+                                  url: "Usuarios/updateUsuario"+datosUsuarioUrl,
+                                  dataType:"json",
+                                  contentType:false,
+                                  processData:false,
+                                  data: archivos,
+                                   async: true,
+                                  success: function(result)
+                                      {
+                                        console.log(result);
+
+                                        if(typeof(result.baja) == "undefined") 
+                                        {
+                                            $('#modalUpdateUsuario').modal('hide');
+                                            $("#modalAlertaUsuario .modal-body").html(result.msjConsulta);
+                                            $("#modalAlertaUsuario").modal("show");
+                                        }
+                                        else
+                                        {
+                                            window.location = result.url;
+                                        }
+                                        
+
+                                      },
+                                 error:function(result)
                                     {
-                                      console.log(result);
-
-                                      if(typeof(result.baja) == "undefined") 
-                                      {
-                                          $('#modalUpdateUsuario').modal('hide');
-                                          $("#modalAlertaUsuario .modal-body").html(result.msjConsulta);
-                                          $("#modalAlertaUsuario").modal("show");
-                                      }
-                                      else
-                                      {
-                                          window.location = result.url;
-                                      }
+                                      alert("Error");
+                                     console.log(result.responseText);
                                       
-
-                                    },
-                               error:function(result)
-                                  {
-                                    alert("Error");
-                                   console.log(result.responseText);
+                                    }
                                     
-                                  }
-                                  
-                            });
+                              });
 
 
 
-          });
+            });
 
 
-  }
+    }
 
-$("body").on("click","#btnMdlEnviarEmailUsuario",function()
-{
+  $("body").on("click","#btnMdlEnviarEmailUsuario",function()
+  {
 
-  datosUsuario =  {
-                      id_usuario:$("#modalEnviarEmailUsuario .txtMdlIdUsuario").val()
-                  } 
+    datosUsuario =  {
+                        id_usuario:$("#modalEnviarEmailUsuario .txtMdlIdUsuario").val()
+                    } 
 
 
 
-      $.ajax(
-          {
-              type: "POST",
-              url: "Usuarios/enviarEmailUsuario",
-              dataType:"json",
-              data: datosUsuario,
-               async: true,
-              success: function(result)
+        $.ajax(
+            {
+                type: "POST",
+                url: "Usuarios/enviarEmailUsuario",
+                dataType:"json",
+                data: datosUsuario,
+                 async: true,
+                success: function(result)
+                    {
+
+                     // console.log(result);
+
+                      if(typeof(result.baja) == "undefined") 
+                      {
+                      
+                          $("#modalAlertaUsuario .modal-body").text(result.msj);
+                           
+                          $("#modalAlertaUsuario").modal("show");
+
+                      }
+                     else
+                      {
+                         window.location = result.url;
+                       
+                      }
+
+                    },
+               error:function(result)
                   {
-
-                    //console.log(result);
-
-                    if(typeof(result.baja) == "undefined") 
-                    {
+                    alert("Error");
+                   console.log(result.responseText);
                     
-                        $("#modalAlertaUsuario .modal-body").text(result.msj);
-                         
-                        $("#modalAlertaUsuario").modal("show");
+                  }
+                
+            });
 
-                    }
-                   else
+
+  });
+
+
+  $("body").on("click",".sendEmailUser",function()
+  {
+    
+        var datosUsuario = {
+                             id_usuario : tableUsersAlta.rows($(this).closest("tr").index()).data().pluck(0)[0]       
+                           } 
+
+
+        $.ajax(
+        {
+                type: "POST",
+                url: "Usuarios/getDatosUpdateUsuario",
+                dataType:"json",
+                data: datosUsuario,
+                 async: true,
+                success: function(result)
                     {
-                       window.location = result.url;
-                     
-                    }
 
-                  },
-             error:function(result)
-                {
-                  alert("Error");
-                 console.log(result.responseText);
-                  
-                }
-              
-          });
+                      //console.log(result);
 
+                      if(typeof(result.baja) == "undefined") 
+                      {
+                          var nombre = result.usuario[0].nombre +" "+result.usuario[0].apellidos;
+                      
+                          $("#modalEnviarEmailUsuario .nombre_usuario").text(nombre);
+                           $("#modalEnviarEmailUsuario .txtMdlIdUsuario").val(result.usuario[0].id_usuario);
+                          $("#modalEnviarEmailUsuario").modal("show");
 
-});
+                      }
+                     else
+                      {
+                         window.location = result.url;
+                       
+                      }
 
-
-$("body").on("click",".sendEmailUser",function()
-{
-  
-          var datosUsuario = {
-                               id_usuario : tableUsersAlta.rows($(this).closest("tr").index()).data().pluck(0)[0]       
-                             } 
-
-
-      $.ajax(
-          {
-              type: "POST",
-              url: "Usuarios/getDatosUpdateUsuario",
-              dataType:"json",
-              data: datosUsuario,
-               async: true,
-              success: function(result)
+                    },
+               error:function(result)
                   {
-
-                    //console.log(result);
-
-                    if(typeof(result.baja) == "undefined") 
-                    {
-                        var nombre = result.usuario[0].nombre +" "+result.usuario[0].apellidos;
+                    alert("Error");
+                   console.log(result.responseText);
                     
-                        $("#modalEnviarEmailUsuario .nombre_usuario").text(nombre);
-                         $("#modalEnviarEmailUsuario .txtMdlIdUsuario").val(result.usuario[0].id_usuario);
-                        $("#modalEnviarEmailUsuario").modal("show");
-
-                    }
-                   else
-                    {
-                       window.location = result.url;
-                     
-                    }
-
-                  },
-             error:function(result)
-                {
-                  alert("Error");
-                 console.log(result.responseText);
-                  
-                }
-              
-          });
+                  }
+                
+        });
 
 
 
-    });
+  });
 
 
 // FUNCIONES PARA DAR BAJA DE USUARIO

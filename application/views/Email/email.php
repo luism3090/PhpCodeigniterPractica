@@ -1,7 +1,12 @@
+<?php 
 
+$host= gethostname();
+$ip = gethostbyname($host);
+
+?>
 	
-	<h3>Email enviado con codeigniter haciendo uso del smtp de gmail</h3><hr><br> Mensaje de de prueba
-    enlace de descarga: <br>
-	<a href="http://localhost:8080/PhpCodeigniterPractica/public/uploads/14r1gymLJbjOHbdoLuQd3mnYbqy2nSNzTOcg6CS2quEhGum56AnxYpwW6vC4zsbAI5sPWTzXdW80Ph8C.jpeg" download>
-		imagen
+	<h3>Hola <?php echo $nombre.' '.$apellidos;?> este es un mensaje de prueba </h3><hr><br> prueba el siguiente
+    enlace de descarga aqui: <br>
+	<a href="<?php echo $ip; ?>/PhpCodeigniterPractica/public/uploads/<?php echo $foto;?> >" download>
+		archivo
 	</a>
