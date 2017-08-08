@@ -51,7 +51,8 @@ class Login extends CI_Controller
 									"id" => $datosLogin["loginUsuario"][0]->id_usuario,
 									"nombre" => $datosLogin["loginUsuario"][0]->nombre,
 									"apellidos" => $datosLogin["loginUsuario"][0]->apellidos,
-									"email" => $datosLogin["loginUsuario"][0]->email, 
+									"email" => $datosLogin["loginUsuario"][0]->email,
+									"foto" => $datosLogin["loginUsuario"][0]->foto, 
 									"logueado" => true
 								  );
 										

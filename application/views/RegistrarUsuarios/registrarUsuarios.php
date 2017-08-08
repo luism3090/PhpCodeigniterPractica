@@ -39,7 +39,7 @@
 									                                <div class="row">
 									                                    <div class="col-lg-4">
 									                                        <p class="text-center">
-									                                            <span class="glyphicon glyphicon-user icon-size"></span>
+									                                            <img src="<?php echo base_url();?>public/uploads/<?php echo $this->session->userdata('foto')?>" alt="" width="100px" height="100px">
 									                                        </p>
 									                                    </div>
 									                                    <div class="col-lg-8">
@@ -182,21 +182,22 @@
 
 	<script>
 		
-		$("#fileFoto").fileinput({
-		    overwriteInitial: true,
-		    maxFileSize: 1500,
-		    showClose: false,
-		    showCaption: false,
-		    maxFileCount:1,
-		    showBrowse: false,
-		    browseOnZoneClick: true,
-		    language: "es",
-		    removeIcon: '<i class="glyphicon glyphicon-remove"></i>',
-		    removeTitle: 'Cancelar',
-		    defaultPreviewContent: '<img src="<?php echo base_url(); ?>public/uploads/default_avatar.png" alt="Your Avatar" style="width:200px"><h6 class="text-muted">Clic para subir tu foto</h6>',
-		    layoutTemplates: {main2: '{preview} {remove} {browse}'},
-		    allowedFileExtensions: ["jpg", "png", "gif"]
-		});
+		  $("#fileFoto").fileinput({
+        overwriteInitial: true,
+        maxFileSize: 5000,
+        showClose: false,
+        showCaption: false,
+        maxFileCount:1,
+        showBrowse: false,
+        browseOnZoneClick: true,
+        language: "es",
+        removeIcon: '<i class="glyphicon glyphicon-remove"></i>',
+        removeTitle: 'Cancelar',
+        defaultPreviewContent: '<img src="<?php echo base_url(); ?>public/uploads/default_avatar.png" alt="Your Avatar" style="width:200px"><h6 class="text-muted">Clic para subir tu foto</h6>',
+        layoutTemplates: {main2: '{preview} {remove} {browse}'},
+        allowedFileExtensions: ["jpg", "png", "gif","pdf"]
+    });
+		
 </script>
 	
 

@@ -122,15 +122,18 @@ class Usuarios extends CI_Controller
 		 //$this->email->to("luisame@outlook.com");
 		 $this->email->subject('Probando Email de prueba');
 
+		 $host= gethostname();
+		 $ip = gethostbyname($host);
+
+		 $file_to_attach = "http://".$ip.":8080/PhpCodeigniterPractica/public/uploads/".$datosUsuario->foto;
+
+		 $this->email->attach($file_to_attach);
+
 		 $mensaje = $this->load->view('Email/email',$datosUsuario,TRUE);
 		 // return $message;
 
-		  $this->email->message($mensaje);
-		 // $this->email->message('<h3>Email enviado con codeigniter haciendo uso del smtp de gmail</h3><hr><br> Mensaje de de prueba
-   //  							enlace de descarga: <br>
-			// 					<a href="http://localhost:8080/PhpCodeigniterPractica/public/uploads/14r1gymLJbjOHbdoLuQd3mnYbqy2nSNzTOcg6CS2quEhGum56AnxYpwW6vC4zsbAI5sPWTzXdW80Ph8C.jpeg" download>
-			// 						imagen
-			// 					</a>');
+		 $this->email->message($mensaje);
+
 		 $envio = $this->email->send();
 
 		 return $envio;

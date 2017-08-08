@@ -9,6 +9,7 @@ $(document).ready(function()
       {
         "processing": true,
         "serverSide": true,
+        "ordering": true,
          "select": 'single',
          "language": {
                         "url": "//cdn.datatables.net/plug-ins/1.10.15/i18n/Spanish.json"
@@ -23,12 +24,13 @@ $(document).ready(function()
             $("#employee-grid").append('<tbody class="employee-grid-error"><tr><th colspan="3">No se encontraron datos</th></tr></tbody>');
             $("#employee-grid_processing").css("display","none");
             
-          },
+          }
           // ,
           // success:function(d)
           // {
-          //  debugger;
+          //  console.log(d);
           // }
+         
         },
         "columnDefs": [
                       {
@@ -52,6 +54,7 @@ $(document).ready(function()
         "processing": true,
         "serverSide": true,
          "select": 'single',
+         "ordering": true,
          "language": {
                         "url": "//cdn.datatables.net/plug-ins/1.10.15/i18n/Spanish.json"
                       },
@@ -131,41 +134,13 @@ $(document).ready(function()
                         
                         var urlFotoDefault = result.base_url+"default_avatar.png";
 
+                        loadFiles(urlFoto,urlFotoDefault);
 
-                           $('#fileFoto').fileinput('destroy');
-
-                           $('#fileFoto').fileinput({
-                                showUpload: false,
-                                browseOnZoneClick: true,              
-                                language: 'es',
-                                maxFileCount: 1,
-                                showClose: false,
-                                showCaption: false,
-                                maxFileSize: 1500,
-                                theme: 'explorer',                
-                                allowedFileExtensions: ['jpg','png'],
-                                initialPreviewAsData: true,
-                                initialPreview: urlFoto,
-                                initialPreviewConfig: [
-                                                {
-                                                    caption: result.usuario[0].foto, 
-                                                    width: '120px', 
-                                                    url: urlFoto, // server delete action 
-                                                    key: 100, 
-                                                    extra: {id: 100}
-                                                }
-                                            ],
-                               defaultPreviewContent: '<img src="'+urlFotoDefault+'" alt="Tu Avatar" style="width:160px"><h6 class="text-muted">Clic para subir tu foto</h6>',
-                                removeIcon: '<i class="glyphicon glyphicon-remove"></i>',
-                              removeTitle: 'Remover imagen',
-                            }); 
-                        
-                        $(".kv-file-remove.btn.btn-xs.btn-default , .file-upload-indicator").remove();
-                        $(".file-preview-image.kv-preview-data").css("width","160px");
-                        $(".file-input.theme-explorer button").css("margin","10px");
-                        $("#modalUpdateUsuario #btnModificarUsuario").prop("imagen",result.usuario[0].foto);
-
-
+                      $(".kv-file-remove.btn.btn-xs.btn-default , .file-upload-indicator").remove();
+                      $(".file-drag-handle.drag-handle-init.text-info").remove();
+                      $(".file-preview-image.kv-preview-data").css("width","160px");
+                      $(".file-input.theme-explorer button").css("margin","10px");
+                      $("#modalUpdateUsuario #btnModificarUsuario").prop("imagen",result.usuario[0].foto);
                       $("#modalUpdateUsuario").modal("show");
                       
                     }
@@ -188,6 +163,71 @@ $(document).ready(function()
 
 
     });
+
+
+    function loadFiles(urlFoto,urlFotoDefault)
+    {
+
+      $('#fileFoto').fileinput('destroy');
+
+       if( urlFoto.split(".")[1] === "pdf")
+       {
+          $('#fileFoto').fileinput({
+                                showUpload: false,
+                                browseOnZoneClick: true,              
+                                language: 'es',
+                                maxFileCount: 1,
+                                showClose: false,
+                                showCaption: false,
+                                maxFileSize: 5000,
+                                theme: 'explorer',                
+                                allowedFileExtensions: ['jpg','png','gif','pdf'],
+                                initialPreview: urlFoto,
+                                initialPreviewAsData: true,
+                                initialPreviewConfig: [
+                                                
+                                                {type: "pdf", size: 5000, caption: "Archivo", url: urlFoto},
+                                                
+                                            ],
+                               defaultPreviewContent: '<img src="'+urlFotoDefault+'" alt="Tu Avatar" style="width:160px"><h6 class="text-muted">Clic para subir tu foto</h6>',
+                                removeIcon: '<i class="glyphicon glyphicon-remove"></i>',
+                              removeTitle: 'Remover archivo',
+                            }); 
+       }
+       else
+       {
+          $('#fileFoto').fileinput({
+                                showUpload: false,
+                                browseOnZoneClick: true,              
+                                language: 'es',
+                                maxFileCount: 1,
+                                showClose: false,
+                                showCaption: false,
+                                maxFileSize: 5000,
+                                theme: 'explorer',                
+                                allowedFileExtensions: ['jpg','png','gif','pdf'],
+                                initialPreview: urlFoto,
+                                initialPreviewAsData: true,
+                                initialPreviewConfig: [
+                                                
+                                                {type: "image", size: 5000, caption: "imagen", url: urlFoto },
+                                                
+                                            ],
+                               defaultPreviewContent: '<img src="'+urlFotoDefault+'" alt="Tu Avatar" style="width:160px"><h6 class="text-muted">Clic para subir tu foto</h6>',
+                                removeIcon: '<i class="glyphicon glyphicon-remove"></i>',
+                              removeTitle: 'Remover archivo',
+                            }); 
+       }
+
+       
+
+
+
+        
+
+
+
+    }
 
     $('#fileFoto').on('fileselect', function(event) 
     {
@@ -350,7 +390,18 @@ $(document).ready(function()
 
                 var imagenBD = $("#modalUpdateUsuario #btnModificarUsuario").prop("imagen");
 
-                var imagenLoad = $("body .file-preview img").attr("src").split("/")[6];
+                var imagenLoad = "";
+
+                if($("body .file-preview img").length > 0 )
+                {
+                  imagenLoad = $("body .file-preview img").attr("src").split("/")[6];
+                }
+                if($("body .kv-file-content embed").length>0)
+                {
+                  imagenLoad = $("body .kv-file-content embed").attr("src").split("/")[3]
+                }
+
+                
 
                 var cambioImagen = "NO";
 
@@ -359,7 +410,7 @@ $(document).ready(function()
                     cambioImagen = "SI";
                 }
 
-                console.log(cambioImagen);
+                //console.log(cambioImagen);
 
                 // var cambioImagen = $("#modalUpdateUsuario #btnModificarUsuario").prop("cambioImagen");
 

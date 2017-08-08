@@ -4,6 +4,9 @@ $(document).ready(function()
   validaFormRegistrarUsuario();
 
 
+
+
+
   $("body").on("submit","#formRegistrarUsuario",function(event)
   {
   		event.preventDefault();

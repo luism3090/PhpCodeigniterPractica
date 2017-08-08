@@ -14,6 +14,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 					$requestData= $request;
 
+					$columna = $requestData['order'][0]["column"]+1;
+					$ordenacion = $requestData['order'][0]["dir"];
+
+					// return $columna;
+					//exit();
+
 
 					
 					$sqlUsuariosAlta =	"select 
@@ -30,7 +36,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 											from usuarios usu
 											join usuarios_roles usu_ro on (usu.id_usuario = usu_ro.id_usuario)
 											join roles rol on (usu_ro.id_rol = rol.id_rol) where usu.id_usuario != 1 and usu.estado = '1' 
-											order by usu.fecha_registro desc ";
+											order by ".$columna." ".$ordenacion." ";
+
+					// return $sqlUsuariosAlta;
+					// 	exit();
 
 					$query = $this->db->query($sqlUsuariosAlta);
 					$totalData = $query->num_rows();
@@ -38,6 +47,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 					if( !empty($requestData['search']['value']) ) 
 					{   
+
+						
 
 						$sqlUsuariosAlta = "select 
 													usu.id_usuario,
@@ -61,11 +72,13 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 																		 usu.email like '%".$this->db->escape_str($requestData['search']['value'])."%' or 
 																		 usu.fecha_registro like '%".$this->db->escape_str($requestData['search']['value'])."%' or
 																		 rol.descripcion like '%".$this->db->escape_str($requestData['search']['value'])."%' 
-													 ) order by usu.fecha_registro desc ";
+													 ) order by ".$columna." ".$ordenacion." ";
 
+					
 
-											
 						$query = $this->db->query($sqlUsuariosAlta);
+
+
 						$totalFiltered = $query->num_rows(); 
 						
 
@@ -120,7 +133,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 					$requestData= $request;
 
-
+					
+					$columna = $requestData['order'][0]["column"]+1;
+					$ordenacion = $requestData['order'][0]["dir"];
 					
 					$sqlUsuariosBaja =	"select 
 											usu.id_usuario,
@@ -134,7 +149,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 											from usuarios usu
 											join usuarios_roles usu_ro on (usu.id_usuario = usu_ro.id_usuario)
 											join roles rol on (usu_ro.id_rol = rol.id_rol) where usu.id_usuario != 1 and usu.estado = '0' 
-											order by usu.fecha_registro desc ";
+											order by ".$columna." ".$ordenacion." ";
 
 					$query = $this->db->query($sqlUsuariosBaja);
 					$totalData = $query->num_rows();
@@ -162,7 +177,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 																		 usu.email like '%".$this->db->escape_str($requestData['search']['value'])."%' or 
 																		 usu.fecha_registro like '%".$this->db->escape_str($requestData['search']['value'])."%' or
 																		 rol.descripcion like '%".$this->db->escape_str($requestData['search']['value'])."%' 
-													 ) order by usu.fecha_registro desc ";
+													 ) order by ".$columna." ".$ordenacion." ";
 
 
 											

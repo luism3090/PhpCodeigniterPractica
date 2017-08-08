@@ -37,7 +37,7 @@
 									                                <div class="row">
 									                                    <div class="col-lg-4">
 									                                        <p class="text-center">
-									                                            <span class="glyphicon glyphicon-user icon-size"></span>
+									                                            <img src="<?php echo base_url();?>public/uploads/<?php echo $this->session->userdata('foto')?>" alt="" width="100px" height="100px">
 									                                        </p>
 									                                    </div>
 									                                    <div class="col-lg-8">
