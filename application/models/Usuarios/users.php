@@ -133,7 +133,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 					$requestData= $request;
 
-					
+
 					$columna = $requestData['order'][0]["column"]+1;
 					$ordenacion = $requestData['order'][0]["dir"];
 					
@@ -250,9 +250,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 			$query = $this->db->query($sql,array($id_usuario));
 
-			// return $query;
-			// exit();
-
 
 			$datos = array("msjCantidadRegistros" => 0, "msjNoHayRegistros" => '',"usuario" => array(), "base_url" => base_url()."public/uploads/");
 
@@ -276,6 +273,113 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 		public function actualizarUsuario($id_usuario,$id_rol,$nombre,$apellidos,$email,$password,$cambioImagen,$files)
 		{
+
+
+			$sql1 = "select foto from usuarios where id_usuario = ? and estado = '1' ";
+
+			$query1 = $this->db->query($sql1,array($id_usuario));
+
+			$foto = $query1->result()[0]->foto;
+
+		    if( $cambioImagen == 'SI' && $foto != "default_avatar.png" )
+			{
+				$rutaFileEliminar = "./public/uploads/".$foto;
+
+				unlink($rutaFileEliminar);
+
+				$foto = "default_avatar.png";
+
+			}
+
+			
+			if(!empty($files))
+			{
+					$nombreAleatorio = substr(str_shuffle(str_repeat('ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789',50)),0,50);
+
+					$ruta = $_SERVER['DOCUMENT_ROOT']."/PhpCodeigniterPractica/public/uploads/";
+
+					$nombreOriginal = "";
+
+					// return $files;
+					// exit();
+
+					foreach ( $files as $key) 
+					{
+
+						if($key['error'] == UPLOAD_ERR_OK)
+						{
+							//$nombreOriginal = $key["name"];
+							$tipoImage = explode("/", $key['type']);
+							$nombreMejorado = $nombreAleatorio.".".$tipoImage[1];
+							$temporal = $key["tmp_name"];
+							//$temporal = $nombreAleatorio;
+							$destino = $ruta.$nombreMejorado;
+
+							//return $destino;
+
+							$subir = move_uploaded_file($temporal, $destino);
+
+
+						}
+
+
+					}
+
+					
+					
+				    $foto = $nombreMejorado;
+				
+
+			}
+
+			$this->db->trans_begin();
+
+
+			$sql1 = "update usuarios set 
+						nombre = ?, 
+						apellidos = ?,
+						email = ? ,
+						password = ?,
+						fecha_actualizacion = now(),
+						foto = ?
+					where id_usuario = ? and estado = '1'";
+
+
+			$query1 = $this->db->query($sql1,array($nombre,$apellidos,$email,$password,$foto,$id_usuario));
+
+
+			$sql2 = "update usuarios_roles set 
+						id_rol = ?
+					where id_usuario = ?";
+
+
+			$query2 = $this->db->query($sql2,array($id_rol,$id_usuario));
+
+			$datos = array("msjConsulta" => '');
+
+					if ($this->db->trans_status() === FALSE)
+					{
+							$datos["msjConsulta"] = "Falló al actualizar los datos del usuario intente de nuevo";
+
+					        $this->db->trans_rollback();
+					}
+					else
+					{
+						$datos["msjConsulta"] = "El usuario ha sido modificado correctamente";
+
+
+					    $this->db->trans_commit();
+					}
+
+				return $datos;
+
+		}
+
+
+
+		public function actualizarUsuarioCabecera($id_usuario,$id_rol,$nombre,$apellidos,$email,$password,$cambioImagen,$files)
+		{
+
 
 			$sql1 = "select foto from usuarios where id_usuario = ? and estado = '1' ";
 
@@ -335,11 +439,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			}
 
 
-		
-
-
-			
-
 			$this->db->trans_begin();
 
 
@@ -375,12 +474,18 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 					{
 						$datos["msjConsulta"] = "El usuario ha sido modificado correctamente";
 
+							$this->session->set_userdata('nombre',$nombre);
+							$this->session->set_userdata('apellidos',$apellidos);
+							$this->session->set_userdata('email',$email);
+							$this->session->set_userdata('foto',$foto);
+
 					    $this->db->trans_commit();
 					}
 
 				return $datos;
 
 		}
+
 
 
 		public function verificarEmail($email,$id_usuario)

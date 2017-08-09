@@ -125,8 +125,8 @@ class Usuarios extends CI_Controller
 		 $host= gethostname();
 		 $ip = gethostbyname($host);
 
-		 //$file_to_attach = "http://".$ip.":8080/PhpCodeigniterPractica/public/uploads/".$datosUsuario->foto;
-		 $file_to_attach = "http://".$ip."/PhpCodeigniterPractica/public/uploads/".$datosUsuario->foto;
+		 $file_to_attach = "http://".$ip.":8080/PhpCodeigniterPractica/public/uploads/".$datosUsuario->foto;
+		 //$file_to_attach = "http://".$ip."/PhpCodeigniterPractica/public/uploads/".$datosUsuario->foto;
 
 		 $this->email->attach($file_to_attach);
 
@@ -158,9 +158,6 @@ class Usuarios extends CI_Controller
 		$password = $_REQUEST["password"];
 		$cambioImagen = $_REQUEST["cambioImagen"];
 
-		
-
-
 		// echo $nombre;
 		// echo json_encode($_FILES);
 
@@ -175,6 +172,30 @@ class Usuarios extends CI_Controller
 		//echo $datosUsuario;
 	}
 
+
+	public function updateUsuarioCabecera()
+	{
+		$id_usuario = $_REQUEST["id_usuario"];
+		$id_rol = $_REQUEST["id_rol"];
+		$nombre = $_REQUEST["nombre"];
+		$apellidos = $_REQUEST["apellidos"];
+		$email = $_REQUEST["email"];
+		$password = $_REQUEST["password"];
+		$cambioImagen = $_REQUEST["cambioImagen"];
+
+		// echo $nombre;
+		// echo json_encode($_FILES);
+
+		// exit();
+
+
+		$datosUsuario = $this->users->actualizarUsuarioCabecera($id_usuario,$id_rol,$nombre,$apellidos,$email,$password,$cambioImagen,$_FILES);
+
+		//$datosUsuario["aa"] = $datosUsuario;
+
+		echo json_encode($datosUsuario);
+		//echo $datosUsuario;
+	}
 
 	
 	public function checkEmail()

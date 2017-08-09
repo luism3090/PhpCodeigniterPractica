@@ -89,7 +89,7 @@
 
 
        <!-- Modal -->
-<div id="modalUpdateUsuario" class="modal fade" role="dialog" data-keyboard="false" data-backdrop="static" >
+<div id="modalUpdateUsuarioCabecera" class="modal fade" role="dialog" data-keyboard="false" data-backdrop="static" >
   <div class="modal-dialog">
 
     <!-- Modal content-->
@@ -98,30 +98,30 @@
 		        <button type="button" class="close" data-dismiss="modal">&times;</button>
 		        <h4 class="modal-title">Modificar usuario</h4>
 	      </div>
-	      <form id="FormUpdateUsuario">
+	      <form id="FormUpdateUsuarioCabecera">
 		      <div class="modal-body">
 			      	<div class="row">
 			        	<div class="col-xs-12">
 				        		
 									<div class="form-group">
-										<label for="txtNombre">Nombre:</label>
-										<input type="text" id="txtNombre" name="txtNombre" class="form-control" placeholder="Nombre">
+										<label for="txtNombreCab">Nombre:</label>
+										<input type="text" id="txtNombreCab" name="txtNombreCab" class="form-control" placeholder="Nombre">
 									</div>
 									<div class="form-group">
-										<label for="txtApellidos">Apellidos:</label>
-										<input type="text" id="txtApellidos" name="txtApellidos" class="form-control" placeholder="Apellidos">
+										<label for="txtApellidosCab">Apellidos:</label>
+										<input type="text" id="txtApellidosCab" name="txtApellidosCab" class="form-control" placeholder="Apellidos">
 									</div>
 									<div class="form-group">
-										<label for="txtEmail">Email:</label>
-										<input type="text" id="txtEmail" name="txtEmail"  class="form-control" placeholder="Email">
+										<label for="txtEmailCab">Email:</label>
+										<input type="text" id="txtEmailCab" name="txtEmailCab"  class="form-control" placeholder="Email">
 									</div>
 									<div class="form-group">
-										<label for="txtPassword">Password:</label>
-										<input type="text" id="txtPassword" name="txtPassword"  class="form-control" placeholder="Password" minlength="5"  maxlength="20" >
+										<label for="txtPasswordCab">Password:</label>
+										<input type="text" id="txtPasswordCab" name="txtPasswordCab"  class="form-control" placeholder="Password" minlength="5"  maxlength="20" >
 									</div>
 									<div class="form-group">
-										<label for="elegir">Tipo de usuario:</label> 
-										<select id="slTipoUsuario" class="form-control" name="slTipoUsuario">
+										<label for="slTipoUsuarioCab">Tipo de usuario:</label> 
+										<select id="slTipoUsuarioCab" class="form-control" name="slTipoUsuarioCab">
 											<option value="1">Super Usuario</option>
 											<option value="2">Administrador</option> 
 											<option value="3" selected>Cliente</option>
@@ -129,21 +129,21 @@
 									</div>
 
 									<div class="form-group">
-											 <label for="elegir" class="center-block text-center" >Foto:</label> 
+											 <label for="fileFotoCab" class="center-block text-center" >Foto:</label> 
 												<div class="kv-avatar center-block text-center" style="width:200px">
-									                <input id="fileFoto" name="avatar-2" type="file" class="file-loading" >
+									                <input id="fileFotoCab" name="avatar-2" type="file" class="file-loading" >
 									            </div>
 
 									  </div>
 											<br><br>
-									<input type="hidden" id="txtIdUsuario" class="form-control">
+									<input type="hidden" id="txtIdUsuarioCab" class="form-control">
 									
 								
 			        	</div>
 			        </div>
 		      </div>
 		      <div class="modal-footer">
-				      <button type="submit" class="btn btn-primary"  id="btnModificarUsuario" >Modificar</button>
+				      <button type="submit" class="btn btn-primary"  id="btnModificarUsuarioCab" >Modificar</button>
 				      <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
 		      </div>
 	      </form>
@@ -153,7 +153,7 @@
 </div>
 
    <!-- Modal -->
-<div id="modalAlertaUsuario" class="modal fade" role="dialog">
+<div id="modalAlertaUsuarioCabecera" class="modal fade" role="dialog">
   <div class="modal-dialog">
 
     <!-- Modal content-->

@@ -3,8 +3,8 @@
 $host= gethostname();
 $ip = gethostbyname($host);
 
-//$ruta = "http://".$ip.":8080/PhpCodeigniterPractica/public/uploads/".$foto;
-$ruta = "http://".$ip."/PhpCodeigniterPractica/public/uploads/".$foto;
+$ruta = "http://".$ip.":8080/PhpCodeigniterPractica/public/uploads/".$foto;
+//$ruta = "http://".$ip."/PhpCodeigniterPractica/public/uploads/".$foto;
 
 ?>
 

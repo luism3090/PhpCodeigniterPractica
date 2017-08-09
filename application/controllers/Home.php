@@ -14,6 +14,12 @@ class Home extends CI_Controller
 	public function index()
 	{
 
+		// echo $this->session->userdata('nombre');
+
+		// $this->session->set_userdata('nombre', 'Ana');
+
+		// echo $this->session->userdata('nombre');
+
 		$this->load->view('Home/home');
 		
 

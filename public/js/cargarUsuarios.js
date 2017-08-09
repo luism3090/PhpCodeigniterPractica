@@ -416,20 +416,6 @@ $(document).ready(function()
                                        "&password="+$("#txtPassword").val()+
                                        "&cambioImagen="+cambioImagen;
 
-                  
-
-
-                 // var datosUsuario = {
-                 //                   id_usuario : $("#txtIdUsuario").val(),
-                 //                   id_rol: $("#slTipoUsuario").val(),
-                 //                   nombre : $("#txtNombre").val(),
-                 //                   apellidos: $("#txtApellidos").val(),      
-                 //                   email: $("#txtEmail").val(),
-                 //                   password: $("#txtPassword").val()
-
-                 //                 } 
-
-
                            var archivos = document.getElementById("fileFoto");  
 
                             var archivo = archivos.files;

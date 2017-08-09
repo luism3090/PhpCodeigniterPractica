@@ -1,6 +1,8 @@
 $(document).ready(function()
 {
 
+  validaFormUpdateUsuarioCab();
+
     $("#btnCerrarSesion").on("click",function()
     {
 
@@ -34,6 +36,8 @@ $(document).ready(function()
 
     $("#btnUpdateMyData").on("click",function()
     {
+  
+      
 
        $.ajax(
         {
@@ -44,16 +48,18 @@ $(document).ready(function()
                async: true,
               success: function(result)
                   {
+
+                    
                     
                     if(typeof(result.baja) == "undefined") 
                     {
 
-                        $("#txtNombre").val(result.usuario[0].nombre);
-                        $("#txtApellidos").val(result.usuario[0].apellidos);
-                        $("#txtEmail").val(result.usuario[0].email);
-                        $("#txtIdUsuario").val(result.usuario[0].id_usuario);
-                        $("#txtPassword").val(result.usuario[0].password);
-                        $("#slTipoUsuario option[value="+result.usuario[0].id_rol+"]").prop('selected', 'selected');
+                        $("#modalUpdateUsuarioCabecera #txtNombreCab").val(result.usuario[0].nombre);
+                        $("#modalUpdateUsuarioCabecera #txtApellidosCab").val(result.usuario[0].apellidos);
+                        $("#modalUpdateUsuarioCabecera #txtEmailCab").val(result.usuario[0].email);
+                        $("#modalUpdateUsuarioCabecera #txtIdUsuarioCab").val(result.usuario[0].id_usuario);
+                        $("#modalUpdateUsuarioCabecera #txtPasswordCab").val(result.usuario[0].password);
+                        $("#modalUpdateUsuarioCabecera #slTipoUsuarioCab option[value="+result.usuario[0].id_rol+"]").prop('selected', 'selected');
                         var urlFoto = "";
 
                         if(result.usuario[0].foto!="default_avatar.png")
@@ -64,14 +70,14 @@ $(document).ready(function()
                           
                           var urlFotoDefault = result.base_url+"default_avatar.png";
 
-                          loadFiles(urlFoto,urlFotoDefault);
+                          loadFilesCab(urlFoto,urlFotoDefault);
 
-                        $(".kv-file-remove.btn.btn-xs.btn-default , .file-upload-indicator").remove();
-                        $(".file-drag-handle.drag-handle-init.text-info").remove();
-                        $(".file-preview-image.kv-preview-data").css("width","160px");
-                        $(".file-input.theme-explorer button").css("margin","10px");
-                        $("#modalUpdateUsuario #btnModificarUsuario").prop("imagen",result.usuario[0].foto);
-                        $("#modalUpdateUsuario").modal("show");
+                        $("#modalUpdateUsuarioCabecera .kv-file-remove.btn.btn-xs.btn-default , #modalUpdateUsuarioCabecera .file-upload-indicator").remove();
+                        $("#modalUpdateUsuarioCabecera .file-drag-handle.drag-handle-init.text-info").remove();
+                        $("#modalUpdateUsuarioCabecera .file-preview-image.kv-preview-data").css("width","160px");
+                        $("#modalUpdateUsuarioCabecera .file-input.theme-explorer button").css("margin","10px");
+                        $("#modalUpdateUsuarioCabecera #btnModificarUsuarioCab").prop("imagen",result.usuario[0].foto);
+                        $("#modalUpdateUsuarioCabecera").modal("show");
                       
                     }
                     else
@@ -94,14 +100,14 @@ $(document).ready(function()
     });
 
 
-     function loadFiles(urlFoto,urlFotoDefault)
+     function loadFilesCab(urlFoto,urlFotoDefault)
      {
 
-       $('#fileFoto').fileinput('destroy');
+       $('#fileFotoCab').fileinput('destroy');
 
         if( urlFoto.split(".")[1] === "pdf")
         {
-           $('#fileFoto').fileinput({
+           $('#fileFotoCab').fileinput({
                                  showUpload: false,
                                  browseOnZoneClick: true,              
                                  language: 'es',
@@ -125,7 +131,7 @@ $(document).ready(function()
         }
         else
         {
-           $('#fileFoto').fileinput({
+           $('#fileFotoCab').fileinput({
                                  showUpload: false,
                                  browseOnZoneClick: true,              
                                  language: 'es',
@@ -152,20 +158,20 @@ $(document).ready(function()
      }
 
 
-     $("body").on("submit","#FormUpdateUsuario",function(event)
+     $("body").on("submit","#FormUpdateUsuarioCabecera",function(event)
     {
 
       event.preventDefault();
 
-      validaFormUpdateUsuario();
+      validaFormUpdateUsuarioCab();
 
     });
 
-     function validaFormUpdateUsuario()
+     function validaFormUpdateUsuarioCab()
     {
 
 
-          $('#FormUpdateUsuario').bootstrapValidator(
+          $('#FormUpdateUsuarioCabecera').bootstrapValidator(
           {
 
                 message: 'This value is not valid',
@@ -176,7 +182,7 @@ $(document).ready(function()
                     validating: 'glyphicon glyphicon-refresh'
                 },
                 fields: {
-                    txtNombre: {
+                    txtNombreCab: {
                        group: '.form-group',
                         validators: 
                         {
@@ -187,7 +193,7 @@ $(document).ready(function()
 
                         }
                     },
-                    txtApellidos: {
+                    txtApellidosCab: {
                         group: '.form-group',
                         validators: {
                             notEmpty: {
@@ -198,7 +204,7 @@ $(document).ready(function()
 
                         }
                     },
-                    txtEmail: {
+                    txtEmailCab: {
                       group: '.form-group',
                       validators: 
                       {
@@ -219,8 +225,8 @@ $(document).ready(function()
                                   var valida = true;
 
                                   var datosUsuario = {
-                                                        id_usuario : $("#txtIdUsuario").val(),
-                                                        email:$("#txtEmail").val()
+                                                        id_usuario : $("#txtIdUsuarioCab").val(),
+                                                        email:$("#txtEmailCab").val()
                                                       }
 
 
@@ -270,7 +276,7 @@ $(document).ready(function()
 
                       }
                   },
-                  txtPassword: {
+                  txtPasswordCab: {
                       group: '.form-group',
                       validators: {
                           notEmpty: {
@@ -285,7 +291,7 @@ $(document).ready(function()
 
                       }
                   },
-                   slTipoUsuario: {
+                   slTipoUsuarioCab: {
                     group: '.form-group',
                       validators: {
                           notEmpty: {
@@ -299,7 +305,7 @@ $(document).ready(function()
           }).on('success.form.bv', function (e) {
                 
 
-                var imagenBD = $("#modalUpdateUsuario #btnModificarUsuario").prop("imagen");
+                var imagenBD = $("#modalUpdateUsuarioCabecera #btnModificarUsuarioCab").prop("imagen");
 
                 var imagenLoad = "";
 
@@ -321,17 +327,17 @@ $(document).ready(function()
                     cambioImagen = "SI";
                 }
 
-                 var datosUsuarioUrl = "?id_usuario="+ $("#txtIdUsuario").val()+
-                                       "&id_rol= "+$("#slTipoUsuario").val()+
-                                       "&nombre="+$("#txtNombre").val()+
-                                       "&apellidos="+$("#txtApellidos").val()+
-                                       "&email="+$("#txtEmail").val()+
-                                       "&password="+$("#txtPassword").val()+
+                 var datosUsuarioUrl = "?id_usuario="+ $("#txtIdUsuarioCab").val()+
+                                       "&id_rol= "+$("#slTipoUsuarioCab").val()+
+                                       "&nombre="+$("#txtNombreCab").val()+
+                                       "&apellidos="+$("#txtApellidosCab").val()+
+                                       "&email="+$("#txtEmailCab").val()+
+                                       "&password="+$("#txtPasswordCab").val()+
                                        "&cambioImagen="+cambioImagen;
 
 
 
-                           var archivos = document.getElementById("fileFoto");  
+                           var archivos = document.getElementById("fileFotoCab");  
 
                             var archivo = archivos.files;
                             var archivos = new FormData();
@@ -343,7 +349,7 @@ $(document).ready(function()
                               $.ajax(
                               {
                                   type: "POST",
-                                  url: "Usuarios/updateUsuario"+datosUsuarioUrl,
+                                  url: "Usuarios/updateUsuarioCabecera"+datosUsuarioUrl,
                                   dataType:"json",
                                   contentType:false,
                                   processData:false,
@@ -351,13 +357,13 @@ $(document).ready(function()
                                    async: true,
                                   success: function(result)
                                       {
-                                        console.log(result);
+                                        //console.log(result);
 
                                         if(typeof(result.baja) == "undefined") 
                                         {
-                                            $('#modalUpdateUsuario').modal('hide');
-                                            $("#modalAlertaUsuario .modal-body").html(result.msjConsulta);
-                                            $("#modalAlertaUsuario").modal("show");
+                                            $('#modalUpdateUsuarioCabecera').modal('hide');
+                                            $("#modalAlertaUsuarioCabecera .modal-body").html(result.msjConsulta);
+                                            $("#modalAlertaUsuarioCabecera").modal("show");
                                         }
                                         else
                                         {
@@ -381,6 +387,20 @@ $(document).ready(function()
 
 
     }
+
+
+     $('#modalUpdateUsuarioCabecera').on('hide.bs.modal', function (e) 
+    {
+         $("#FormUpdateUsuarioCabecera").bootstrapValidator('resetForm', true);
+
+
+    })
+
+
+     $('#modalAlertaUsuarioCabecera').on('hide.bs.modal', function (e) 
+    {
+         location.reload();
+    });
 
       
     
