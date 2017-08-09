@@ -125,7 +125,8 @@ class Usuarios extends CI_Controller
 		 $host= gethostname();
 		 $ip = gethostbyname($host);
 
-		 $file_to_attach = "http://".$ip.":8080/PhpCodeigniterPractica/public/uploads/".$datosUsuario->foto;
+		 //$file_to_attach = "http://".$ip.":8080/PhpCodeigniterPractica/public/uploads/".$datosUsuario->foto;
+		 $file_to_attach = "http://".$ip."/PhpCodeigniterPractica/public/uploads/".$datosUsuario->foto;
 
 		 $this->email->attach($file_to_attach);
 

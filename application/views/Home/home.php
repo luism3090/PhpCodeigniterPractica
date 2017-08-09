@@ -4,6 +4,7 @@
 	<meta charset="UTF-8">
 	<title>Home</title>
 	<link rel="stylesheet" type="text/css" href="<?php echo base_url();?>public/css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="<?php echo base_url();?>public/css/fileInput/fileinput.min.css">
 	<link rel="stylesheet" type="text/css" href="<?php echo base_url();?>public/css/estiloHomeMenu.css">
 	<link rel="stylesheet" type="text/css" href="<?php echo base_url();?>public/css/estiloBarraSuperior.css">
 </head>
@@ -39,7 +40,7 @@
 			                                        <p class="text-left"><strong><?php echo $this->session->userdata('nombre')." ".$this->session->userdata('apellidos') ?></strong></p>
 			                                        <p class="text-left small"><?php echo $this->session->userdata('email')?></p>
 			                                        <p class="text-left">
-			                                            <a href="#" class="btn btn-primary btn-block btn-sm">Actualizar Datos</a>
+			                                            <a href="#" class="btn btn-primary btn-block btn-sm" id="btnUpdateMyData">Actualizar Datos</a>
 			                                        </p>
 			                                    </div>
 			                                </div>
@@ -85,10 +86,99 @@
 			</div>
 
 	</div>
+
+
+       <!-- Modal -->
+<div id="modalUpdateUsuario" class="modal fade" role="dialog" data-keyboard="false" data-backdrop="static" >
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+	      <div class="modal-header">
+		        <button type="button" class="close" data-dismiss="modal">&times;</button>
+		        <h4 class="modal-title">Modificar usuario</h4>
+	      </div>
+	      <form id="FormUpdateUsuario">
+		      <div class="modal-body">
+			      	<div class="row">
+			        	<div class="col-xs-12">
+				        		
+									<div class="form-group">
+										<label for="txtNombre">Nombre:</label>
+										<input type="text" id="txtNombre" name="txtNombre" class="form-control" placeholder="Nombre">
+									</div>
+									<div class="form-group">
+										<label for="txtApellidos">Apellidos:</label>
+										<input type="text" id="txtApellidos" name="txtApellidos" class="form-control" placeholder="Apellidos">
+									</div>
+									<div class="form-group">
+										<label for="txtEmail">Email:</label>
+										<input type="text" id="txtEmail" name="txtEmail"  class="form-control" placeholder="Email">
+									</div>
+									<div class="form-group">
+										<label for="txtPassword">Password:</label>
+										<input type="text" id="txtPassword" name="txtPassword"  class="form-control" placeholder="Password" minlength="5"  maxlength="20" >
+									</div>
+									<div class="form-group">
+										<label for="elegir">Tipo de usuario:</label> 
+										<select id="slTipoUsuario" class="form-control" name="slTipoUsuario">
+											<option value="1">Super Usuario</option>
+											<option value="2">Administrador</option> 
+											<option value="3" selected>Cliente</option>
+										</select> 
+									</div>
+
+									<div class="form-group">
+											 <label for="elegir" class="center-block text-center" >Foto:</label> 
+												<div class="kv-avatar center-block text-center" style="width:200px">
+									                <input id="fileFoto" name="avatar-2" type="file" class="file-loading" >
+									            </div>
+
+									  </div>
+											<br><br>
+									<input type="hidden" id="txtIdUsuario" class="form-control">
+									
+								
+			        	</div>
+			        </div>
+		      </div>
+		      <div class="modal-footer">
+				      <button type="submit" class="btn btn-primary"  id="btnModificarUsuario" >Modificar</button>
+				      <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+		      </div>
+	      </form>
+    </div>
+
+  </div>
+</div>
+
+   <!-- Modal -->
+<div id="modalAlertaUsuario" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+       <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Alerta</h4>
+      </div>
+      <div class="modal-body">
+        
+      </div>
+      <div class="modal-footer">
+      <button type="button" class="btn btn-default" data-dismiss="modal" id="btnMdlAlertaUpdateUsuario">Aceptar</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
 	
 
 	<script src="<?php echo base_url(); ?>public/libreriasJS/jquery.min.js"></script>
 	<script src="<?php echo base_url(); ?>public/libreriasJS/bootstrap.min.js"></script>
+    <script src="<?php echo base_url(); ?>public/libreriasJS/fileInput/fileinput.min.js"></script>
+	<script src="<?php echo base_url(); ?>public/libreriasJS/fileInput/es.js"></script>
 	<script src="<?php echo base_url(); ?>public/libreriasJS/bootstrapValidator.js"></script>
 	<script src="<?php echo base_url(); ?>public/js/cargarMenu.js"></script>
 	<script src="<?php echo base_url(); ?>public/js/cerrarSesion.js"></script> 

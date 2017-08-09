@@ -220,13 +220,6 @@ $(document).ready(function()
        }
 
        
-
-
-
-        
-
-
-
     }
 
     $('#fileFoto').on('fileselect', function(event) 

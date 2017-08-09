@@ -15,6 +15,7 @@ class Home extends CI_Controller
 	{
 
 		$this->load->view('Home/home');
+		
 
 	}
 
@@ -132,6 +133,26 @@ class Home extends CI_Controller
 		}
 	}	
 
+
+	public function actualizarDatosUsuario()
+	{
+
+		$this->load->model('Usuarios/users');
+		$datosUsuario = $this->users->obtenerDatosUsuario($this->session->userdata('id'));
+
+
+		if(is_array($datosUsuario))
+		{
+			echo json_encode($datosUsuario);
+		}
+		else
+		{
+			$datos["algo"] = "Hola";
+			echo json_encode($datos);
+		}
+			
+		
+	}
 
 
 
