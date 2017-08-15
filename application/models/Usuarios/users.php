@@ -9,7 +9,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 		}
 
 
-		public function obtenerUsuariosAlta($request)
+		public function obtenerUsuariosAlta($request,$id_usuario)
 		{
 
 					$requestData= $request;
@@ -17,8 +17,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 					$columna = $requestData['order'][0]["column"]+1;
 					$ordenacion = $requestData['order'][0]["dir"];
 
-					// return $columna;
-					//exit();
+					
 
 
 					
@@ -31,17 +30,21 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 											usu.fecha_registro,
 											rol.descripcion as tipoUsuario,
 											'<button  type=''button'' class=''btn btn-primary updateUsersAlta''> <span class=''glyphicon glyphicon-pencil''></span> </button>' as modificar,
-											'<button  type=''button'' class=''btn btn-danger bajaUsersAlta''> <span class=''glyphicon glyphicon-circle-arrow-down''></span> </button>' as eliminar ,
+											'<button  type=''button'' class=''btn btn-danger bajaUsersAlta''> <span class=''glyphicon glyphicon-circle-arrow-down''></span> </button>' as eliminar,
 											'<button  type=''button'' class=''btn btn-success sendEmailUser''> <span class=''glyphicon glyphicon-envelope''></span> </button>' as EnviarEmail 
 											from usuarios usu
 											join usuarios_roles usu_ro on (usu.id_usuario = usu_ro.id_usuario)
-											join roles rol on (usu_ro.id_rol = rol.id_rol) where usu.id_usuario != 1 and usu.estado = '1' 
+											join roles rol on (usu_ro.id_rol = rol.id_rol) 
+											where usu.id_usuario not in(".$id_usuario.",1) and usu.estado = 1 
 											order by ".$columna." ".$ordenacion." ";
 
-					// return $sqlUsuariosAlta;
-					// 	exit();
+					
 
+					//$query1 = $this->db->query($sql1,array($id_usuario));
 					$query = $this->db->query($sqlUsuariosAlta);
+
+					//$this->db->query($sql, array(array(3, 6), 'live', 'Rick') );
+
 					$totalData = $query->num_rows();
 					$totalFiltered = $totalData;
 
@@ -65,7 +68,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 													from usuarios usu
 													join usuarios_roles usu_ro on (usu.id_usuario = usu_ro.id_usuario)
 													join roles rol on (usu_ro.id_rol = rol.id_rol)
-													 where usu.id_usuario != 1 and usu.estado = '1' and 
+													 where usu.id_usuario not in(".$id_usuario.",1) and usu.estado = 1  and 
 													 ( 
 																		 usu.nombre like '%".$this->db->escape_str($requestData['search']['value'])."%' or  
 																		 usu.apellidos like '%".$this->db->escape_str($requestData['search']['value'])."%' or 
@@ -128,7 +131,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 
 
-		public function obtenerUsuariosBaja($request)
+		public function obtenerUsuariosBaja($request,$id_usuario)
 		{
 
 					$requestData= $request;
@@ -148,7 +151,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 											'<button  type=''button'' class=''btn btn-primary usersBajaAlta''> <span class=''glyphicon glyphicon-circle-arrow-up''></span> </button>' as alta 
 											from usuarios usu
 											join usuarios_roles usu_ro on (usu.id_usuario = usu_ro.id_usuario)
-											join roles rol on (usu_ro.id_rol = rol.id_rol) where usu.id_usuario != 1 and usu.estado = '0' 
+											join roles rol on (usu_ro.id_rol = rol.id_rol) 
+											where usu.id_usuario not in(".$id_usuario.",1) and usu.estado = 0
 											order by ".$columna." ".$ordenacion." ";
 
 					$query = $this->db->query($sqlUsuariosBaja);
@@ -170,7 +174,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 													from usuarios usu
 													join usuarios_roles usu_ro on (usu.id_usuario = usu_ro.id_usuario)
 													join roles rol on (usu_ro.id_rol = rol.id_rol)
-													 where usu.id_usuario != 1 and usu.estado = '0' and 
+													 where usu.id_usuario not in(".$id_usuario.",1) and usu.estado = 0 and 
 													 ( 
 																		 usu.nombre like '%".$this->db->escape_str($requestData['search']['value'])."%' or  
 																		 usu.apellidos like '%".$this->db->escape_str($requestData['search']['value'])."%' or 

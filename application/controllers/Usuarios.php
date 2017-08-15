@@ -19,8 +19,9 @@ class Usuarios extends CI_Controller
 
 	public function cargarUsuariosAlta()
 	{
+		$id_usuario = $this->session->userdata('id');
 
-		$datosUsuariosAlta = $this->users->obtenerUsuariosAlta($_REQUEST);
+		$datosUsuariosAlta = $this->users->obtenerUsuariosAlta($_REQUEST,$id_usuario);
 
 		echo json_encode($datosUsuariosAlta);
 
@@ -29,8 +30,9 @@ class Usuarios extends CI_Controller
 	public function cargarUsuariosBaja()
 	{
 
+		$id_usuario = $this->session->userdata('id');
 
-		$datosUsuariosBaja = $this->users->obtenerUsuariosBaja($_REQUEST);
+		$datosUsuariosBaja = $this->users->obtenerUsuariosBaja($_REQUEST,$id_usuario);
 
 		echo json_encode($datosUsuariosBaja);
 

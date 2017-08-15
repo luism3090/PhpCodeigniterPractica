@@ -35,19 +35,30 @@ class HookValidarDatosUsuario
 			{
 				if( $this->ci->input->is_ajax_request())
 				{
-					$datos["baja"]=true;
-					$datos["url"]= base_url()."index.php/login";
 
-					echo json_encode($datos);
+					if($controlador != "OlvidarPassword")
+					{
+						$datos["baja"]=true;
+						$datos["url"]= base_url()."index.php/login";
 
-					//redirect(, 'location', 302);
+						echo json_encode($datos);
+
+						//redirect(, 'location', 302);
+						
+						exit();
+					}
+
+
 					
-					exit();
 				}
 				else
 				{
-					redirect('/Login');
-					exit();
+					if($controlador != "OlvidarPassword")
+					{
+						redirect('/Login');
+						exit();
+					}
+					
 				}
 				
 			}
@@ -106,6 +117,9 @@ class HookValidarDatosUsuario
 			$this->ci->load->model('Home/VerificarControladoresRol');
 
 			$datos = $this->ci->VerificarControladoresRol->VerifyControlesRol($this->ci->session->userdata('id_rol'));
+
+			// echo var_dump($datos);
+			// exit();
 
 			if($datos["msjCantidadRegistros"] > 0)
 			{

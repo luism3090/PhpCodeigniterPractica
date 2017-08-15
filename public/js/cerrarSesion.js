@@ -30,7 +30,7 @@ $(document).ready(function()
                 //$("#error").html(data.responseText); 
               }
               
-            });
+        });
 
     });
 
@@ -38,7 +38,6 @@ $(document).ready(function()
     {
   
       
-
        $.ajax(
         {
               type: "POST",
@@ -49,8 +48,6 @@ $(document).ready(function()
               success: function(result)
                   {
 
-                    
-                    
                     if(typeof(result.baja) == "undefined") 
                     {
 
