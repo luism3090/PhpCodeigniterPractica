@@ -679,6 +679,7 @@ $(document).ready(function()
                 success: function(result)
                     {
 
+
                       //console.log(result);
 
                        if(typeof(result.baja) == "undefined") 
@@ -747,7 +748,7 @@ $(document).ready(function()
                 
           });
 
-        location.href = result.base_url;
+        
         
   });
 

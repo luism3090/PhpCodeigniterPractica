@@ -21,10 +21,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 						join users_forgot_passwords ufp on(usu.id_usuario = ufp.id_usuario)
 						where usu.id_usuario = ? ";
 
-					$query = $this->db->query($sql1,array($id_usuario));
+				$query = $this->db->query($sql1,array($id_usuario));
 
-				$datos = array("msjCantidadRegistros" => 1, "msjConsulta" => '' , "consulta" => array() );
-				$datos["consulta"] = $query->result();
 
 				$CantRows = $query->num_rows(); 
 
@@ -34,6 +32,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 					$sql2 =	"delete from users_forgot_passwords where id_usuario = ? ";
 
 					$query = $this->db->query($sql2,array($id_usuario));
+
 					
 				}
 
@@ -46,18 +45,25 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 					$query = $this->db->query($sql3,array($id_usuario,$token));
 
 
-					
-
+				
 					if ($this->db->trans_status() === FALSE)
-					{
-							$datos["msjConsulta"] = "Error";
+					{	
+						$datos = array( "msjCantidadRegistros" => 1, 
+										"msjConsulta" => 'Error',
+										"id_usuario" => $id_usuario, 
+										"email" => $email, 
+										"token" => $token);
 
 					        $this->db->trans_rollback();
 					}
 					else
 					{
 						
-						$datos["msjConsulta"] = "OK";
+						$datos = array( "msjCantidadRegistros" => 1, 
+										"msjConsulta" => 'OK',
+										"id_usuario" => $id_usuario,
+										"email" => $email,  
+										"token" => $token);
 
 					    $this->db->trans_commit();
 					}

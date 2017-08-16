@@ -5,9 +5,9 @@ $(document).ready(function()
 	 $("body").on("submit","#formForgotPassword",function(event)
     {
 
-      event.preventDefault();
+         event.preventDefault();
 
-      validaFormForgotPassword();
+         validaFormForgotPassword();
 
     });
 
@@ -47,11 +47,11 @@ $(document).ready(function()
                   },
           
           }
-          }).on('success.form.bv', function (e) 
+          }).on('success.form.bv', function (e,data) 
           {
 
-               e.preventDefault();
-               
+            e.preventDefault();
+
           	var datos = { email: $("#email").val() } 
                
                   $.ajax(
@@ -65,12 +65,15 @@ $(document).ready(function()
                           {
                             // debugger;
 
-                           	//  console.log(result);
+                           	//console.log(result);
 
                              if(result.msjCantidadRegistros==0)
                              {
-                                $("#modalAlerta .modal-body").text("No existe una cuenta con ese correo electrónico.");
+                                $("#modalAlerta .modal-body").html(result.msjNoHayRegistros);
                                 $("#modalAlerta").modal("show");
+
+                                 $('#formForgotPassword').bootstrapValidator('destroy', true);
+                                 validaFormForgotPassword();
 
                              }
                              else
@@ -78,16 +81,21 @@ $(document).ready(function()
                                  if(result.msjConsulta=='OK')
                                 { 
                                    let mensaje = "<h3>¡Éxito!</h3><hr>"+
-                                                  "<br><p>Te enviamos las instrucciones para restablecer tu contraseña. Por favor revisa tu email.</p><br>"+
+                                                  "<br><p>Te enviamos las instrucciones para restablecer tu contraseña al correo "+result.email+". Por favor revisa tu email.</p><br>"+
                                                   "<br><p>Si no recibiste un email, por favor revisa la carpeta de correo no deseado o ponte en contacto con el administrador .</p><br><br>";
 
                                   $("#modalAlerta .modal-body").html(mensaje);
                                   $("#modalAlerta").modal("show");
+                                  $('#formForgotPassword').bootstrapValidator('destroy', true);
+                                  $('#formForgotPassword #email').val("");
+                                   validaFormForgotPassword();
                                 }
                                 else
                                 {
                                   $("#modalAlerta .modal-body").text("Ocurrió un error a la hora de enviar las instrucciones para el cambio de contraseña.");
                                   $("#modalAlerta").modal("show");
+                                  $('#formForgotPassword').bootstrapValidator('destroy', true);
+                                  validaFormForgotPassword();
                                 }
                              }
 

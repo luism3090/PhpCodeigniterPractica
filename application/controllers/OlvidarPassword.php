@@ -21,6 +21,8 @@ class OlvidarPassword extends CI_Controller
 		$this->load->model('ForgotPassword/VerificarExisteEmail');
 		$datosConsultaExisteMail = $this->VerificarExisteEmail->verifyExistsEmail($email);
 
+		//$datosConsultaExisteMail["email"] = $email;
+
 		if($datosConsultaExisteMail["msjCantidadRegistros"]> 0)
 		{
 
@@ -35,7 +37,7 @@ class OlvidarPassword extends CI_Controller
 			if($datosProceso["msjConsulta"] == "OK")
 			{
 
-				$envioEmail = $this->sendMailGmail($email,$datosProceso["consulta"][0]->token);
+				$envioEmail = $this->sendMailGmail($email,$datosProceso["token"]);
 
 
 				if($envioEmail)
@@ -131,15 +133,17 @@ class OlvidarPassword extends CI_Controller
  		
  	}
 
- 	public function verificarTokenChangePassword()
+ 	public function actualizarPasswordUsuario()
  	{
- 		
-
- 		// echo json_encode($datosTokenUsuarios);
-
+ 		$password = $_REQUEST["password"];
+ 		$token = $_REQUEST["token"];
 
 
- 		
+ 		$this->load->model('ForgotPassword/ActualizarPasswordUsuario');
+		$datosUpdatePassword = $this->ActualizarPasswordUsuario->updatePasswordUsuario($password,$token);
+
+ 		echo json_encode($datosUpdatePassword);
+
 		
  	}
 

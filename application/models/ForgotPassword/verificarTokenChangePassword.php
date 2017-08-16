@@ -14,11 +14,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 
 			$sql1 =	"select 
-							id_usuario,
-							token 
+							usu.id_usuario, 
+							ufp.token 
 					 from  
-					 		users_forgot_passwords 
-					 where 	token = ? ";
+							users_forgot_passwords ufp 
+					 join 	usuarios usu on (ufp.id_usuario = usu.id_usuario)
+					 where 	ufp.token = ? and usu.estado = 1 ";
 
 					$query = $this->db->query($sql1,array($token));
 

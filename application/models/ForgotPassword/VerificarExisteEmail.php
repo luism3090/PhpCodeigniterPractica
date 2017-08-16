@@ -34,7 +34,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 				}
 				else
 				{
-					$datos["msjNoHayRegistros"] = "No existe una cuenta de usuario con ese Email.";
+					$datos["msjNoHayRegistros"] = "<p>No existe una cuenta de usuario con ese email</p>";
 				}
 
 
