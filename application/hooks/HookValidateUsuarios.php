@@ -16,14 +16,17 @@ class HookValidarDatosUsuario
 		$controlador = $this->ci->router->class;
 		$funcion = $this->ci->router->method;
 
-
+		//echo $controlador;
+		//echo $this->ci->session->userdata('logueado');
+		
 		// primero verificamos si el usuario esta logueado 
 
 		if($controlador == 'Login')
 		{
 			if($this->ci->session->userdata('logueado') === true)
 			{
-				
+				echo "entro a home";
+				//exit();
 				redirect('/Home');
 				exit();
 			
@@ -31,6 +34,7 @@ class HookValidarDatosUsuario
 		}
 		else
 		{
+			//exit();
 			if($this->ci->session->userdata('logueado') === null)
 			{
 				if( $this->ci->input->is_ajax_request())
@@ -39,7 +43,7 @@ class HookValidarDatosUsuario
 					if($controlador != "OlvidarPassword")
 					{
 						$datos["baja"]=true;
-						$datos["url"]= base_url()."index.php/login";
+						$datos["url"]= base_url()."index.php/Login";
 
 						echo json_encode($datos);
 
@@ -81,7 +85,7 @@ class HookValidarDatosUsuario
 					$this->ci->session->sess_destroy();
 
 					$datos["baja"]=true;
-					$datos["url"]= base_url()."index.php/login";
+					$datos["url"]= base_url()."index.php/Login";
 					echo json_encode($datos);
 					
 					exit();

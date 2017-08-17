@@ -47,7 +47,7 @@
                     <button class="btn btn-lg btn-primary btn-block btn-signin" type="submit"  >Cambiar Contraseña</button>
                   </div>
                   <br><br>
-                  <a href="<?php echo base_url();?>index.php/login" class="forgot-password" >
+                  <a href="<?php echo base_url();?>index.php/Login" class="forgot-password" >
                     Iniciar sesión
                   </a>
                 </form>
